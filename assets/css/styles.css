@@ -1,0 +1,7 @@
+/* CSS base = móvil (una columna) */
+.menu { display: flex; flex-direction: column; gap: 0.5rem; }
+
+/* Desde tablet (768px ≈ 48rem) mejora a fila */
+@media (min-width: 48rem) {
+  .menu { flex-direction: row; }
+}
