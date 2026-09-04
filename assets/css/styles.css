@@ -1,7 +1,43 @@
+:root {
+  /* Fondos (del más oscuro al más claro) */
+  --bg: #0a101b;            /* fondo general */
+  --surface: #121a28;       /* tarjetas */
+  --surface-2: #182231;     /* tarjetas suaves / inputs */
+  --line: #2c3a4e;          /* bordes */
+
+  /* Texto */
+  --text: #f3f6fa;          /* texto principal */
+  --muted: #a9b5c4;         /* texto secundario */
+
+  /* Marca */
+  --accent: #f0b429;        /* amarillo ferretería (botones, precios) */
+  --ink: #151105;           /* texto oscuro sobre el amarillo */
+
+  /* Estados (validaciones) */
+  --success: #67c48d;
+  --danger: #f28d75;        /* bordes y mensajes de error */
+}
+
+* { box-sizing: border-box; }
+
 /* CSS base = móvil (una columna) */
 .menu { display: flex; flex-direction: column; gap: 0.5rem; }
+
+body {
+  font-family: Inter, system-ui, Arial, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+
 
 /* Desde tablet (768px ≈ 48rem) mejora a fila */
 @media (min-width: 48rem) {
   .menu { flex-direction: row; }
+}
+
+body {
+  font-family: Inter, Arial, sans-serif, system-ui;
+  background-color: var(--bg);
+  color: var(--text);
 }
