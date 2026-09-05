@@ -5,6 +5,9 @@ function mostrarProductos() {
     const tarjeta = document.createElement("article");
     tarjeta.classList.add("producto-tarjeta");
 
+    const cuerpo = document.createElement("div");
+    cuerpo.classList.add("producto-cuerpo");
+
     const imagen = document.createElement("span");
     imagen.classList.add("producto-imagen");
     imagen.textContent = producto.imagen;
@@ -13,23 +16,24 @@ function mostrarProductos() {
     const nombre = document.createElement("h3");
     nombre.classList.add("producto-nombre");
     nombre.textContent = producto.nombre;
-    tarjeta.appendChild(nombre);
+    cuerpo.appendChild(nombre);
 
     const marca = document.createElement("p");
     marca.classList.add("producto-marca");
     marca.textContent = producto.marca;
-    tarjeta.appendChild(marca);
+    cuerpo.appendChild(marca);
 
     const precio = document.createElement("p");
     precio.classList.add("producto-precio");
     precio.textContent = "$ " + producto.precio.toLocaleString("es-CL");
-    tarjeta.appendChild(precio);
+    cuerpo.appendChild(precio);
 
     const boton = document.createElement("button");
     boton.classList.add("btn-anadir");
     boton.textContent = "Añadir al carrito";
-    tarjeta.appendChild(boton);
+    cuerpo.appendChild(boton);
 
+    tarjeta.appendChild(cuerpo);
     lista.appendChild(tarjeta);
   }
 }
