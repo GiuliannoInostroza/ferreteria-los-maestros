@@ -17,6 +17,7 @@ Proyecto de la asignatura **Desarrollo FullStack II** — Duoc UC. Evaluación P
 - **HTML5** — estructura semántica (header, nav, main, section, footer)
 - **CSS3** — hoja de estilos externa, variables CSS, Flexbox, Grid y diseño responsive (mobile first)
 - **JavaScript** — DOM, eventos, validaciones de formularios y persistencia con localStorage
+- **Iconos:** [Lucide](https://lucide.dev) (licencia ISC)
 
 ## 📁 Estructura del proyecto
 

@@ -1,36 +1,64 @@
-const lista = document.querySelector("#producto-lista");
+// Menú de navegación en pantallas pequeñas
+const botonMenu = document.querySelector("#boton-menu");
+const menu = document.querySelector(".menu");
 
+if (botonMenu !== null && menu !== null) {
+  botonMenu.addEventListener("click", function () {
+    menu.classList.toggle("abierto");
+    const abierto = menu.classList.contains("abierto");
+    botonMenu.setAttribute("aria-expanded", abierto);
+  });
+}
+
+// Tarjetas de productos generadas desde el arreglo
 function mostrarProductos() {
+  const lista = document.querySelector("#producto-lista");
+  if (lista === null) {
+    return;
+  }
+
+  lista.innerHTML = "";
+
   for (const producto of productos) {
     const tarjeta = document.createElement("article");
     tarjeta.classList.add("producto-tarjeta");
 
+    const media = document.createElement("div");
+    media.classList.add("producto-media");
+    media.innerHTML = producto.icono;
+    tarjeta.appendChild(media);
+
     const cuerpo = document.createElement("div");
     cuerpo.classList.add("producto-cuerpo");
 
-    const imagen = document.createElement("span");
-    imagen.classList.add("producto-imagen");
-    imagen.textContent = producto.imagen;
-    tarjeta.appendChild(imagen);
-
-    const nombre = document.createElement("h3");
+    const nombre = document.createElement("a");
     nombre.classList.add("producto-nombre");
+    nombre.href = "producto.html?id=" + producto.codigo;
     nombre.textContent = producto.nombre;
     cuerpo.appendChild(nombre);
 
-    const marca = document.createElement("p");
-    marca.classList.add("producto-marca");
-    marca.textContent = producto.marca;
-    cuerpo.appendChild(marca);
+    const fila = document.createElement("div");
+    fila.classList.add("producto-fila");
 
-    const precio = document.createElement("p");
+    const precio = document.createElement("span");
     precio.classList.add("producto-precio");
     precio.textContent = "$ " + producto.precio.toLocaleString("es-CL");
-    cuerpo.appendChild(precio);
+    fila.appendChild(precio);
+
+    const stock = document.createElement("span");
+    stock.classList.add("producto-stock");
+    stock.textContent = producto.stock + " disponibles";
+    if (producto.stock <= producto.stockCritico) {
+      stock.classList.add("stock-bajo");
+      stock.textContent = "Solo quedan " + producto.stock;
+    }
+    fila.appendChild(stock);
+
+    cuerpo.appendChild(fila);
 
     const boton = document.createElement("button");
-    boton.classList.add("btn-anadir");
-    boton.textContent = "Añadir al carrito";
+    boton.classList.add("producto-btn");
+    boton.textContent = "Añadir";
     cuerpo.appendChild(boton);
 
     tarjeta.appendChild(cuerpo);
