@@ -34,6 +34,12 @@ header {
   padding: 1rem;
 }
 
+main {
+  width: 90%;
+  max-width: 70rem;
+  margin-inline: auto;
+}
+
 .logo {
   display: flex;
   align-items: center;
@@ -90,6 +96,18 @@ header {
 .carrito-button:hover {
   opacity: 0.9;
 }
+
+.hero{
+  background-color: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 1.5rem;
+  padding: 2rem;
+}
+
+.hero h2 {
+  font-size: 2rem;
+}
+
 
 /* Tablet y escritorio (48rem = 768px): logo a la izquierda, menú en fila */
 @media (min-width: 48rem) {
