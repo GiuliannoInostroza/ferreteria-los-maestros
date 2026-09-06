@@ -1,67 +1,267 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Contacto</title>
-    <meta name="description" content="Ponte en contacto con Ferretería Los Maestros. Estamos aquí para ayudarte con tus consultas y pedidos.">
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet"></head>
-<body>
-        <header>
-        <a href="index.html" class="logo">
-            <img src="assets/img/logo.svg" alt="Logo de la ferretería">
-            <h1>Ferretería Los Maestros</h1>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Contacto | Ferretería Los Maestros</title>
+
+    <meta
+      name="description"
+      content="Ponte en contacto con Ferretería Los Maestros para realizar consultas sobre productos, pedidos y cotizaciones."
+    />
+
+    <link rel="stylesheet" href="assets/css/styles.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <header>
+      <a href="index.html" class="logo">
+        <img src="assets/img/logo.svg" alt="Logo de la ferretería" />
+        <h1>Ferretería Los Maestros</h1>
+      </a>
+
+      <nav class="menu">
+        <ul class="menu-lista">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="productos.html">Productos</a></li>
+          <li><a href="blogs.html">Blogs</a></li>
+          <li>
+            <a href="contacto.html" aria-current="page">Contacto</a>
+          </li>
+          <li><a href="nosotros.html">Nosotros</a></li>
+        </ul>
+      </nav>
+
+      <div class="acciones">
+        <a href="carrito.html" class="carrito-button">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="m2.05 2.05 1.099-.028a1 1 0 0 1 1.008.815l2.69 14.347A1 1 0 0 0 7.83 18H18"
+            />
+            <path
+              d="M4.563 5h16.435a1 1 0 0 1 .981 1.204l-1.026 6.226A2 2 0 0 1 18.962 14H6.25"
+            />
+            <circle cx="18" cy="20" r="2" />
+            <circle cx="8" cy="20" r="2" />
+          </svg>
+          Carrito
         </a>
-        <nav class="menu">
-            <ul class="menu-lista">
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="productos.html">Productos</a></li>
-                <li><a href="blogs.html">Blogs</a></li>
-                <li><a href="contacto.html" aria-current="page">Contacto</a></li>
-                <li><a href="nosotros.html">Nosotros</a></li>
-            </ul>
-        </nav>
-        <div class="acciones">
-            <a href="carrito.html" class="carrito-button"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m2.05 2.05 1.099-.028a1 1 0 0 1 1.008.815l2.69 14.347A1 1 0 0 0 7.83 18H18" /> <path d="M4.563 5h16.435a1 1 0 0 1 .981 1.204l-1.026 6.226A2 2 0 0 1 18.962 14H6.25" /> <circle cx="18" cy="20" r="2" /> <circle cx="8" cy="20" r="2" /> </svg> Carrito</a>
-            <button id="boton-menu" class="boton-menu" aria-expanded="false" aria-label="Abrir menú"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M4 5h16" /> <path d="M4 12h16" /> <path d="M4 19h16" /> </svg></button>
-        </div>
+
+        <button
+          id="boton-menu"
+          class="boton-menu"
+          type="button"
+          aria-expanded="false"
+          aria-label="Abrir menú"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M4 5h16" />
+            <path d="M4 12h16" />
+            <path d="M4 19h16" />
+          </svg>
+        </button>
+      </div>
     </header>
-    <main>
-        
+
+    <main id="pagina-contacto">
+      <header class="encabezado-pagina">
+        <p class="etiqueta">Estamos para ayudarte</p>
+
+        <h1>Contacto</h1>
+
+        <p>
+          Escríbenos si necesitas ayuda con productos, pedidos o cotizaciones.
+          Nuestro equipo responderá tus consultas lo antes posible.
+        </p>
+      </header>
+
+      <div class="contacto-grid">
+        <section
+          class="contacto-info"
+          aria-labelledby="titulo-informacion-contacto"
+        >
+          <h2 id="titulo-informacion-contacto">Información de contacto</h2>
+
+          <p>
+            También puedes visitarnos o comunicarte directamente con Ferretería
+            Los Maestros.
+          </p>
+
+          <address>
+            <p>
+              <strong>Dirección</strong><br />
+              Av. Francisco de Aguirre 1234, La Serena
+            </p>
+
+            <p>
+              <strong>Teléfono</strong><br />
+              +56 9 1234 5678
+            </p>
+
+            <p>
+              <strong>Correo</strong><br />
+              contacto@losmaestros.cl
+            </p>
+
+            <p>
+              <strong>Horario</strong><br />
+              Lunes a sábado · 8:30 a 19:00
+            </p>
+          </address>
+        </section>
+
+        <section
+          class="tarjeta-formulario contacto-formulario"
+          aria-labelledby="titulo-formulario-contacto"
+        >
+          <h2 id="titulo-formulario-contacto">Envíanos un mensaje</h2>
+
+          <form id="formulario-contacto" novalidate>
+            <div class="campo">
+              <label for="contacto-nombre">Nombre</label>
+
+              <input
+                type="text"
+                id="contacto-nombre"
+                name="nombre"
+                required
+                minlength="3"
+                maxlength="80"
+                autocomplete="name"
+                aria-describedby="error-contacto-nombre"
+              />
+
+              <small id="error-contacto-nombre" class="mensaje-error"></small>
+            </div>
+
+            <div class="campo">
+              <label for="contacto-email">Correo electrónico</label>
+
+              <input
+                type="email"
+                id="contacto-email"
+                name="email"
+                required
+                maxlength="120"
+                autocomplete="email"
+                aria-describedby="error-contacto-email"
+              />
+
+              <small id="error-contacto-email" class="mensaje-error"></small>
+            </div>
+
+            <div class="campo">
+              <label for="contacto-asunto">Motivo de contacto</label>
+
+              <select
+                id="contacto-asunto"
+                name="asunto"
+                required
+                aria-describedby="error-contacto-asunto"
+              >
+                <option value="">Selecciona una opción</option>
+                <option value="productos">Consulta sobre productos</option>
+                <option value="pedido">Consulta sobre un pedido</option>
+                <option value="cotizacion">Solicitar cotización</option>
+                <option value="otro">Otro</option>
+              </select>
+
+              <small id="error-contacto-asunto" class="mensaje-error"></small>
+            </div>
+
+            <div class="campo">
+              <label for="contacto-mensaje">Mensaje</label>
+
+              <textarea
+                id="contacto-mensaje"
+                name="mensaje"
+                rows="6"
+                required
+                minlength="20"
+                maxlength="500"
+                aria-describedby="error-contacto-mensaje"
+              ></textarea>
+
+              <small id="error-contacto-mensaje" class="mensaje-error"></small>
+            </div>
+
+            <button type="submit" class="btn">Enviar mensaje</button>
+
+            <p id="mensaje-contacto" class="mensaje-contacto" role="status"></p>
+          </form>
+        </section>
+      </div>
     </main>
-        <footer>
-        <div class="pie">
-            <div>
-                <a href="index.html" class="pie-marca">
-                    <img src="assets/img/logo.svg" alt="Logo de la ferretería">
-                    <span>Ferretería Los Maestros</span>
-                </a>
-                <p>Materiales de construcción, herramientas y ferretería general en La Serena.</p>
-            </div>
-            <div>
-                <h4>Navegación</h4>
-                <ul>
-                    <li><a href="index.html">Inicio</a></li>
-                    <li><a href="productos.html">Productos</a></li>
-                    <li><a href="blogs.html">Blogs</a></li>
-                    <li><a href="contacto.html">Contacto</a></li>
-                    <li><a href="nosotros.html">Nosotros</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4>Visítanos</h4>
-                <ul>
-                    <li>Av. Francisco de Aguirre 1234, La Serena</li>
-                    <li>+56 9 1234 5678</li>
-                    <li>contacto@losmaestros.cl</li>
-                    <li>Lunes a sábado · 8:30 a 19:00</li>
-                </ul>
-            </div>
+
+    <footer>
+      <div class="pie">
+        <div>
+          <a href="index.html" class="pie-marca">
+            <img src="assets/img/logo.svg" alt="Logo de la ferretería" />
+            <span>Ferretería Los Maestros</span>
+          </a>
+
+          <p>
+            Materiales de construcción, herramientas y ferretería general en La
+            Serena.
+          </p>
         </div>
+
+        <div>
+          <h4>Navegación</h4>
+
+          <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="productos.html">Productos</a></li>
+            <li><a href="blogs.html">Blogs</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+            <li><a href="nosotros.html">Nosotros</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4>Visítanos</h4>
+
+          <ul>
+            <li>Av. Francisco de Aguirre 1234, La Serena</li>
+            <li>+56 9 1234 5678</li>
+            <li>contacto@losmaestros.cl</li>
+            <li>Lunes a sábado · 8:30 a 19:00</li>
+          </ul>
+        </div>
+      </div>
     </footer>
+
     <script src="assets/js/app.js"></script>
-</body>
+    <script src="assets/js/contacto.js"></script>
+  </body>
 </html>
