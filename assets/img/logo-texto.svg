@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 48" role="img" aria-label="Ferretería Los Maestros">
-  <rect x="0.75" y="0.75" width="46.5" height="46.5" rx="12" fill="#121a28" stroke="#2c3a4e" stroke-width="1.5"/>
-  <g stroke="#f3f6fa" fill="none" stroke-linecap="round">
+  <rect x="0.75" y="0.75" width="46.5" height="46.5" rx="6" fill="#0b0b0f"/>
+  <g stroke="#e2dfe7" fill="none" stroke-linecap="round">
     <path d="M13 35 L27 21" stroke-width="5"/>
     <path d="M21.5 15.5 L32.5 26.5" stroke-width="7"/>
   </g>
-  <text x="60" y="22" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="17" font-weight="800" fill="#f3f6fa">Los Maestros</text>
-  <text x="60" y="37" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="9" font-weight="600" letter-spacing="2.5" fill="#a9b5c4">FERRETERÍA · LA SERENA</text>
+  <text x="60" y="22" font-family="Inter, Segoe UI, system-ui, sans-serif" font-size="17" font-weight="800" fill="#f2f1f4">Los Maestros</text>
+  <text x="60" y="37" font-family="Inter, Segoe UI, system-ui, sans-serif" font-size="9" font-weight="600" letter-spacing="2.5" fill="#a29fab">FERRETERÍA · LA SERENA</text>
 </svg>
