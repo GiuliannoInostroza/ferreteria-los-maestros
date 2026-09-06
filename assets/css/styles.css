@@ -191,6 +191,7 @@ main {
 }
 
 .hero-media {
+  overflow: hidden;
   min-height: 16rem;
   border-radius: var(--radius-lg);
   border: 1px solid rgba(255, 255, 255, 0.18);
@@ -200,10 +201,10 @@ main {
   color: rgba(243, 246, 250, 0.85);
 }
 
-.hero-media svg {
-  width: 11rem;
-  height: 11rem;
-  stroke-width: 1.2;
+.hero-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .hero-etiqueta {
@@ -328,10 +329,10 @@ main {
   color: var(--accent);
 }
 
-.producto-media svg {
-  width: 3.4rem;
-  height: 3.4rem;
-  stroke-width: 1.6;
+.producto-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .producto-cuerpo {
@@ -434,10 +435,10 @@ main {
   color: var(--accent);
 }
 
-.detalle-media svg {
-  width: 7.5rem;
-  height: 7.5rem;
-  stroke-width: 1.2;
+.detalle-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .detalle-cuerpo {
@@ -501,10 +502,11 @@ main {
   color: var(--accent);
 }
 
-.miniatura svg {
-  width: 2.2rem;
-  height: 2.2rem;
-  stroke-width: 1.6;
+.miniatura img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
 }
 
 .cantidad {

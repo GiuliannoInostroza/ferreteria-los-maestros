@@ -25,7 +25,11 @@ function mostrarProductos() {
 
     const media = document.createElement("div");
     media.classList.add("producto-media");
-    media.innerHTML = producto.icono;
+
+    const foto = document.createElement("img");
+    foto.src = producto.imagen;
+    foto.alt = producto.nombre;
+    media.appendChild(foto);
     tarjeta.appendChild(media);
 
     const cuerpo = document.createElement("div");

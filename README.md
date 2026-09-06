@@ -18,6 +18,7 @@ Proyecto de la asignatura **Desarrollo FullStack II** — Duoc UC. Evaluación P
 - **CSS3** — hoja de estilos externa, variables CSS, Flexbox, Grid y diseño responsive (mobile first)
 - **JavaScript** — DOM, eventos, validaciones de formularios y persistencia con localStorage
 - **Iconos:** [Lucide](https://lucide.dev) (licencia ISC)
+- **Fotografías:** [Unsplash](https://unsplash.com) y Openverse (CC0 / dominio público)
 
 ## 📁 Estructura del proyecto
 
