@@ -23,71 +23,25 @@
   </head>
 
   <body>
-    <header>
-      <a href="index.html" class="logo">
-        <img src="assets/img/logo.svg" alt="Logo de la ferretería" />
-        <h1>Ferretería Los Maestros</h1>
-      </a>
-
-      <nav class="menu">
-        <ul class="menu-lista">
-          <li><a href="index.html">Inicio</a></li>
-          <li><a href="productos.html">Productos</a></li>
-          <li><a href="blogs.html" aria-current="page">Blogs</a></li>
-          <li><a href="contacto.html">Contacto</a></li>
-          <li><a href="nosotros.html">Nosotros</a></li>
-        </ul>
-      </nav>
-
-      <div class="acciones">
-        <a href="carrito.html" class="carrito-button">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path
-              d="m2.05 2.05 1.099-.028a1 1 0 0 1 1.008.815l2.69 14.347A1 1 0 0 0 7.83 18H18"
-            />
-            <path
-              d="M4.563 5h16.435a1 1 0 0 1 .981 1.204l-1.026 6.226A2 2 0 0 1 18.962 14H6.25"
-            />
-            <circle cx="18" cy="20" r="2" />
-            <circle cx="8" cy="20" r="2" />
-          </svg>
-          Carrito
+        <header>
+        <a href="index.html" class="logo">
+            <img src="assets/img/logo.svg" alt="Ferretería Los Maestros">
+            <h1>Ferretería Los Maestros</h1>
         </a>
-
-        <button
-          id="boton-menu"
-          class="boton-menu"
-          type="button"
-          aria-expanded="false"
-          aria-label="Abrir menú"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path d="M4 5h16" />
-            <path d="M4 12h16" />
-            <path d="M4 19h16" />
-          </svg>
-        </button>
-      </div>
+        <nav class="menu">
+            <ul class="menu-lista">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="productos.html">Productos</a></li>
+                <li><a href="nosotros.html">Nosotros</a></li>
+                <li><a href="blogs.html" aria-current="page">Blogs</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="login.html">Ingresar</a></li>
+            </ul>
+        </nav>
+        <div class="acciones">
+            <a href="carrito.html" class="carrito-button" aria-label="Ver carrito"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg></a>
+            <button id="boton-menu" class="boton-menu" aria-expanded="false" aria-label="Abrir menú"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg></button>
+        </div>
     </header>
 
     <main id="pagina-blog-detalle">
@@ -147,41 +101,32 @@
       </article>
     </main>
 
-    <footer>
-      <div class="pie">
-        <div>
-          <a href="index.html" class="pie-marca">
-            <img src="assets/img/logo.svg" alt="Logo de la ferretería" />
-            <span>Ferretería Los Maestros</span>
-          </a>
-
-          <p>
-            Materiales de construcción, herramientas y ferretería general en La
-            Serena.
-          </p>
+        <footer>
+        <div class="pie">
+            <div>
+                <a href="index.html" class="pie-marca">
+                    <img src="assets/img/logo.svg" alt="Ferretería Los Maestros">
+                    <span>Ferretería Los Maestros</span>
+                </a>
+                <p>Materiales de construcción, herramientas y ferretería general en La Serena.</p>
+            </div>
+            <div>
+                <h4>Tienda</h4>
+                <ul>
+                    <li><a href="productos.html">Productos</a></li>
+                    <li><a href="carrito.html">Carrito</a></li>
+                    <li><a href="blogs.html">Blogs</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Cuenta</h4>
+                <ul>
+                    <li><a href="login.html">Iniciar sesión</a></li>
+                    <li><a href="registro.html">Registrarme</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </div>
         </div>
-
-        <div>
-          <h4>Navegación</h4>
-          <ul>
-            <li><a href="index.html">Inicio</a></li>
-            <li><a href="productos.html">Productos</a></li>
-            <li><a href="blogs.html">Blogs</a></li>
-            <li><a href="contacto.html">Contacto</a></li>
-            <li><a href="nosotros.html">Nosotros</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h4>Visítanos</h4>
-          <ul>
-            <li>Av. Francisco de Aguirre 1234, La Serena</li>
-            <li>+56 9 1234 5678</li>
-            <li>contacto@losmaestros.cl</li>
-            <li>Lunes a sábado · 8:30 a 19:00</li>
-          </ul>
-        </div>
-      </div>
     </footer>
 
     <script src="assets/js/app.js"></script>
