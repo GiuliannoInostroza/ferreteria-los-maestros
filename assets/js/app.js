@@ -17,9 +17,13 @@ function mostrarProductos() {
     return;
   }
 
+  // En la home solo se muestran los primeros 8 como destacados
+  const esHome = location.pathname.endsWith("index.html") || location.pathname.endsWith("/");
+  const destacados = esHome ? productos.slice(0, 8) : productos;
+
   lista.innerHTML = "";
 
-  for (const producto of productos) {
+  for (const producto of destacados) {
     const tarjeta = document.createElement("article");
     tarjeta.classList.add("producto-tarjeta");
 

@@ -10,76 +10,95 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet"></head>
 <body>
-        <header>
+                <header>
         <a href="index.html" class="logo">
-            <img src="assets/img/logo.svg" alt="Logo de la ferretería">
+            <img src="assets/img/logo.svg" alt="Ferretería Los Maestros">
             <h1>Ferretería Los Maestros</h1>
         </a>
         <nav class="menu">
             <ul class="menu-lista">
                 <li><a href="index.html" aria-current="page">Inicio</a></li>
                 <li><a href="productos.html">Productos</a></li>
+                <li><a href="nosotros.html">Nosotros</a></li>
                 <li><a href="blogs.html">Blogs</a></li>
                 <li><a href="contacto.html">Contacto</a></li>
-                <li><a href="nosotros.html">Nosotros</a></li>
+                <li><a href="login.html">Ingresar</a></li>
             </ul>
         </nav>
         <div class="acciones">
-            <a href="carrito.html" class="carrito-button"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m2.05 2.05 1.099-.028a1 1 0 0 1 1.008.815l2.69 14.347A1 1 0 0 0 7.83 18H18" /> <path d="M4.563 5h16.435a1 1 0 0 1 .981 1.204l-1.026 6.226A2 2 0 0 1 18.962 14H6.25" /> <circle cx="18" cy="20" r="2" /> <circle cx="8" cy="20" r="2" /> </svg> Carrito</a>
-            <button id="boton-menu" class="boton-menu" aria-expanded="false" aria-label="Abrir menú"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M4 5h16" /> <path d="M4 12h16" /> <path d="M4 19h16" /> </svg></button>
+            <a href="carrito.html" class="carrito-button" aria-label="Ver carrito"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg></a>
+            <button id="boton-menu" class="boton-menu" aria-expanded="false" aria-label="Abrir menú"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg></button>
         </div>
     </header>
     <main>
-                <section class="hero">
-            <div class="hero-media"><img src="assets/img/productos/hero.jpg" alt="Pared de herramientas de la ferretería"></div>
-            <div class="hero-contenido">
-                <p class="hero-etiqueta">Ferretería · La Serena</p>
-                <h2>Todo para tu obra, en un solo lugar</h2>
-                <p class="hero-texto">Más de 800 referencias en materiales de construcción, herramientas, gasfitería y electricidad, con la asesoría de maestros que llevan 22 años en el oficio.</p>
-                <ul class="hero-cifras">
-                    <li><strong>22</strong>años de trayectoria</li>
-                    <li><strong>+800</strong>referencias en catálogo</li>
-                    <li><strong>La Serena</strong>zona de despacho</li>
+                        <section class="hero">
+            <div>
+                <p class="etiqueta">La Serena · 22 años de trayectoria</p>
+                <h2>Materiales confiables para cada obra</h2>
+                <p class="muted">Consulta disponibilidad real, arma tu pedido en línea y coordina retiro o despacho. Atendemos a particulares, contratistas y maestros de obra con más de 800 referencias.</p>
+                                <ul class="hero-cifras">
+                    <li><strong>22 años</strong><span>de trayectoria en La Serena</span></li>
+                    <li><strong>+800</strong><span>referencias en catálogo</span></li>
+                    <li><strong>Stock real</strong><span>consulta disponibilidad antes de venir</span></li>
                 </ul>
                 <div class="hero-botones">
-                    <a href="productos.html" class="btn">Explorar productos</a>
-                    <a href="nosotros.html" class="btn btn-ghost">Conócenos</a>
+                    <a href="productos.html" class="btn">Explorar catálogo</a>
+                    <a href="contacto.html" class="btn btn-ghost">Solicitar asesoría</a>
                 </div>
             </div>
+            <div class="hero-media">
+                <img src="assets/img/productos/hero.jpg" alt="Pared de herramientas de la ferretería">
+            </div>
         </section>
-        <section class="productos">
-            <h2>Productos Destacados</h2>
+        <div class="section-top">
+            <div>
+                <p class="etiqueta">Categorías</p>
+                <h2>Compra por tipo de proyecto</h2>
+            </div>
+            <a href="productos.html" class="btn btn-ghost">Ver todo</a>
+        </div>
+        <div class="category-grid">
+            <article class="category wide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg><h3>Herramientas eléctricas</h3><p class="muted small">Taladros, amoladoras, sierras y accesorios de alto uso.</p></article>
+            <article class="category"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"/><path d="M6 20V8l6-4 6 4v12"/></svg><h3>Construcción</h3><p class="muted small">Cemento, ladrillos, arena y mezclas.</p></article>
+            <article class="category"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h8l3 7v11H5V10z"/><path d="M8 3v5h8"/></svg><h3>Gasfitería</h3><p class="muted small">Tuberías, llaves, selladores y repuestos.</p></article>
+            <article class="category"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3 5 14h5l-1 7 8-11h-5z"/></svg><h3>Electricidad</h3><p class="muted small">Cables, enchufes, protecciones e iluminación.</p></article>
+        </div>
+                <section class="productos">
+            <div class="section-top">
+                <div>
+                    <p class="etiqueta">Productos destacados</p>
+                    <h2>Lo más consultado esta semana</h2>
+                </div>
+                <a href="carrito.html" class="btn btn-ghost">Ver carrito</a>
+            </div>
             <div id="producto-lista" class="producto-lista">
-                <!-- Aquí podremos agregar los productos dinámicamente c0n js-->
+                <!-- Las tarjetas se crean con JavaScript -->
             </div>
         </section>
     </main>
-        <footer>
+                <footer>
         <div class="pie">
             <div>
                 <a href="index.html" class="pie-marca">
-                    <img src="assets/img/logo.svg" alt="Logo de la ferretería">
+                    <img src="assets/img/logo.svg" alt="Ferretería Los Maestros">
                     <span>Ferretería Los Maestros</span>
                 </a>
                 <p>Materiales de construcción, herramientas y ferretería general en La Serena.</p>
             </div>
             <div>
-                <h4>Navegación</h4>
+                <h4>Tienda</h4>
                 <ul>
-                    <li><a href="index.html">Inicio</a></li>
                     <li><a href="productos.html">Productos</a></li>
+                    <li><a href="carrito.html">Carrito</a></li>
                     <li><a href="blogs.html">Blogs</a></li>
-                    <li><a href="contacto.html">Contacto</a></li>
-                    <li><a href="nosotros.html">Nosotros</a></li>
                 </ul>
             </div>
             <div>
-                <h4>Visítanos</h4>
+                <h4>Cuenta</h4>
                 <ul>
-                    <li>Av. Francisco de Aguirre 1234, La Serena</li>
-                    <li>+56 9 1234 5678</li>
-                    <li>contacto@losmaestros.cl</li>
-                    <li>Lunes a sábado · 8:30 a 19:00</li>
+                    <li><a href="login.html">Iniciar sesión</a></li>
+                    <li><a href="registro.html">Registrarme</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
                 </ul>
             </div>
         </div>
