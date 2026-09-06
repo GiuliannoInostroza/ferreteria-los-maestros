@@ -28,8 +28,16 @@ body {
   font-family: Inter, "Segoe UI", system-ui, sans-serif;
   color: var(--text);
   background:
-    radial-gradient(circle at 88% 0, rgba(255, 255, 255, 0.045), transparent 30%),
-    radial-gradient(circle at 5% 80%, rgba(88, 126, 181, 0.11), transparent 38%),
+    radial-gradient(
+      circle at 88% 0,
+      rgba(255, 255, 255, 0.045),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 5% 80%,
+      rgba(88, 126, 181, 0.11),
+      transparent 38%
+    ),
     var(--bg);
 }
 
@@ -194,7 +202,12 @@ main {
   min-height: 16rem;
   border-radius: var(--radius-lg);
   border: 1px solid rgba(255, 255, 255, 0.18);
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.07), rgba(18, 26, 40, 0.9) 45%, #29384c);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.07),
+    rgba(18, 26, 40, 0.9) 45%,
+    #29384c
+  );
   display: grid;
   place-items: center;
   color: rgba(243, 246, 250, 0.85);
@@ -273,7 +286,9 @@ main {
   font-weight: 800;
   text-decoration: none;
   cursor: pointer;
-  transition: transform 0.15s, box-shadow 0.15s;
+  transition:
+    transform 0.15s,
+    box-shadow 0.15s;
 }
 
 .btn:hover {
@@ -545,7 +560,9 @@ main {
 }
 
 .resumen {
-  background: linear-gradient(150deg, rgba(255, 255, 255, 0.025), transparent), var(--surface);
+  background:
+    linear-gradient(150deg, rgba(255, 255, 255, 0.025), transparent),
+    var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   padding: 1.5rem;
@@ -575,7 +592,9 @@ main {
 .tarjeta-formulario {
   max-width: 26rem;
   margin: 0 auto;
-  background: linear-gradient(150deg, rgba(255, 255, 255, 0.025), transparent), var(--surface);
+  background:
+    linear-gradient(150deg, rgba(255, 255, 255, 0.025), transparent),
+    var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   padding: clamp(1.5rem, 4vw, 2.5rem);
@@ -771,4 +790,212 @@ footer a:hover {
 .carrito-button svg {
   width: 1.15rem;
   height: 1.15rem;
+}
+
+/* nosotros.html - Agustín */
+#pagina-nosotros .encabezado-pagina {
+  margin-bottom: 3rem;
+}
+
+#pagina-nosotros .encabezado-pagina h1 {
+  margin-bottom: 1rem;
+  font-size: 2.4rem;
+}
+
+#pagina-nosotros .encabezado-pagina p,
+#pagina-nosotros .historia p,
+#pagina-nosotros .mision p {
+  color: var(--muted);
+}
+
+#pagina-nosotros .historia,
+#pagina-nosotros .mision {
+  padding: 1.5rem;
+  background-color: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+#pagina-nosotros .lista-valores {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+#pagina-nosotros .valor {
+  padding: 1.5rem;
+  background-color: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+#pagina-nosotros .valor h3 {
+  margin-top: 0;
+}
+
+#pagina-nosotros .valor p {
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+@media (min-width: 48rem) {
+  #pagina-nosotros .lista-valores {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Página Blogs - Agustín */
+#pagina-blogs .encabezado-pagina,
+#pagina-blog-detalle .encabezado-pagina {
+  margin-bottom: 2.5rem;
+}
+
+#pagina-blogs .encabezado-pagina h1,
+#pagina-blog-detalle .encabezado-pagina h1 {
+  margin-bottom: 1rem;
+  font-size: 2.4rem;
+}
+
+#pagina-blogs .encabezado-pagina > p:last-child,
+#pagina-blog-detalle .blog-completo > p {
+  color: var(--muted);
+}
+
+#pagina-blogs .seccion-blogs {
+  margin-top: 2.5rem;
+}
+
+#pagina-blogs .lista-blogs {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+#pagina-blogs .blog-tarjeta {
+  padding: 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+#pagina-blogs .blog-tarjeta h3 {
+  margin-top: 0.5rem;
+}
+
+#pagina-blogs .blog-tarjeta > p:not(.blog-fecha) {
+  color: var(--muted);
+}
+
+#pagina-blogs .blog-tarjeta a {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+#pagina-blogs .blog-fecha,
+#pagina-blog-detalle .blog-fecha {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+#pagina-blog-detalle .blog-completo {
+  max-width: 48rem;
+  margin-inline: auto;
+  padding: 2rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+}
+
+#pagina-blog-detalle .blog-completo h2 {
+  margin-top: 2.5rem;
+}
+
+#pagina-blog-detalle .blog-completo li {
+  margin-bottom: 0.75rem;
+  color: var(--muted);
+}
+
+@media (min-width: 48rem) {
+  #pagina-blogs .lista-blogs {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Página Contacto - Agustín */
+#pagina-contacto .encabezado-pagina {
+  margin-bottom: 2.5rem;
+}
+
+#pagina-contacto .encabezado-pagina h1 {
+  margin-bottom: 1rem;
+  font-size: 2.4rem;
+}
+
+#pagina-contacto .encabezado-pagina > p:last-child {
+  color: var(--muted);
+}
+
+#pagina-contacto .contacto-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+#pagina-contacto .contacto-info,
+#pagina-contacto .contacto-formulario {
+  padding: 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+#pagina-contacto .contacto-info h2,
+#pagina-contacto .contacto-formulario h2 {
+  margin-top: 0;
+}
+
+#pagina-contacto .contacto-info > p {
+  color: var(--muted);
+}
+
+#pagina-contacto address {
+  margin-top: 1.5rem;
+  font-style: normal;
+  color: var(--muted);
+}
+
+#pagina-contacto address p {
+  margin-bottom: 1.25rem;
+}
+
+#pagina-contacto address strong {
+  color: var(--text);
+}
+
+#pagina-contacto .contacto-formulario {
+  max-width: none;
+  margin: 0;
+  text-align: left;
+}
+
+#pagina-contacto .contacto-formulario form {
+  margin-top: 1.5rem;
+}
+
+#pagina-contacto [aria-invalid="true"] {
+  border-color: var(--danger);
+}
+
+#pagina-contacto .mensaje-contacto {
+  min-height: 1.5rem;
+  margin: 0;
+  color: var(--success);
+  font-weight: 700;
+}
+
+@media (min-width: 48rem) {
+  #pagina-contacto .contacto-grid {
+    grid-template-columns: 0.9fr 1.1fr;
+  }
 }
