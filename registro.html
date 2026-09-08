@@ -6,7 +6,7 @@
 	<title>Registro</title>
     <meta name="description" content="Regístrate en Ferretería Los Maestros para obtener acceso a beneficios exclusivos.">
     <link rel="icon" type="image/png" href="assets/img/favicon.png?v=2">
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/styles.css?v=5">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
@@ -15,7 +15,7 @@
                 <header>
         <a href="index.html" class="logo">
             <img src="assets/img/logo.png?v=2" alt="Ferretería Los Maestros">
-            <h1>Ferretería Los Maestros</h1>
+            <span class="marca">Ferretería Los Maestros</span>
         </a>
         <nav class="menu">
             <ul class="menu-lista">
@@ -39,11 +39,21 @@
         <form id="formulario-registro" novalidate>
 
             <div class="campo">
-                <label for="nombre">Nombre completo</label>
-                <input id="nombre" name="nombre" type="text" maxlength="80" aria-describedby="error-nombre">
+                <label for="nombre">Nombre</label>
+                <input id="nombre" name="nombre" type="text" maxlength="50" aria-describedby="error-nombre" aria-describedby="error-nombre">
                 <small id="error-nombre" class="mensaje-error"></small>
             </div>
 
+            <div class="campo">
+                <label for="apellidos">Apellidos</label>
+                <input id="apellidos" name="apellidos" type="text" maxlength="100" aria-describedby="error-apellidos">
+                <small id="error-apellidos" class="mensaje-error"></small>
+            </div>
+            <div class="campo">
+                <label for="fecha-nacimiento">Fecha de nacimiento</label>
+                <input id="fecha-nacimiento" name="fechaNacimiento" type="date" aria-describedby="error-fecha-nacimiento">
+                <small id="error-fecha-nacimiento" class="mensaje-error"></small>
+            </div>
             <div class="campo">
                 <label for="rut">RUT (sin puntos ni guion)</label>
                 <input id="rut" name="rut" type="text" maxlength="9" aria-describedby="error-rut">
@@ -78,16 +88,17 @@
 
             <div class="campo">
                 <label for="direccion">Dirección</label>
-                <input id="direccion" name="direccion" type="text" maxlength="150" aria-describedby="error-direccion">
+                <input id="direccion" name="direccion" type="text" maxlength="300" aria-describedby="error-direccion">
                 <small id="error-direccion" class="mensaje-error"></small>
             </div>
 
             <div class="campo">
-                <label for="tipo-cliente">Tipo de cliente</label>
+                <label for="tipo-cliente">Tipo de usuario</label>
                 <select id="tipo-cliente" name="tipoCliente" aria-describedby="error-tipo-cliente">
                     <option value="">Selecciona una opción</option>
-                    <option value="particular">Particular</option>
-                    <option value="contratista">Contratista</option>
+                    <option value="administrador">Administrador</option>
+                    <option value="vendedor">Vendedor</option>
+                    <option value="cliente">Cliente</option>
                 </select>
                 <small id="error-tipo-cliente" class="mensaje-error"></small>
             </div>

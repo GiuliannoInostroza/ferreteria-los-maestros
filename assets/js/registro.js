@@ -1,5 +1,7 @@
 const formulario = document.querySelector("#formulario-registro");
 const nombre = document.querySelector("#nombre");
+const apellidos = document.querySelector("#apellidos");
+const fechaNacimiento = document.querySelector("#fecha-nacimiento");
 const rut = document.querySelector("#rut");
 const correo = document.querySelector("#correo");
 const telefono = document.querySelector("#telefono");
@@ -83,14 +85,41 @@ function validarComuna(valor) {
   return true;
 }
 
+function validarApellidos(valor) {
+  limpiarError(apellidos, "error-apellidos");
+  if (valor === "") {
+    mostrarError(apellidos, "error-apellidos", "Los apellidos son obligatorios");
+    return false;
+  }
+  if (valor.length > 100) {
+    mostrarError(apellidos, "error-apellidos", "Máximo 100 caracteres");
+    return false;
+  }
+  return true;
+}
+
+function validarFechaNacimiento(valor) {
+  limpiarError(fechaNacimiento, "error-fecha-nacimiento");
+  if (valor === "") {
+    return true;
+  }
+  const fechaIngresada = new Date(valor + "T00:00:00");
+  const hoy = new Date();
+  if (fechaIngresada > hoy) {
+    mostrarError(fechaNacimiento, "error-fecha-nacimiento", "La fecha no puede ser futura");
+    return false;
+  }
+  return true;
+}
+
 function validarNombre(valor) {
   limpiarError(nombre, "error-nombre");
   if (valor === "") {
     mostrarError(nombre, "error-nombre", "El nombre es obligatorio");
     return false;
   }
-  if (valor.length > 80) {
-    mostrarError(nombre, "error-nombre", "Máximo 80 caracteres");
+  if (valor.length > 50) {
+    mostrarError(nombre, "error-nombre", "Máximo 50 caracteres");
     return false;
   }
   return true;
@@ -141,7 +170,7 @@ function validarDireccion(valor) {
     return false;
   }
   if (valor.length > 150) {
-    mostrarError(direccion, "error-direccion", "Máximo 150 caracteres");
+    mostrarError(direccion, "error-direccion", "Máximo 300 caracteres");
     return false;
   }
   return true;
@@ -208,6 +237,8 @@ function procesarRegistro(evento) {
   evento.preventDefault();
 
   const valorNombre = nombre.value.trim();
+  const valorApellidos = apellidos.value.trim();
+  const valorFechaNacimiento = fechaNacimiento.value;
   const valorRut = rut.value.trim();
   const valorCorreo = correo.value.trim().toLowerCase();
   const valorTelefono = telefono.value.trim();
@@ -217,6 +248,8 @@ function procesarRegistro(evento) {
   const valorConfirmarContrasena = confirmarContrasena.value;
 
   const nombreValido = validarNombre(valorNombre);
+  const apellidosValido = validarApellidos(valorApellidos);
+  const fechaValida = validarFechaNacimiento(valorFechaNacimiento);
   const valorRegion = region.value;
   const valorComuna = comuna.value;
   const rutValido = validarRut(valorRut);
@@ -230,7 +263,7 @@ function procesarRegistro(evento) {
   const confirmarValido = validarConfirmarContrasena(valorConfirmarContrasena, valorContrasena);
 
   const formularioValido =
-    nombreValido && rutValido && correoValido && telefonoValido && regionValida && comunaValida &&
+    nombreValido && apellidosValido && fechaValida && rutValido && correoValido && telefonoValido && regionValida && comunaValida &&
     direccionValida && tipoClienteValido && contrasenaValida && confirmarValido;
 
   if (!formularioValido) {
@@ -240,6 +273,8 @@ function procesarRegistro(evento) {
 
   const nuevoUsuario = {
     nombre: valorNombre,
+    apellidos: valorApellidos,
+    fechaNacimiento: valorFechaNacimiento,
     rut: valorRut.toUpperCase(),
     correo: valorCorreo,
     telefono: valorTelefono,
@@ -267,6 +302,16 @@ nombre.addEventListener("input", function () {
   limpiarError(nombre, "error-nombre");
 });
 
+
+apellidos.addEventListener("blur", function () {
+  validarApellidos(apellidos.value.trim());
+});
+apellidos.addEventListener("input", function () {
+  limpiarError(apellidos, "error-apellidos");
+});
+fechaNacimiento.addEventListener("change", function () {
+  validarFechaNacimiento(fechaNacimiento.value);
+});
 rut.addEventListener("blur", function () {
   validarRut(rut.value.trim());
 });
