@@ -24,8 +24,12 @@ if (formularioContacto !== null) {
   }
 
   function emailValido(valor) {
-    const expresion = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return expresion.test(valor);
+    if (!valor.includes("@")) {
+      return false;
+    }
+    return valor.endsWith("@duoc.cl")
+      || valor.endsWith("@profesor.duoc.cl")
+      || valor.endsWith("@gmail.com");
   }
 
   function validarFormulario() {
