@@ -50,8 +50,30 @@ if (formularioContacto !== null) {
       formularioValido = false;
     }
 
+    if (nombreValor.length > 100) {
+      mostrarError(
+        nombre,
+        errorNombre,
+        "El nombre puede tener máximo 100 caracteres.",
+      );
+      formularioValido = false;
+    }
+
     if (!emailValido(emailValor)) {
       mostrarError(email, errorEmail, "Ingresa un correo electrónico válido.");
+      formularioValido = false;
+    }
+
+    if (emailValor.length > 100) {
+      mostrarError(email, errorEmail, "El correo puede tener máximo 100 caracteres.");
+      formularioValido = false;
+    }
+
+    const dominioValido = emailValor.endsWith("@duoc.cl")
+      || emailValor.endsWith("@profesor.duoc.cl")
+      || emailValor.endsWith("@gmail.com");
+    if (!dominioValido) {
+      mostrarError(email, errorEmail, "Solo se acepta @duoc.cl, @profesor.duoc.cl o @gmail.com.");
       formularioValido = false;
     }
 
@@ -65,6 +87,15 @@ if (formularioContacto !== null) {
         mensaje,
         errorMensaje,
         "El mensaje debe tener al menos 20 caracteres.",
+      );
+      formularioValido = false;
+    }
+
+    if (mensajeValor.length > 500) {
+      mostrarError(
+        mensaje,
+        errorMensaje,
+        "El mensaje puede tener máximo 500 caracteres.",
       );
       formularioValido = false;
     }
