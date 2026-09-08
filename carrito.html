@@ -6,7 +6,7 @@
 	<title>Carrito</title>
     <meta name="description" content="Tu carrito de compras en Ferretería Los Maestros. Revisa tus productos seleccionados y realiza tu pedido.">
     <link rel="icon" type="image/png" href="assets/img/favicon.png?v=2">
-    <link rel="stylesheet" href="assets/css/styles.css?v=5">
+    <link rel="stylesheet" href="assets/css/styles.css?v=6">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
@@ -32,8 +32,22 @@
             <button id="boton-menu" class="boton-menu" aria-expanded="false" aria-label="Abrir menú"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg></button>
         </div>
     </header>
-    <main>
-        
+        <main>
+        <h1>Tu carrito</h1>
+        <div class="carrito-grid">
+            <div id="lista-carrito">
+                <!-- Los items se muestran aqui con JavaScript -->
+            </div>
+            <aside class="resumen">
+                <h2>Resumen</h2>
+                <div class="resumen-linea">
+                    <span>Productos</span>
+                    <span id="resumen-cantidad">0</span>
+                </div>
+                <p class="resumen-total">Total: $ <span id="resumen-total">0</span></p>
+                <button class="btn btn-full" id="boton-pagar">Finalizar compra</button>
+            </aside>
+        </div>
     </main>
                 <footer>
         <div class="pie">
@@ -62,6 +76,8 @@
             </div>
         </div>
     </footer>
-    <script src="assets/js/app.js"></script>
+    <script src="assets/js/productos.js"></script>
+    <script src="assets/js/app.js?v=2"></script>
+    <script src="assets/js/carrito.js"></script>
 </body>
 </html>
