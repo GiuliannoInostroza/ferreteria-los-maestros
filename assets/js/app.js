@@ -19,7 +19,9 @@ function mostrarProductos() {
 
   // En la home solo se muestran los primeros 8 como destacados
   const esHome = location.pathname.endsWith("index.html") || location.pathname.endsWith("/");
-  const destacados = esHome ? productos.slice(0, 8) : productos;
+  const productosGuardados = localStorage.getItem("productosFerreteria");
+  const catalogo = productosGuardados !== null ? JSON.parse(productosGuardados) : productos;
+  const destacados = esHome ? catalogo.slice(0, 8) : catalogo;
 
   lista.innerHTML = "";
 
