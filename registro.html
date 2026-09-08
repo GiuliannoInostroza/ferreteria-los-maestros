@@ -32,7 +32,68 @@
         </div>
     </header>
     <main>
-        
+    <section class="tarjeta-formulario">
+        <img src="assets/img/logo.svg" alt="Logo de la ferretería" class="logo-formulario">
+        <h1>Crea tu cuenta</h1>
+        <form id="formulario-registro" novalidate>
+
+            <div class="campo">
+                <label for="nombre">Nombre completo</label>
+                <input id="nombre" name="nombre" type="text" maxlength="80" aria-describedby="error-nombre">
+                <small id="error-nombre" class="mensaje-error"></small>
+            </div>
+
+            <div class="campo">
+                <label for="rut">RUT (sin puntos ni guion)</label>
+                <input id="rut" name="rut" type="text" maxlength="9" aria-describedby="error-rut">
+                <small id="error-rut" class="mensaje-error"></small>
+            </div>
+
+            <div class="campo">
+                <label for="correo">Correo electrónico</label>
+                <input id="correo" name="correo" type="email" aria-describedby="error-correo">
+                <small id="error-correo" class="mensaje-error"></small>
+            </div>
+
+            <div class="campo">
+                <label for="telefono">Teléfono</label>
+                <input id="telefono" name="telefono" type="tel" maxlength="9" placeholder="912345678" aria-describedby="error-telefono">
+                <small id="error-telefono" class="mensaje-error"></small>
+            </div>
+
+            <div class="campo">
+                <label for="direccion">Dirección</label>
+                <input id="direccion" name="direccion" type="text" maxlength="150" aria-describedby="error-direccion">
+                <small id="error-direccion" class="mensaje-error"></small>
+            </div>
+
+            <div class="campo">
+                <label for="tipo-cliente">Tipo de cliente</label>
+                <select id="tipo-cliente" name="tipoCliente" aria-describedby="error-tipo-cliente">
+                    <option value="">Selecciona una opción</option>
+                    <option value="particular">Particular</option>
+                    <option value="contratista">Contratista</option>
+                </select>
+                <small id="error-tipo-cliente" class="mensaje-error"></small>
+            </div>
+
+            <div class="campo">
+                <label for="contrasena">Contraseña</label>
+                <input id="contrasena" name="contrasena" type="password" aria-describedby="error-contrasena">
+                <small id="error-contrasena" class="mensaje-error"></small>
+            </div>
+
+            <div class="campo">
+                <label for="confirmar-contrasena">Confirmar contraseña</label>
+                <input id="confirmar-contrasena" name="confirmarContrasena" type="password" aria-describedby="error-confirmar">
+                <small id="error-confirmar" class="mensaje-error"></small>
+            </div>
+
+            <button type="submit" class="btn">Crear cuenta</button>
+            <p id="mensaje-exito" role="status"></p>
+        </form>
+        <p class="texto-secundario">¿Ya tienes cuenta? <a href="login.html">Inicia sesión</a></p>
+    </section>
     </main>
                 <footer>
         <div class="pie">
@@ -62,5 +123,6 @@
         </div>
     </footer>
     <script src="assets/js/app.js"></script>
+    <script src="assets/js/registro.js"></script>
 </body>
 </html>
