@@ -23,6 +23,66 @@ function limpiarError(control, idError) {
   control.removeAttribute("aria-invalid");
 }
 
+const regiones = {
+  "Arica y Parinacota": ["Arica", "Camarones", "Putre", "General Lagos"],
+  "Tarapacá": ["Iquique", "Alto Hospicio", "Pica", "Huara"],
+  "Antofagasta": ["Antofagasta", "Calama", "Tocopilla", "Mejillones"],
+  "Atacama": ["Copiapó", "Vallenar", "Chañaral", "Diego de Almagro"],
+  "Coquimbo": ["La Serena", "Coquimbo", "Ovalle", "Illapel", "Vicuña"],
+  "Valparaíso": ["Valparaíso", "Viña del Mar", "Quilpué", "San Antonio"],
+  "Metropolitana": ["Santiago", "Providencia", "Maipú", "Puente Alto"],
+  "O Higgins": ["Rancagua", "San Fernando", "Santa Cruz", "Pichilemu"],
+  "Maule": ["Talca", "Curicó", "Linares", "Cauquenes"],
+  "Ñuble": ["Chillán", "Quirihue", "Coelemu"],
+  "Biobío": ["Concepción", "Talcahuano", "Los Ángeles", "Chiguayante"],
+  "Araucanía": ["Temuco", "Villarrica", "Pucón", "Angol"],
+  "Los Ríos": ["Valdivia", "La Unión", "Río Bueno"],
+  "Los Lagos": ["Puerto Montt", "Osorno", "Castro", "Ancud"],
+  "Aysén": ["Coyhaique", "Puerto Aysén"],
+  "Magallanes": ["Punta Arenas", "Puerto Natales"]
+};
+
+const region = document.querySelector("#region");
+const comuna = document.querySelector("#comuna");
+
+for (const nombreRegion in regiones) {
+  const opcionRegion = document.createElement("option");
+  opcionRegion.value = nombreRegion;
+  opcionRegion.textContent = nombreRegion;
+  region.appendChild(opcionRegion);
+}
+
+region.addEventListener("change", function () {
+  comuna.innerHTML = '<option value="">Selecciona una comuna</option>';
+  const comunas = regiones[region.value];
+  if (comunas !== undefined) {
+    for (const unaComuna of comunas) {
+      const opcion = document.createElement("option");
+      opcion.value = unaComuna;
+      opcion.textContent = unaComuna;
+      comuna.appendChild(opcion);
+    }
+  }
+});
+
+function validarRegion(valor) {
+  limpiarError(region, "error-region");
+  if (valor === "") {
+    mostrarError(region, "error-region", "Selecciona una región");
+    return false;
+  }
+  return true;
+}
+
+function validarComuna(valor) {
+  limpiarError(comuna, "error-comuna");
+  if (valor === "") {
+    mostrarError(comuna, "error-comuna", "Selecciona una comuna");
+    return false;
+  }
+  return true;
+}
+
 function validarNombre(valor) {
   limpiarError(nombre, "error-nombre");
   if (valor === "") {
@@ -48,6 +108,13 @@ function validarCorreo(valor) {
   }
   if (!valor.includes(".")) {
     mostrarError(correo, "error-correo", "El correo debe tener un dominio válido");
+    return false;
+  }
+  const dominioValido = valor.endsWith("@duoc.cl")
+    || valor.endsWith("@profesor.duoc.cl")
+    || valor.endsWith("@gmail.com");
+  if (!dominioValido) {
+    mostrarError(correo, "error-correo", "Solo se acepta @duoc.cl, @profesor.duoc.cl o @gmail.com");
     return false;
   }
   return true;
@@ -150,7 +217,11 @@ function procesarRegistro(evento) {
   const valorConfirmarContrasena = confirmarContrasena.value;
 
   const nombreValido = validarNombre(valorNombre);
+  const valorRegion = region.value;
+  const valorComuna = comuna.value;
   const rutValido = validarRut(valorRut);
+  const regionValida = validarRegion(valorRegion);
+  const comunaValida = validarComuna(valorComuna);
   const correoValido = validarCorreo(valorCorreo);
   const telefonoValido = validarTelefono(valorTelefono);
   const direccionValida = validarDireccion(valorDireccion);
@@ -159,7 +230,7 @@ function procesarRegistro(evento) {
   const confirmarValido = validarConfirmarContrasena(valorConfirmarContrasena, valorContrasena);
 
   const formularioValido =
-    nombreValido && rutValido && correoValido && telefonoValido &&
+    nombreValido && rutValido && correoValido && telefonoValido && regionValida && comunaValida &&
     direccionValida && tipoClienteValido && contrasenaValida && confirmarValido;
 
   if (!formularioValido) {
@@ -173,6 +244,8 @@ function procesarRegistro(evento) {
     correo: valorCorreo,
     telefono: valorTelefono,
     direccion: valorDireccion,
+    region: valorRegion,
+    comuna: valorComuna,
     tipoCliente: valorTipoCliente
   };
 
