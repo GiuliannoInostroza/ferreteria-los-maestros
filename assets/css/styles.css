@@ -64,7 +64,7 @@ header {
   gap: 28px;
   min-height: 80px;
   padding: 0 clamp(20px, 5vw, 72px);
-  background: rgba(2, 2, 3, 0.94);
+  background: var(--bg);
   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.30);
 }
 
@@ -129,7 +129,7 @@ header {
   left: 0;
   right: 0;
   padding: 16px clamp(20px, 5vw, 72px) 22px;
-  background: rgba(2, 2, 3, 0.94);
+  background: var(--bg);
   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.30);
 }
 
@@ -172,6 +172,17 @@ header {
 /* Contenido principal */
 main {
   padding: 26px 20px 60px;
+}
+
+/* Los encabezados de pagina de contenido no usan los estilos de la barra superior */
+main header {
+  position: static;
+  display: block;
+  min-height: 0;
+  padding: 0;
+  background: none;
+  box-shadow: none;
+  backdrop-filter: none;
 }
 
 /* Etiqueta sobre los títulos */
@@ -749,7 +760,7 @@ main {
 footer {
   margin-top: 35px;
   padding: 44px clamp(20px, 5vw, 72px);
-  background: rgba(2, 2, 3, 0.94);
+  background: var(--bg);
   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.30);
   color: var(--muted);
 }

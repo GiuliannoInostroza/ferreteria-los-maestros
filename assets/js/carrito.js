@@ -14,7 +14,7 @@ function mostrarCarrito() {
 
   if (carrito.length === 0) {
     contenedor.innerHTML = "<p class='carrito-vacio'>Tu carrito esta vacio.</p>";
-    document.querySelector("#resumen-total").textContent = "$ 0";
+    document.querySelector("#resumen-total").textContent = "0";
     return;
   }
 
@@ -92,7 +92,7 @@ function mostrarCarrito() {
   }
 
   document.querySelector("#resumen-cantidad").textContent = cantidadTotal + " unidades";
-  document.querySelector("#resumen-total").textContent = "$ " + total.toLocaleString("es-CL");
+  document.querySelector("#resumen-total").textContent = total.toLocaleString("es-CL");
 }
 
 function cambiarCantidad(codigo, cambio) {
