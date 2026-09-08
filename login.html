@@ -6,7 +6,7 @@
 	<title>Login</title>
     <meta name="description" content="Inicia sesión en tu cuenta en Ferretería Los Maestros.">
     <link rel="icon" type="image/png" href="assets/img/favicon.png?v=2">
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/styles.css?v=5">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
@@ -15,7 +15,7 @@
                 <header>
         <a href="index.html" class="logo">
             <img src="assets/img/logo.png?v=2" alt="Ferretería Los Maestros">
-            <h1>Ferretería Los Maestros</h1>
+            <span class="marca">Ferretería Los Maestros</span>
         </a>
         <nav class="menu">
             <ul class="menu-lista">
@@ -33,7 +33,27 @@
         </div>
     </header>
     <main>
-        
+        <div class="tarjeta-formulario">
+            <img src="assets/img/logo.png?v=2" alt="Ferretería Los Maestros" class="logo-formulario">
+            <h1>Iniciar sesión</h1>
+
+           <form id="formulario-login" novalidate>
+                <div class="campo">
+                    <label for="correo">Correo</label>
+                    <input type="email" id="correo" name="correo" maxlength="100" aria-describedby="error-correo">
+                    <small id="error-correo" class="mensaje-error"></small>
+                </div>
+                <div class="campo">
+                    <label for="contrasena">Contraseña</label>
+                    <input type="password" id="contrasena" name="contrasena" aria-describedby="error-contrasena">
+                    <small id="error-contrasena" class="mensaje-error"></small>
+                </div>
+                <button type="submit" class="btn">Ingresar</button>
+            </form>
+
+            <p class="texto-secundario">¿No tienes cuenta? <a href="registro.html">Regístrate aquí</a></p>
+            <p id="mensaje-exito" role="status"></p>
+        </div>
     </main>
                 <footer>
         <div class="pie">
@@ -63,5 +83,6 @@
         </div>
     </footer>
     <script src="assets/js/app.js"></script>
+    <script src="assets/js/login.js"></script>
 </body>
 </html>
