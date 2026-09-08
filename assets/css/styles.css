@@ -1104,3 +1104,92 @@ footer a:hover {
     grid-template-columns: 0.9fr 1.1fr;
   }
 }
+
+/* Panel de administracion */
+.panel-encabezado {
+  margin-bottom: 28px;
+}
+
+.panel-encabezado h1 {
+  margin: 0 0 10px;
+}
+
+.panel-tarjetas {
+  display: grid;
+  gap: 20px;
+}
+
+@media (min-width: 48rem) {
+  .panel-tarjetas {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.panel-acciones {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin: 54px 0 20px;
+}
+
+.tabla-contenedor {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+}
+
+.tabla-admin {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 40rem;
+}
+
+.tabla-admin caption {
+  padding: 12px 16px;
+  text-align: left;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.tabla-admin th,
+.tabla-admin td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.tabla-admin thead th {
+  background: var(--surface-soft);
+  color: var(--muted);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.tabla-admin tbody tr:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.tabla-acciones {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btn-pequeno {
+  min-height: 36px;
+  padding: 8px 16px;
+  font-size: 0.85rem;
+}
+
+.btn-eliminar {
+  background: transparent;
+  color: var(--danger);
+  border: 1px solid var(--danger);
+}
+
+.btn-eliminar:hover {
+  background: rgba(226, 154, 148, 0.12);
+}
