@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Administrar usuarios</title>
+    <meta name="description" content="Panel de administración: listado y gestión de usuarios registrados.">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+                <header>
+        <a href="index.html" class="logo">
+            <img src="assets/img/logo.svg" alt="Ferretería Los Maestros">
+            <h1>Ferretería Los Maestros</h1>
+        </a>
+        <nav class="menu">
+            <ul class="menu-lista">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="productos.html">Productos</a></li>
+                <li><a href="nosotros.html">Nosotros</a></li>
+                <li><a href="blogs.html">Blogs</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="login.html">Ingresar</a></li>
+            </ul>
+        </nav>
+        <div class="acciones">
+            <a href="carrito.html" class="carrito-button" aria-label="Ver carrito"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg></a>
+            <button id="boton-menu" class="boton-menu" aria-expanded="false" aria-label="Abrir menú"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg></button>
+        </div>
+    </header>
+    <main>
+        <section class="panel-encabezado">
+            <p class="etiqueta">Panel interno</p>
+            <h1>Administrar usuarios</h1>
+            <p>Consulta, edita o elimina las cuentas registradas en la tienda.</p>
+        </section>
+
+        <div class="panel-acciones">
+            <a href="admin.html" class="btn btn-ghost">Volver al panel</a>
+            <a href="admin-usuario-form.html" class="btn">Agregar usuario</a>
+        </div>
+
+        <div class="tabla-contenedor">
+            <table class="tabla-admin">
+                <caption>Usuarios registrados en Ferretería Los Maestros</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">RUT</th>
+                        <th scope="col">Correo</th>
+                        <th scope="col">Teléfono</th>
+                        <th scope="col">Tipo de cliente</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="cuerpo-tabla-usuarios"></tbody>
+            </table>
+        </div>
+    </main>
+                <footer>
+        <div class="pie">
+            <div>
+                <a href="index.html" class="pie-marca">
+                    <img src="assets/img/logo.svg" alt="Ferretería Los Maestros">
+                    <span>Ferretería Los Maestros</span>
+                </a>
+                <p>Materiales de construcción, herramientas y ferretería general en La Serena.</p>
+            </div>
+            <div>
+                <h4>Tienda</h4>
+                <ul>
+                    <li><a href="productos.html">Productos</a></li>
+                    <li><a href="carrito.html">Carrito</a></li>
+                    <li><a href="blogs.html">Blogs</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Cuenta</h4>
+                <ul>
+                    <li><a href="login.html">Iniciar sesión</a></li>
+                    <li><a href="registro.html">Registrarme</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/admin-usuario.js"></script>
+</body>
+</html>
