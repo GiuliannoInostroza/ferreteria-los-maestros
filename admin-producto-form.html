@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Formulario de producto</title>
+    <meta name="description" content="Panel de administración: crear o editar un producto del catálogo.">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+                <header>
+        <a href="index.html" class="logo">
+            <img src="assets/img/logo.svg" alt="Ferretería Los Maestros">
+            <h1>Ferretería Los Maestros</h1>
+        </a>
+        <nav class="menu">
+            <ul class="menu-lista">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="productos.html">Productos</a></li>
+                <li><a href="nosotros.html">Nosotros</a></li>
+                <li><a href="blogs.html">Blogs</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="login.html">Ingresar</a></li>
+            </ul>
+        </nav>
+        <div class="acciones">
+            <a href="carrito.html" class="carrito-button" aria-label="Ver carrito"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg></a>
+            <button id="boton-menu" class="boton-menu" aria-expanded="false" aria-label="Abrir menú"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg></button>
+        </div>
+    </header>
+    <main>
+        <section class="tarjeta-formulario">
+            <h1 id="titulo-formulario-producto">Agregar producto</h1>
+            <form id="formulario-producto" novalidate>
+
+                <div class="campo">
+                    <label for="codigo">Código</label>
+                    <input id="codigo" name="codigo" type="text" maxlength="10" aria-describedby="error-codigo">
+                    <small id="error-codigo" class="mensaje-error"></small>
+                </div>
+
+                <div class="campo">
+                    <label for="nombre-producto">Nombre</label>
+                    <input id="nombre-producto" name="nombre" type="text" maxlength="100" aria-describedby="error-nombre-producto">
+                    <small id="error-nombre-producto" class="mensaje-error"></small>
+                </div>
+
+                <div class="campo">
+                    <label for="marca">Marca</label>
+                    <input id="marca" name="marca" type="text" maxlength="60" aria-describedby="error-marca">
+                    <small id="error-marca" class="mensaje-error"></small>
+                </div>
+
+                <div class="campo">
+                    <label for="categoria">Categoría</label>
+                    <select id="categoria" name="categoria" aria-describedby="error-categoria">
+                        <option value="">Selecciona una categoría</option>
+                        <option value="Materiales de Construcción">Materiales de Construcción</option>
+                        <option value="Pinturas">Pinturas</option>
+                        <option value="Herramientas Manuales">Herramientas Manuales</option>
+                        <option value="Herramientas Eléctricas">Herramientas Eléctricas</option>
+                        <option value="Gasfitería">Gasfitería</option>
+                        <option value="Electricidad">Electricidad</option>
+                        <option value="Tornillería">Tornillería</option>
+                        <option value="Madera">Madera</option>
+                        <option value="Seguridad">Seguridad</option>
+                        <option value="Jardín">Jardín</option>
+                    </select>
+                    <small id="error-categoria" class="mensaje-error"></small>
+                </div>
+
+                <div class="campo">
+                    <label for="precio">Precio (CLP)</label>
+                    <input id="precio" name="precio" type="text" inputmode="numeric" aria-describedby="error-precio">
+                    <small id="error-precio" class="mensaje-error"></small>
+                </div>
+
+                <div class="campo">
+                    <label for="stock">Stock</label>
+                    <input id="stock" name="stock" type="text" inputmode="numeric" aria-describedby="error-stock">
+                    <small id="error-stock" class="mensaje-error"></small>
+                </div>
+
+                <div class="campo">
+                    <label for="stock-critico">Stock crítico</label>
+                    <input id="stock-critico" name="stockCritico" type="text" inputmode="numeric" aria-describedby="error-stock-critico">
+                    <small id="error-stock-critico" class="mensaje-error"></small>
+                </div>
+
+                <div class="campo">
+                    <label for="descripcion">Descripción</label>
+                    <textarea id="descripcion" name="descripcion" maxlength="200" aria-describedby="error-descripcion"></textarea>
+                    <small id="error-descripcion" class="mensaje-error"></small>
+                </div>
+
+                <button type="submit" class="btn">Guardar producto</button>
+                <p id="mensaje-exito-producto" role="status"></p>
+            </form>
+            <p class="texto-secundario"><a href="admin-productos.html">Volver al listado de productos</a></p>
+        </section>
+    </main>
+                <footer>
+        <div class="pie">
+            <div>
+                <a href="index.html" class="pie-marca">
+                    <img src="assets/img/logo.svg" alt="Ferretería Los Maestros">
+                    <span>Ferretería Los Maestros</span>
+                </a>
+                <p>Materiales de construcción, herramientas y ferretería general en La Serena.</p>
+            </div>
+            <div>
+                <h4>Tienda</h4>
+                <ul>
+                    <li><a href="productos.html">Productos</a></li>
+                    <li><a href="carrito.html">Carrito</a></li>
+                    <li><a href="blogs.html">Blogs</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Cuenta</h4>
+                <ul>
+                    <li><a href="login.html">Iniciar sesión</a></li>
+                    <li><a href="registro.html">Registrarme</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    <script src="assets/js/productos.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/admin-producto-form.js"></script>
+</body>
+</html>

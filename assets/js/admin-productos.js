@@ -38,10 +38,14 @@ function crearFilaProducto(producto) {
   const contenedorAcciones = document.createElement("div");
   contenedorAcciones.classList.add("tabla-acciones");
 
-  const botonEditar = document.createElement("a");
-  botonEditar.href = "admin-producto-form.html?codigo=" + producto.codigo;
+  const botonEditar = document.createElement("button");
+  botonEditar.type = "button";
   botonEditar.classList.add("btn", "btn-soft", "btn-pequeno");
   botonEditar.textContent = "Editar";
+  botonEditar.addEventListener("click", function () {
+    localStorage.setItem("productoEnEdicion", producto.codigo);
+    window.location.href = "admin-producto-form.html";
+  });
   contenedorAcciones.appendChild(botonEditar);
 
   const botonEliminar = document.createElement("button");
