@@ -18,14 +18,37 @@ function mostrarProductos() {
   }
 
   // En la home solo se muestran los primeros 8 como destacados
-  const esHome = location.pathname.endsWith("index.html") || location.pathname.endsWith("/");
+  const filtro = document.querySelector("#filtro-categoria");
+
+  if (filtro !== null && filtro.options.length === 1) {
+    for (const producto of productos) {
+      let existe = false;
+      for (let i = 0; i < filtro.options.length; i++) {
+        if (filtro.options[i].value === producto.categoria) {
+          existe = true;
+        }
+      }
+      if (!existe) {
+        const opcion = document.createElement("option");
+        opcion.value = producto.categoria;
+        opcion.textContent = producto.categoria;
+        filtro.appendChild(opcion);
+      }
+    }
+    filtro.addEventListener("change", mostrarProductos);
+  }
+
   const productosGuardados = localStorage.getItem("productosFerreteria");
   const catalogo = productosGuardados !== null ? JSON.parse(productosGuardados) : productos;
-  const destacados = esHome ? catalogo.slice(0, 8) : catalogo;
+  const destacados = filtro === null ? catalogo.slice(0, 8) : catalogo;
 
   lista.innerHTML = "";
 
   for (const producto of destacados) {
+    if (filtro !== null && filtro.value !== "todas"
+        && producto.categoria !== filtro.value) {
+      continue;
+    }
     const tarjeta = document.createElement("article");
     tarjeta.classList.add("producto-tarjeta");
 

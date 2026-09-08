@@ -6,16 +6,16 @@
 	<title>Productos</title>
     <meta name="description" content="Descubre nuestros productos de alta calidad en Ferretería Los Maestros. Encuentra herramientas, materiales y más para tus proyectos de construcción y reparación.">
     <link rel="icon" type="image/png" href="assets/img/favicon.png?v=2">
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/styles.css?v=5">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
 <body>
-                <header>
+    <header>
         <a href="index.html" class="logo">
             <img src="assets/img/logo.png?v=2" alt="Ferretería Los Maestros">
-            <h1>Ferretería Los Maestros</h1>
+            <span class="marca">Ferretería Los Maestros</span>
         </a>
         <nav class="menu">
             <ul class="menu-lista">
@@ -33,9 +33,25 @@
         </div>
     </header>
     <main>
-        
+        <div class="section-top">
+            <div>
+                <p class="etiqueta">Catálogo completo</p>
+                <h1>Nuestros productos</h1>
+            </div>
+        </div>
+
+        <div class="filtro">
+            <label for="filtro-categoria">Filtrar por categoría:</label>
+            <select id="filtro-categoria">
+                <option value="todas">Todas las categorías</option>
+            </select>
+        </div>
+
+        <div id="producto-lista" class="producto-lista">
+            <!-- Las tarjetas se crean con JavaScript -->
+        </div>
     </main>
-                <footer>
+    <footer>
         <div class="pie">
             <div>
                 <a href="index.html" class="pie-marca">
@@ -62,6 +78,7 @@
             </div>
         </div>
     </footer>
-    <script src="assets/js/app.js"></script>
+    <script src="assets/js/productos.js"></script>
+    <script src="assets/js/app.js?v=2"></script>
 </body>
 </html>
