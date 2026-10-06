@@ -7,6 +7,12 @@ function TarjetaProducto({ producto, onAgregar }) {
 
   return (
     <Card className="h-100 bg-body-tertiary border-secondary">
+      <Card.Img
+        variant="top"
+        src={`/assets/img/productos/${producto.codigo}.jpg`}
+        alt={producto.nombre}
+        className="producto-img"
+      />
       <Card.Body className="d-flex flex-column">
         <Card.Text className="text-secondary mb-1">
           {producto.categoria}
@@ -24,17 +30,22 @@ function TarjetaProducto({ producto, onAgregar }) {
 
         <strong className="mb-3">{formatearPrecio(producto.precio)}</strong>
 
-        <div className="mt-auto d-grid gap-2">
+        <div className="mt-auto d-flex gap-2">
           <Button
             as={Link}
             to={`/productos/${producto.codigo}`}
             variant="outline-light"
+            className="flex-fill"
           >
             Ver detalle
           </Button>
 
           {onAgregar && (
-            <Button variant="warning" onClick={() => onAgregar(producto)}>
+            <Button
+              variant="warning"
+              className="flex-fill"
+              onClick={() => onAgregar(producto)}
+            >
               Añadir
             </Button>
           )}

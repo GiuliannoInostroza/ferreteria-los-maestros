@@ -3,7 +3,11 @@ import { NavLink } from "react-router-dom";
 
 function Navegacion() {
   return (
-    <Navbar expand="md" className="bg-black" data-bs-theme="dark">
+    <Navbar
+      expand="md"
+      className="bg-dark-subtle border-bottom border-secondary"
+      data-bs-theme="dark"
+    >
       <Container>
         <Navbar.Brand as={NavLink} to="/">
           Ferretería Los Maestros

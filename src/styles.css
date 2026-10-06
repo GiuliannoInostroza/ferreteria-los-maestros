@@ -10,3 +10,8 @@ main {
 .contenido-blog {
   max-width: 760px;
 }
+
+.producto-img {
+  height: 220px;
+  object-fit: cover;
+}
