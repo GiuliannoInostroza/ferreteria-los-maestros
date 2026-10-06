@@ -1,110 +1,12 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Ferretería Los Maestros</title>
-    <meta name="description" content="Ferretería Los Maestros - Todo lo que necesitas para tus proyectos de construcción y reparación.">
-    <link rel="icon" type="image/png" href="assets/img/favicon.png">
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet"></head>
-<body>
-                <header>
-        <a href="index.html" class="logo">
-            <img src="assets/img/logo.png" alt="Ferretería Los Maestros">
-            <span class="marca">Ferretería Los Maestros</span>
-        </a>
-        <nav class="menu">
-            <ul class="menu-lista">
-                <li><a href="index.html" aria-current="page">Inicio</a></li>
-                <li><a href="productos.html">Productos</a></li>
-                <li><a href="nosotros.html">Nosotros</a></li>
-                <li><a href="blogs.html">Blogs</a></li>
-                <li><a href="contacto.html">Contacto</a></li>
-                <li><a href="login.html">Ingresar</a></li>
-            </ul>
-        </nav>
-        <div class="acciones">
-            <a href="carrito.html" class="carrito-button" aria-label="Ver carrito"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg></a>
-            <button id="boton-menu" class="boton-menu" aria-expanded="false" aria-label="Abrir menú"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg></button>
-        </div>
-    </header>
-    <main>
-                        <section class="hero">
-            <div>
-                <p class="etiqueta">La Serena</p>
-                <h1>Materiales confiables para cada obra</h1>
-                <p class="muted">Consulta disponibilidad real, arma tu pedido en línea y coordina retiro o despacho. Atendemos a particulares, contratistas y maestros de obra con más de 800 referencias.</p>
-                                <ul class="hero-cifras">
-                    <li><strong>22 años</strong><span>de trayectoria en La Serena</span></li>
-                    <li><strong>+800</strong><span>referencias en catálogo</span></li>
-                    <li><strong>Stock real</strong><span>consulta disponibilidad antes de venir</span></li>
-                </ul>
-                <div class="hero-botones">
-                    <a href="productos.html" class="btn">Explorar catálogo</a>
-                    <a href="contacto.html" class="btn btn-ghost">Solicitar asesoría</a>
-                </div>
-            </div>
-            <div class="hero-media">
-                <img src="assets/img/productos/hero.jpg" alt="Pared de herramientas de la ferretería">
-            </div>
-        </section>
-        <div class="section-top">
-            <div>
-                <p class="etiqueta">Categorías</p>
-                <h2>Compra por tipo de proyecto</h2>
-            </div>
-            <a href="productos.html" class="btn btn-ghost">Ver todo</a>
-        </div>
-        <div class="category-grid">
-            <article class="category wide"><h3>Herramientas eléctricas</h3><p class="muted small">Taladros, amoladoras, sierras y accesorios de alto uso.</p></article>
-            <article class="category"><h3>Construcción</h3><p class="muted small">Cemento, ladrillos, arena y mezclas.</p></article>
-            <article class="category"><h3>Gasfitería</h3><p class="muted small">Tuberías, llaves, selladores y repuestos.</p></article>
-            <article class="category"><h3>Electricidad</h3><p class="muted small">Cables, enchufes, protecciones e iluminación.</p></article>
-        </div>
-                <section class="productos">
-            <div class="section-top">
-                <div>
-                    <p class="etiqueta">Productos destacados</p>
-                    <h2>Lo más consultado esta semana</h2>
-                </div>
-                <a href="carrito.html" class="btn btn-ghost">Ver carrito</a>
-            </div>
-            <div id="producto-lista" class="producto-lista">
-                <!-- Las tarjetas se crean con JavaScript -->
-            </div>
-        </section>
-    </main>
-                <footer>
-        <div class="pie">
-            <div>
-                <a href="index.html" class="pie-marca">
-                    <img src="assets/img/logo.png" alt="Ferretería Los Maestros">
-                    <span>Ferretería Los Maestros</span>
-                </a>
-                <p>Materiales de construcción, herramientas y ferretería general en La Serena.</p>
-            </div>
-            <div>
-                <h4>Tienda</h4>
-                <ul>
-                    <li><a href="productos.html">Productos</a></li>
-                    <li><a href="carrito.html">Carrito</a></li>
-                    <li><a href="blogs.html">Blogs</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4>Cuenta</h4>
-                <ul>
-                    <li><a href="login.html">Iniciar sesión</a></li>
-                    <li><a href="registro.html">Registrarme</a></li>
-                    <li><a href="contacto.html">Contacto</a></li>
-                </ul>
-            </div>
-        </div>
-    </footer>
-    <script src="assets/js/productos.js"></script>
-    <script src="assets/js/app.js"></script>
-</body>
+<!doctype html>
+<html lang="es" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ferretería Los Maestros</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>

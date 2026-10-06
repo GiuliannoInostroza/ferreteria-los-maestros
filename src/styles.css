@@ -1,0 +1,12 @@
+body {
+  margin: 0;
+  background-color: #282e33;
+}
+
+main {
+  min-height: 70vh;
+}
+
+.contenido-blog {
+  max-width: 760px;
+}
