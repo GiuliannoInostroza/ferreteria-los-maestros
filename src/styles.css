@@ -15,3 +15,61 @@ main {
   height: 220px;
   object-fit: cover;
 }
+
+.item-carrito {
+  margin-bottom: 12px;
+  padding: 20px;
+  border-radius: 4px;
+  background-color: #0c0c10;
+}
+
+.miniatura {
+  width: 72px;
+  height: 72px;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.cantidad {
+  display: inline-grid;
+  grid-template-columns: 44px 44px 44px;
+  border-radius: 3px;
+  overflow: hidden;
+  background-color: #050507;
+}
+
+.cantidad button,
+.cantidad span {
+  border: 0;
+  background-color: transparent;
+  color: #f2f1f4;
+  padding: 11px;
+  text-align: center;
+}
+
+.cantidad button {
+  cursor: pointer;
+  background-color: #111117;
+}
+
+.btn-quitar {
+  border: 0;
+  background: none;
+  color: #e29a94;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.resumen {
+  padding: 24px;
+  border-radius: 5px;
+  background-color: #0c0c10;
+}
+
+.resumen-total {
+  padding-top: 14px;
+  margin: 12px 0 20px;
+  border-top: 1px solid #1b1b21;
+  font-size: 1.3rem;
+  font-weight: 800;
+}
