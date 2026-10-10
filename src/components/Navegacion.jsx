@@ -1,7 +1,7 @@
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 
-function Navegacion() {
+function Navegacion({ unidades }) {
   return (
     <Navbar
       expand="md"
@@ -32,6 +32,9 @@ function Navegacion() {
             <Nav.Link as={NavLink} to="/contacto">
               Contacto
             </Nav.Link>
+            <NavLink className="nav-link" to="/carrito">
+              Carrito ({unidades})
+            </NavLink>
             <Nav.Link as={NavLink} to="/admin/productos">
               Administración
             </Nav.Link>

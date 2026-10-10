@@ -4,7 +4,7 @@ import { Col, Container, Form, Row } from "react-bootstrap";
 import TarjetaProducto from "../components/TarjetaProducto";
 import { productos } from "../data/productos";
 
-function Productos() {
+function Productos({ onAgregar }) {
   const [categoria, setCategoria] = useState("Todas");
 
   const categorias = [
@@ -16,10 +16,6 @@ function Productos() {
     categoria === "Todas"
       ? productos
       : productos.filter((producto) => producto.categoria === categoria);
-
-  function agregar(producto) {
-    console.log("Producto seleccionado:", producto.nombre);
-  }
 
   return (
     <Container className="py-4">
@@ -40,7 +36,7 @@ function Productos() {
       <Row className="g-4">
         {visibles.map((producto) => (
           <Col xs={12} md={6} lg={4} key={producto.codigo}>
-            <TarjetaProducto producto={producto} onAgregar={agregar} />
+            <TarjetaProducto producto={producto} onAgregar={onAgregar} />
           </Col>
         ))}
       </Row>
