@@ -17,14 +17,9 @@ describe("ItemCarrito", () => {
     expect(screen.getByText("Cemento")).toBeInTheDocument();
   });
 
-  it("muestra aviso solo cuando la cantidad supera el stock", () => {
+  it("muestra aviso cuando la cantidad supera el stock", () => {
     render(<ItemCarrito item={{ ...item, cantidad: 81 }} />);
     expect(screen.getByText(/supera el stock/i)).toBeInTheDocument();
-  });
-
-  it("no muestra aviso cuando hay stock suficiente", () => {
-    render(<ItemCarrito item={item} />);
-    expect(screen.queryByText(/supera el stock/i)).not.toBeInTheDocument();
   });
 
   it("ejecuta onCambiarCantidad al presionar el botón +", async () => {

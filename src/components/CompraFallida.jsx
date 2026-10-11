@@ -1,4 +1,4 @@
-import { Button, Container } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 function CompraFallida({ onReintentar }) {
@@ -15,9 +15,9 @@ function CompraFallida({ onReintentar }) {
           Volver al carrito
         </Link>
 
-        <Button variant="outline-light" onClick={onReintentar}>
+        <button className="btn btn-outline-light" onClick={onReintentar}>
           Volver a intentar
-        </Button>
+        </button>
       </div>
     </Container>
   );

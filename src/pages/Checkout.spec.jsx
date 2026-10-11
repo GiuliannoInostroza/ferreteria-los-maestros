@@ -33,10 +33,6 @@ describe("Checkout", () => {
 
     await usuario.type(screen.getByLabelText("Nombre"), "Giulianno");
     await usuario.type(screen.getByLabelText("Correo"), "giu@duocuc.cl");
-    await usuario.selectOptions(
-      screen.getByLabelText("Entrega"),
-      "Retiro en tienda"
-    );
     await usuario.click(screen.getByRole("button", { name: /confirmar/i }));
 
     expect(onVaciar).toHaveBeenCalled();
@@ -56,10 +52,6 @@ describe("Checkout", () => {
 
     await usuario.type(screen.getByLabelText("Nombre"), "Giulianno");
     await usuario.type(screen.getByLabelText("Correo"), "giu@duocuc.cl");
-    await usuario.selectOptions(
-      screen.getByLabelText("Entrega"),
-      "Retiro en tienda"
-    );
     await usuario.click(screen.getByRole("button", { name: /confirmar/i }));
 
     expect(
