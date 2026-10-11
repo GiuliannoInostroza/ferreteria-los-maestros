@@ -3,12 +3,14 @@ import { Route, Routes } from "react-router-dom";
 
 import Navegacion from "./components/Navegacion";
 import PiePagina from "./components/PiePagina";
+import SinAcceso from "./components/SinAcceso";
 
 import Inicio from "./pages/Inicio";
 import Productos from "./pages/Productos";
 import DetalleProducto from "./pages/DetalleProducto";
 import Carrito from "./pages/Carrito";
 import Checkout from "./pages/Checkout";
+import Login from "./pages/Login";
 import Nosotros from "./pages/Nosotros";
 import Blogs from "./pages/Blogs";
 import BlogDetalle from "./pages/BlogDetalle";
@@ -17,7 +19,7 @@ import AdminProductos from "./pages/admin/AdminProductos";
 import NoEncontrada from "./pages/NoEncontrada";
 
 import { contarUnidades } from "./utils/carrito";
-import { guardarCarrito } from "./utils/persistencia";
+import { guardarCarrito, guardarSesion } from "./utils/persistencia";
 
 function App() {
   const [carrito, setCarrito] = useState(() => {
@@ -25,9 +27,20 @@ function App() {
     return guardado ? JSON.parse(guardado) : [];
   });
 
+  const [usuario, setUsuario] = useState(() => {
+    const guardada = localStorage.getItem("sesion");
+    return guardada ? JSON.parse(guardada) : null;
+  });
+
+  const puedeAdministrar = usuario && usuario.rol !== "Cliente";
+
   useEffect(() => {
     guardarCarrito(carrito);
   }, [carrito]);
+
+  useEffect(() => {
+    guardarSesion(usuario);
+  }, [usuario]);
 
   function agregarAlCarrito(producto) {
     const yaExiste = carrito.some((item) => item.codigo === producto.codigo);
@@ -60,7 +73,7 @@ function App() {
 
   return (
     <div className="min-vh-100 d-flex flex-column">
-      <Navegacion unidades={contarUnidades(carrito)} />
+      <Navegacion unidades={contarUnidades(carrito)} usuario={usuario} />
 
       <div className="flex-grow-1">
         <Routes>
@@ -85,13 +98,32 @@ function App() {
           />
           <Route
             path="/checkout"
-            element={<Checkout carrito={carrito} onVaciar={vaciarCarrito} />}
+            element={
+              <Checkout
+                carrito={carrito}
+                usuario={usuario}
+                onVaciar={vaciarCarrito}
+              />
+            }
           />
           <Route path="/nosotros" element={<Nosotros />} />
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/blogs/:id" element={<BlogDetalle />} />
           <Route path="/contacto" element={<Contacto />} />
-          <Route path="/admin/productos" element={<AdminProductos />} />
+          <Route
+            path="/login"
+            element={
+              <Login
+                usuario={usuario}
+                onIngresar={setUsuario}
+                onSalir={() => setUsuario(null)}
+              />
+            }
+          />
+          <Route
+            path="/admin/productos"
+            element={puedeAdministrar ? <AdminProductos /> : <SinAcceso />}
+          />
           <Route path="*" element={<NoEncontrada />} />
         </Routes>
       </div>
