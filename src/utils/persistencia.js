@@ -4,3 +4,10 @@ export function guardarCarrito(datos) {
     JSON.stringify(datos)
   );
 }
+
+export function guardarSesion(usuario) {
+  localStorage.setItem(
+    "sesion",
+    JSON.stringify(usuario)
+  );
+}
