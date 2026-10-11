@@ -33,14 +33,13 @@ function DetalleProducto({ onAgregar }) {
           </p>
           <h2>{formatearPrecio(producto.precio)}</h2>
 
-          <Button
-            variant="warning"
-            className="me-2"
+          <button
+            className="btn btn-warning me-2"
             onClick={() => onAgregar(producto)}
             disabled={producto.stock === 0}
           >
             Añadir al carrito
-          </Button>
+          </button>
 
           <Button as={Link} to="/productos" variant="outline-light">
             Volver

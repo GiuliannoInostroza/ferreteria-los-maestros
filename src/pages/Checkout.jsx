@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { Col, Container, Form, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 import CompraExitosa from "../components/CompraExitosa";
@@ -7,7 +7,12 @@ import CompraFallida from "../components/CompraFallida";
 import { calcularTotal } from "../utils/carrito";
 import { formatearPrecio } from "../utils/precio";
 
-const inicial = { nombre: "", correo: "", entrega: "", direccion: "" };
+const inicial = {
+  nombre: "",
+  correo: "",
+  entrega: "Retiro en tienda",
+  direccion: "",
+};
 
 function Checkout({ carrito, onVaciar }) {
   const [datos, setDatos] = useState(inicial);
@@ -26,7 +31,6 @@ function Checkout({ carrito, onVaciar }) {
 
     if (!datos.nombre.trim()) nuevosErrores.nombre = "Nombre obligatorio";
     if (!datos.correo.trim()) nuevosErrores.correo = "Correo obligatorio";
-    if (!datos.entrega) nuevosErrores.entrega = "Selecciona una entrega";
     if (datos.entrega === "Despacho a domicilio" && !datos.direccion.trim()) {
       nuevosErrores.direccion = "Dirección obligatoria";
     }
@@ -104,19 +108,16 @@ function Checkout({ carrito, onVaciar }) {
 
             <Form.Group className="mb-3" controlId="entrega">
               <Form.Label>Entrega</Form.Label>
-              <Form.Select
+              <select
+                className="form-select"
+                id="entrega"
                 name="entrega"
                 value={datos.entrega}
                 onChange={cambiar}
-                isInvalid={Boolean(errores.entrega)}
               >
-                <option value="">Selecciona una opción</option>
                 <option>Retiro en tienda</option>
                 <option>Despacho a domicilio</option>
-              </Form.Select>
-              <Form.Control.Feedback type="invalid">
-                {errores.entrega}
-              </Form.Control.Feedback>
+              </select>
             </Form.Group>
 
             {datos.entrega === "Despacho a domicilio" && (
@@ -134,9 +135,9 @@ function Checkout({ carrito, onVaciar }) {
               </Form.Group>
             )}
 
-            <Button type="submit" variant="warning">
+            <button type="submit" className="btn btn-warning">
               Confirmar compra
-            </Button>
+            </button>
           </Form>
         </Col>
 
