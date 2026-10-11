@@ -1,7 +1,7 @@
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 
-function Navegacion({ unidades }) {
+function Navegacion({ unidades, usuario }) {
   return (
     <Navbar
       expand="md"
@@ -35,9 +35,14 @@ function Navegacion({ unidades }) {
             <NavLink className="nav-link" to="/carrito">
               Carrito ({unidades})
             </NavLink>
-            <Nav.Link as={NavLink} to="/admin/productos">
-              Administración
-            </Nav.Link>
+            {usuario && usuario.rol !== "Cliente" && (
+              <NavLink className="nav-link" to="/admin/productos">
+                Administración
+              </NavLink>
+            )}
+            <NavLink className="nav-link" to="/login">
+              {usuario ? usuario.nombre : "Ingresar"}
+            </NavLink>
           </Nav>
         </Navbar.Collapse>
       </Container>
