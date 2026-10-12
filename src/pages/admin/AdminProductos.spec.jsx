@@ -1,5 +1,5 @@
 // src/pages/admin/AdminProductos.spec.jsx
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { vi } from "vitest";
 import AdminProductos from "./AdminProductos";
@@ -52,5 +52,22 @@ describe("AdminProductos", () => {
     );
 
     espia.mockRestore();
+  });
+
+  it("permite editar el stock de un producto", async () => {
+    const usuario = userEvent.setup();
+    render(<AdminProductos />);
+
+    const fila = screen.getByText("Cemento Polpaico gris 25 kg").closest("tr");
+    await usuario.click(within(fila).getByRole("button", { name: /editar/i }));
+
+    const stock = screen.getByLabelText("Stock");
+    await usuario.clear(stock);
+    await usuario.type(stock, "95");
+    await usuario.click(
+      screen.getByRole("button", { name: /guardar cambios/i })
+    );
+
+    expect(within(fila).getByText("95")).toBeInTheDocument();
   });
 });
