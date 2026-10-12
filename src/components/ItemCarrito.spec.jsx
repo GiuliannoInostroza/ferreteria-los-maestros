@@ -33,4 +33,26 @@ describe("ItemCarrito", () => {
 
     expect(onCambiarCantidad).toHaveBeenCalledWith("MC001", 1);
   });
+
+  it("ejecuta onCambiarCantidad al presionar el botón -", async () => {
+    const usuario = userEvent.setup();
+    const onCambiarCantidad = vi.fn();
+    render(
+      <ItemCarrito item={item} onCambiarCantidad={onCambiarCantidad} />
+    );
+
+    await usuario.click(screen.getByRole("button", { name: "-" }));
+
+    expect(onCambiarCantidad).toHaveBeenCalledWith("MC001", -1);
+  });
+
+  it("ejecuta onQuitar al presionar Quitar", async () => {
+    const usuario = userEvent.setup();
+    const onQuitar = vi.fn();
+    render(<ItemCarrito item={item} onQuitar={onQuitar} />);
+
+    await usuario.click(screen.getByRole("button", { name: /quitar/i }));
+
+    expect(onQuitar).toHaveBeenCalledWith("MC001");
+  });
 });
