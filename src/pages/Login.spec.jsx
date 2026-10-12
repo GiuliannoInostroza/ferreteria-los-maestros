@@ -25,6 +25,20 @@ describe("Login", () => {
     expect(screen.getByText("Correo obligatorio")).toBeInTheDocument();
   });
 
+  it("muestra error cuando el dominio del correo no es válido", async () => {
+    const usuario = userEvent.setup();
+    render(
+      <BrowserRouter>
+        <Login onIngresar={vi.fn()} />
+      </BrowserRouter>
+    );
+
+    await usuario.type(screen.getByLabelText("Correo"), "pedro@hotmail.com");
+    await usuario.click(screen.getByRole("button", { name: /ingresar/i }));
+
+    expect(screen.getByText(/solo se acepta/i)).toBeInTheDocument();
+  });
+
   it("muestra error cuando el correo no está registrado", async () => {
     const usuario = userEvent.setup();
     render(

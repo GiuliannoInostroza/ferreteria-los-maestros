@@ -19,12 +19,20 @@ function Login({ usuario, onIngresar, onSalir }) {
     evento.preventDefault();
     const nuevosErrores = {};
 
-    const encontrado = usuarios.find(
-      (item) => item.correo === datos.correo.trim()
-    );
+    const correo = datos.correo.trim();
 
-    if (!datos.correo.trim()) {
+    const dominioValido =
+      correo.endsWith("@duoc.cl") ||
+      correo.endsWith("@profesor.duoc.cl") ||
+      correo.endsWith("@gmail.com");
+
+    const encontrado = usuarios.find((item) => item.correo === correo);
+
+    if (!correo) {
       nuevosErrores.correo = "Correo obligatorio";
+    } else if (!dominioValido) {
+      nuevosErrores.correo =
+        "Solo se acepta @duoc.cl, @profesor.duoc.cl o @gmail.com";
     } else if (!encontrado) {
       nuevosErrores.correo = "No existe una cuenta con ese correo";
     }
