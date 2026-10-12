@@ -1,58 +1,89 @@
 # Ferretería Los Maestros
 
-Tienda online para la Ferretería Los Maestros, negocio familiar de La Serena (Región de Coquimbo) con 22 años de trayectoria en materiales de construcción, herramientas y ferretería general.
+Tienda online para la Ferretería Los Maestros, un negocio familiar de La Serena con 22 años vendiendo materiales de construcción, herramientas y ferretería general.
 
-Proyecto de la asignatura **Desarrollo FullStack II** — Duoc UC. Evaluación Parcial 1.
+Proyecto del ramo Desarrollo FullStack II (DSY1104) de Duoc UC. En la Evaluación Parcial 1 hicimos el sitio con HTML, CSS y JavaScript. En la Evaluación Parcial 2 lo pasamos a React y le agregamos pruebas unitarias.
 
 ## Equipo
 
-| Integrante | GitHub | Responsable de |
-|---|---|---|
-| Giulianno Inostroza | [@GiuliannoInostroza](https://github.com/GiuliannoInostroza) | Base del sitio, Home, Productos, Detalle y Carrito (localStorage) |
-| Agustín Pérez | [@AgustinPerez] | Nosotros, Blogs y detalles, Contacto |
-| Nicolás Pérez | @NicolasPerez | Registro, Módulo Administrador (productos y usuarios) |
+| Integrante | Se encargó de |
+|---|---|
+| Giulianno Inostroza | Carrito, checkout, login con roles y persistencia |
+| Agustín Pérez | Base del proyecto React, inicio, catálogo, detalle, nosotros, blogs y contacto |
+| Nicolás Pérez | Administración de productos y de usuarios |
 
 ## Tecnologías
 
-- **HTML5** — estructura semántica (header, nav, main, section, footer)
-- **CSS3** — hoja de estilos externa, variables CSS, Flexbox, Grid y diseño responsive (mobile first)
-- **JavaScript** — DOM, eventos, validaciones de formularios y persistencia con localStorage
-- **Iconos:** [Lucide](https://lucide.dev) (licencia ISC)
-- **Fotografías:** [Unsplash](https://unsplash.com) y Openverse (CC0 / dominio público)
+- React con Vite
+- React Bootstrap y Bootstrap para el diseño responsivo
+- React Router para la navegación
+- localStorage para guardar carrito, sesión, productos y usuarios
+- Vitest y React Testing Library para las pruebas
 
-## 📁 Estructura del proyecto
+## Cómo ejecutar
 
-```
-ferreteria-los-maestros/
-├── assets/
-│   ├── css/
-│   │   └── styles.css      # Hoja de estilos única (variables + componentes)
-│   ├── img/
-│   │   └── logo.svg        # Logo de la marca
-│   └── js/
-│       └── app.js          # Comportamiento del sitio
-├── index.html              # Home
-├── productos.html          # Catálogo
-├── producto.html           # Detalle de producto
-├── carrito.html            # Carrito de compras
-├── nosotros.html           # La empresa y el equipo
-├── blogs.html              # Noticias (y detalles en blog-detalle-1/2.html)
-├── contacto.html           # Formulario de contacto
-├── registro.html           # Registro de usuario
-├── login.html              # Inicio de sesión
-└── README.md
+Se necesita Node.js 22 o superior.
+
+```bash
+git clone https://github.com/GiuliannoInostroza/ferreteria-los-maestros.git
+cd ferreteria-los-maestros
+npm install
+npm run dev
 ```
 
-## ▶️ Cómo ejecutar
+La terminal muestra una dirección como http://localhost:5173 para abrir en el navegador.
 
-1. Clonar el repositorio: `git clone https://github.com/GiuliannoInostroza/ferreteria-los-maestros.git`
-2. Abrir la carpeta en Visual Studio Code.
-3. Abrir `index.html` con la extensión **Live Server** (clic derecho → *Open with Live Server*), o simplemente abrir el archivo en el navegador.
+## Pruebas
 
-No requiere instalación de dependencias ni servidor: es un sitio estático.
+```bash
+npm run test:run
+npm run coverage
+```
 
-## Diseño responsive
+El primero ejecuta todas las pruebas una vez. El segundo además genera el informe de cobertura en la carpeta `coverage`.
 
-El sitio está construido con enfoque **mobile first**: los estilos base están pensados para celular (360 px) y se agregan mejoras con media queries para tablet (768 px) y escritorio (1280 px).
+## Usuarios de prueba
 
+El login es simulado y no guarda contraseñas. Sirve cualquier contraseña de 4 a 10 caracteres.
 
+| Correo | Rol | Puede |
+|---|---|---|
+| admin@duoc.cl | Administrador | Administrar productos y usuarios |
+| vendedor@duoc.cl | Vendedor | Administrar productos |
+| cliente@gmail.com | Cliente | Comprar en la tienda |
+
+## Estructura
+
+```
+src/
+├── components/   piezas que se reutilizan (menú, tarjetas, item del carrito)
+├── pages/        vistas con ruta
+│   └── admin/    administración de productos y usuarios
+├── data/         datos simulados
+├── utils/        funciones de precio, carrito y persistencia
+├── test/         configuración de las pruebas
+├── App.jsx       rutas y estado compartido
+└── main.jsx      punto de entrada
+```
+
+## Rutas
+
+| Ruta | Vista |
+|---|---|
+| `/` | Inicio |
+| `/productos` | Catálogo con filtro por categoría |
+| `/productos/:codigo` | Detalle de un producto |
+| `/carrito` | Carrito de compras |
+| `/checkout` | Datos de entrega y resultado de la compra |
+| `/login` | Inicio de sesión |
+| `/nosotros`, `/blogs`, `/contacto` | Contenido |
+| `/admin/productos` | Productos, para Vendedor y Administrador |
+| `/admin/usuarios` | Usuarios, solo para Administrador |
+
+## Diseño responsivo
+
+Usamos la grilla de Bootstrap: las tarjetas se ven en una columna en celular, dos en tablet y tres en escritorio. El menú se convierte en hamburguesa en pantallas chicas.
+
+## Lo que falta
+
+Los datos viven en el navegador con localStorage, así que cada navegador tiene su propia copia. La conexión con el backend queda para la siguiente evaluación.
