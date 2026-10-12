@@ -11,8 +11,8 @@ const inicial = {
   stockCritico: "",
 };
 
-function FormularioProducto({ productos, onGuardar, onCancelar }) {
-  const [datos, setDatos] = useState(inicial);
+function FormularioProducto({ productos, producto, onGuardar, onCancelar }) {
+  const [datos, setDatos] = useState(producto || inicial);
   const [errores, setErrores] = useState({});
 
   function cambiar(evento) {
@@ -26,7 +26,13 @@ function FormularioProducto({ productos, onGuardar, onCancelar }) {
 
     if (!datos.codigo.trim()) {
       nuevosErrores.codigo = "Código obligatorio";
-    } else if (productos.some((item) => item.codigo === datos.codigo.trim())) {
+    } else if (
+      productos.some(
+        (item) =>
+          item.codigo === datos.codigo.trim() &&
+          item.codigo !== producto?.codigo
+      )
+    ) {
       nuevosErrores.codigo = "Ya existe un producto con ese código";
     }
     if (!datos.nombre.trim()) nuevosErrores.nombre = "Nombre obligatorio";
@@ -53,7 +59,7 @@ function FormularioProducto({ productos, onGuardar, onCancelar }) {
       precio: Number(datos.precio),
       stock: Number(datos.stock),
       stockCritico: Number(datos.stockCritico),
-      descripcion: "",
+      descripcion: producto?.descripcion || "",
     });
     setDatos(inicial);
   }
@@ -68,6 +74,7 @@ function FormularioProducto({ productos, onGuardar, onCancelar }) {
               name="codigo"
               value={datos.codigo}
               onChange={cambiar}
+              disabled={Boolean(producto)}
               isInvalid={Boolean(errores.codigo)}
             />
             <Form.Control.Feedback type="invalid">
@@ -170,7 +177,9 @@ function FormularioProducto({ productos, onGuardar, onCancelar }) {
         </Col>
       </Row>
 
-      <Button type="submit">Guardar</Button>{" "}
+      <Button type="submit">
+        {producto ? "Guardar cambios" : "Guardar"}
+      </Button>{" "}
       <Button type="button" onClick={onCancelar}>
         Cancelar
       </Button>

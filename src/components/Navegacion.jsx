@@ -33,7 +33,10 @@ function Navegacion() {
               Contacto
             </Nav.Link>
             <Nav.Link as={NavLink} to="/admin/productos">
-              Administración
+              Productos admin
+            </Nav.Link>
+            <Nav.Link as={NavLink} to="/admin/usuarios">
+              Usuarios admin
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>

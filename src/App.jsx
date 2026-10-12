@@ -11,6 +11,7 @@ import Blogs from "./pages/Blogs";
 import BlogDetalle from "./pages/BlogDetalle";
 import Contacto from "./pages/Contacto";
 import AdminProductos from "./pages/admin/AdminProductos";
+import AdminUsuarios from "./pages/admin/AdminUsuarios";
 import NoEncontrada from "./pages/NoEncontrada";
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
           <Route path="/blogs/:id" element={<BlogDetalle />} />
           <Route path="/contacto" element={<Contacto />} />
           <Route path="/admin/productos" element={<AdminProductos />} />
+          <Route path="/admin/usuarios" element={<AdminUsuarios />} />
           <Route path="*" element={<NoEncontrada />} />
         </Routes>
       </div>
