@@ -16,6 +16,7 @@ import Blogs from "./pages/Blogs";
 import BlogDetalle from "./pages/BlogDetalle";
 import Contacto from "./pages/Contacto";
 import AdminProductos from "./pages/admin/AdminProductos";
+import AdminUsuarios from "./pages/admin/AdminUsuarios";
 import NoEncontrada from "./pages/NoEncontrada";
 
 import { contarUnidades } from "./utils/carrito";
@@ -33,6 +34,7 @@ function App() {
   });
 
   const puedeAdministrar = usuario && usuario.rol !== "Cliente";
+  const esAdministrador = usuario && usuario.rol === "Administrador";
 
   useEffect(() => {
     guardarCarrito(carrito);
@@ -123,6 +125,10 @@ function App() {
           <Route
             path="/admin/productos"
             element={puedeAdministrar ? <AdminProductos /> : <SinAcceso />}
+          />
+          <Route
+            path="/admin/usuarios"
+            element={esAdministrador ? <AdminUsuarios /> : <SinAcceso />}
           />
           <Route path="*" element={<NoEncontrada />} />
         </Routes>

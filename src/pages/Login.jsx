@@ -26,7 +26,10 @@ function Login({ usuario, onIngresar, onSalir }) {
       correo.endsWith("@profesor.duoc.cl") ||
       correo.endsWith("@gmail.com");
 
-    const encontrado = usuarios.find((item) => item.correo === correo);
+    const guardados = localStorage.getItem("usuariosAdmin");
+    const registrados = guardados ? JSON.parse(guardados) : usuarios;
+
+    const encontrado = registrados.find((item) => item.correo === correo);
 
     if (!correo) {
       nuevosErrores.correo = "Correo obligatorio";
@@ -35,6 +38,8 @@ function Login({ usuario, onIngresar, onSalir }) {
         "Solo se acepta @duoc.cl, @profesor.duoc.cl o @gmail.com";
     } else if (!encontrado) {
       nuevosErrores.correo = "No existe una cuenta con ese correo";
+    } else if (!encontrado.activo) {
+      nuevosErrores.correo = "La cuenta está desactivada";
     }
     if (datos.contrasena.length < 4 || datos.contrasena.length > 10) {
       nuevosErrores.contrasena = "La contraseña debe tener entre 4 y 10 caracteres";

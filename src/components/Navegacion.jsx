@@ -37,7 +37,12 @@ function Navegacion({ unidades, usuario }) {
             </NavLink>
             {usuario && usuario.rol !== "Cliente" && (
               <NavLink className="nav-link" to="/admin/productos">
-                Administración
+                Productos admin
+              </NavLink>
+            )}
+            {usuario && usuario.rol === "Administrador" && (
+              <NavLink className="nav-link" to="/admin/usuarios">
+                Usuarios admin
               </NavLink>
             )}
             <NavLink className="nav-link" to="/login">

@@ -5,7 +5,7 @@ function SinAcceso() {
   return (
     <Container className="py-4">
       <h1>No tienes acceso</h1>
-      <p>Esta vista es solo para vendedores y administradores.</p>
+      <p>Tu rol no tiene permiso para ver esta vista.</p>
       <Link to="/login">Iniciar sesión</Link>
     </Container>
   );

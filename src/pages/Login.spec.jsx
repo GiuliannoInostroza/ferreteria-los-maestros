@@ -10,6 +10,7 @@ describe("Login", () => {
     nombre: "Pedro Soto",
     correo: "vendedor@duoc.cl",
     rol: "Vendedor",
+    activo: true,
   };
 
   it("muestra error cuando el correo está vacío", async () => {
