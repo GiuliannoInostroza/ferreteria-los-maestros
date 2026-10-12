@@ -14,8 +14,12 @@ const inicial = {
   direccion: "",
 };
 
-function Checkout({ carrito, onVaciar }) {
-  const [datos, setDatos] = useState(inicial);
+function Checkout({ carrito, usuario, onVaciar }) {
+  const [datos, setDatos] = useState(
+    usuario
+      ? { ...inicial, nombre: usuario.nombre, correo: usuario.correo }
+      : inicial
+  );
   const [errores, setErrores] = useState({});
   const [resultado, setResultado] = useState("");
   const [pedido, setPedido] = useState(null);
