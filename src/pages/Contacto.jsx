@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { correoConDominioPermitido } from "../utils/correo";
 
 const inicial = {
   nombre: "",
@@ -29,18 +30,27 @@ function Contacto() {
 
     if (!datos.nombre.trim()) {
       nuevosErrores.nombre = "Nombre obligatorio";
+    } else if (datos.nombre.trim().length > 100) {
+      nuevosErrores.nombre = "El nombre puede tener máximo 100 caracteres";
     }
 
     if (!datos.email.trim()) {
       nuevosErrores.email = "Correo obligatorio";
+    } else if (!correoConDominioPermitido(datos.email)) {
+      nuevosErrores.email =
+        "Usa un correo @duocuc.cl, @duoc.cl, @profesor.duoc.cl o @gmail.com";
     }
 
     if (!datos.asunto) {
       nuevosErrores.asunto = "Selecciona un motivo";
     }
 
-    if (datos.mensaje.trim().length < 20) {
+    const largoMensaje = datos.mensaje.trim().length;
+
+    if (largoMensaje < 20) {
       nuevosErrores.mensaje = "El mensaje debe tener al menos 20 caracteres";
+    } else if (largoMensaje > 500) {
+      nuevosErrores.mensaje = "El mensaje puede tener máximo 500 caracteres";
     }
 
     setErrores(nuevosErrores);
@@ -50,7 +60,6 @@ function Contacto() {
       return;
     }
 
-    console.log("Contacto válido:", datos);
     setMensajeExito("Mensaje enviado correctamente");
     setDatos(inicial);
   }
@@ -90,6 +99,7 @@ function Contacto() {
                 name="nombre"
                 value={datos.nombre}
                 onChange={cambiar}
+                maxLength={100}
                 isInvalid={Boolean(errores.nombre)}
               />
               <Form.Control.Feedback type="invalid">
@@ -138,6 +148,7 @@ function Contacto() {
                 name="mensaje"
                 value={datos.mensaje}
                 onChange={cambiar}
+                maxLength={500}
                 isInvalid={Boolean(errores.mensaje)}
               />
               <Form.Control.Feedback type="invalid">
