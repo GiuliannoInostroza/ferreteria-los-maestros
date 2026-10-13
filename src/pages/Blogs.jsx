@@ -19,6 +19,12 @@ function Blogs() {
         {blogs.map((blog) => (
           <Col xs={12} md={6} key={blog.id}>
             <Card className="h-100 bg-dark border-secondary">
+              <Card.Img
+                variant="top"
+                src={blog.imagen}
+                alt={blog.titulo}
+                className="blog-img"
+              />
               <Card.Body>
                 <Card.Text className="text-secondary">{blog.fecha}</Card.Text>
                 <Card.Title>{blog.titulo}</Card.Title>

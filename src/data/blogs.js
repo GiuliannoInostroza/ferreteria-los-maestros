@@ -6,6 +6,7 @@ export const blogs = [
     titulo: "5 herramientas básicas que todo hogar debería tener",
     resumen:
       "Conoce algunas herramientas esenciales para resolver reparaciones y tareas de mantenimiento cotidianas.",
+    imagen: "/assets/img/productos/HM001.jpg",
     contenido: [
       "Tener algunas herramientas básicas en casa puede facilitar pequeñas reparaciones y tareas de mantenimiento sin necesidad de contar con un equipo profesional.",
       "Martillo, destornilladores, alicate, huincha de medir y llave ajustable son herramientas útiles para tareas domésticas básicas.",
@@ -19,6 +20,7 @@ export const blogs = [
     titulo: "Cómo elegir la broca correcta para cada material",
     resumen:
       "Aprende las diferencias entre brocas para madera, metal y concreto para trabajar de forma más segura.",
+    imagen: "/assets/img/productos/HE001.jpg",
     contenido: [
       "Elegir una broca adecuada ayuda a trabajar de manera más eficiente y evita dañar tanto la herramienta como el material.",
       "Las brocas para madera, metal y concreto tienen características diferentes según la superficie que deben perforar.",
