@@ -47,6 +47,14 @@ function AdminProductos() {
     setMostrarFormulario(false);
   }
 
+  function eliminar(codigo) {
+    setProductos(productos.filter((item) => item.codigo !== codigo));
+
+    if (productoEditando && productoEditando.codigo === codigo) {
+      cancelar();
+    }
+  }
+
   return (
     <Container className="py-4">
       <h1>Administración de productos</h1>
@@ -93,6 +101,9 @@ function AdminProductos() {
                 <td>
                   <Button size="sm" onClick={() => editar(producto)}>
                     Editar
+                  </Button>{" "}
+                  <Button size="sm" onClick={() => eliminar(producto.codigo)}>
+                    Eliminar
                   </Button>
                 </td>
               </tr>

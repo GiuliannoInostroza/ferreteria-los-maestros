@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 
 const inicial = {
@@ -14,6 +14,11 @@ const inicial = {
 function FormularioProducto({ productos, producto, onGuardar, onCancelar }) {
   const [datos, setDatos] = useState(producto || inicial);
   const [errores, setErrores] = useState({});
+
+  useEffect(() => {
+    setDatos(producto || inicial);
+    setErrores({});
+  }, [producto]);
 
   function cambiar(evento) {
     const { name, value } = evento.target;
