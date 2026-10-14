@@ -54,9 +54,10 @@ describe("AdminProductos", () => {
     render(<AdminProductos />);
 
     await usuario.click(screen.getByRole("button", { name: "Editar" }));
-    await usuario.type(screen.getByLabelText("Stock"), "5");
+    await usuario.clear(screen.getByLabelText("Stock"));
+    await usuario.type(screen.getByLabelText("Stock"), "120");
     await usuario.click(screen.getByRole("button", { name: "Guardar cambios" }));
-    expect(screen.getByText("805")).toBeInTheDocument();
+    expect(screen.getByText("120")).toBeInTheDocument();
     expect(screen.getByText("Producto actualizado correctamente")).toBeInTheDocument();
 
     await usuario.click(screen.getByRole("button", { name: "Eliminar" }));
