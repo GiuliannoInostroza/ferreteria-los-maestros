@@ -27,15 +27,21 @@ function Registro() {
     const registrados = guardados ? JSON.parse(guardados) : usuariosIniciales;
 
     if (!datos.nombre.trim()) nuevosErrores.nombre = "Nombre obligatorio";
-    if (!correo) {
-      nuevosErrores.correo = "Correo obligatorio";
-    } else if (!correoConDominioPermitido(correo)) {
+    const existe = registrados.some((item) => item.correo === correo);
+
+    if (!correo) nuevosErrores.correo = "Correo obligatorio";
+    if (correo && !correoConDominioPermitido(correo)) {
       nuevosErrores.correo =
         "Solo se acepta @duocuc.cl, @duoc.cl, @profesor.duoc.cl o @gmail.com";
-    } else if (registrados.some((item) => item.correo === correo)) {
+    }
+    if (correo && correoConDominioPermitido(correo) && existe) {
       nuevosErrores.correo = "Ya existe una cuenta con ese correo";
     }
-    if (datos.contrasena.length < 4 || datos.contrasena.length > 10) {
+    if (datos.contrasena.length < 4) {
+      nuevosErrores.contrasena =
+        "La contraseña debe tener entre 4 y 10 caracteres";
+    }
+    if (datos.contrasena.length > 10) {
       nuevosErrores.contrasena =
         "La contraseña debe tener entre 4 y 10 caracteres";
     }
@@ -43,9 +49,9 @@ function Registro() {
     setErrores(nuevosErrores);
     if (Object.keys(nuevosErrores).length > 0) return;
 
-    const ultimoId = Math.max(0, ...registrados.map((item) => item.id));
+    const ultimo = registrados[registrados.length - 1];
     const nuevoUsuario = {
-      id: ultimoId + 1,
+      id: ultimo ? ultimo.id + 1 : 1,
       nombre: datos.nombre.trim(),
       correo,
       rol: "Cliente",
