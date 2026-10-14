@@ -34,6 +34,7 @@ export const productos = [
   },
   {
     codigo: "PT001",
+    destacado: true,
     nombre: "Pintura látex interior 1 galón blanco",
     marca: "Sipa",
     categoria: "Pinturas",
@@ -64,6 +65,7 @@ export const productos = [
   },
   {
     codigo: "HM001",
+    destacado: true,
     nombre: "Martillo carpintero 500g",
     marca: "Stanley",
     categoria: "Herramientas Manuales",
@@ -104,6 +106,7 @@ export const productos = [
   },
   {
     codigo: "HE001",
+    destacado: true,
     nombre: "Taladro percutor 650W 13mm",
     marca: "Makita",
     categoria: "Herramientas Eléctricas",
@@ -154,6 +157,7 @@ export const productos = [
   },
   {
     codigo: "EL011",
+    destacado: true,
     nombre: "Ampolleta LED 9W E27 luz fría",
     marca: "Philips",
     categoria: "Electricidad",
@@ -234,6 +238,7 @@ export const productos = [
   },
   {
     codigo: "JA001",
+    destacado: true,
     nombre: "Manguera riego 3/4 x 25m",
     marca: "Tigre",
     categoria: "Jardín",
