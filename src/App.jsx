@@ -8,6 +8,8 @@ import SinAcceso from "./components/SinAcceso";
 import Inicio from "./pages/Inicio";
 import Productos from "./pages/Productos";
 import DetalleProducto from "./pages/DetalleProducto";
+import Categorias from "./pages/Categorias";
+import Ofertas from "./pages/Ofertas";
 import Carrito from "./pages/Carrito";
 import Checkout from "./pages/Checkout";
 import Login from "./pages/Login";
@@ -96,6 +98,14 @@ function App() {
                 onVaciar={vaciarCarrito}
               />
             }
+          />
+          <Route
+            path="/categorias"
+            element={<Categorias onAgregar={agregarAlCarrito} />}
+          />
+          <Route
+            path="/ofertas"
+            element={<Ofertas onAgregar={agregarAlCarrito} />}
           />
           <Route path="/nosotros" element={<Nosotros />} />
           <Route path="/blogs" element={<Blogs />} />

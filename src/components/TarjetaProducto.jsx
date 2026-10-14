@@ -19,6 +19,12 @@ function TarjetaProducto({ producto, onAgregar }) {
 
         <p className={claseStock(producto)}>{textoStock(producto)}</p>
 
+        {producto.oferta && (
+          <p className="text-danger fw-bold mb-1">
+            Oferta, antes {formatearPrecio(producto.precioAnterior)}
+          </p>
+        )}
+
         <strong className="mb-3">{formatearPrecio(producto.precio)}</strong>
 
         <div className="mt-auto d-flex gap-2">

@@ -6,7 +6,7 @@ import { esAdministrador, puedeAdministrar } from "../utils/sesion";
 function Navegacion({ unidades, usuario }) {
   return (
     <Navbar
-      expand="xl"
+      expand="xxl"
       className="bg-dark-subtle"
       data-bs-theme="dark"
     >
@@ -25,6 +25,12 @@ function Navegacion({ unidades, usuario }) {
             </NavLink>
             <NavLink className="nav-link" to="/productos">
               Productos
+            </NavLink>
+            <NavLink className="nav-link" to="/categorias">
+              Categorías
+            </NavLink>
+            <NavLink className="nav-link" to="/ofertas">
+              Ofertas
             </NavLink>
             <NavLink className="nav-link" to="/nosotros">
               Nosotros
