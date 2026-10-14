@@ -75,30 +75,36 @@ function AdminUsuarios() {
       )}
 
       <div className="table-responsive">
-        <table className="table">
+        <table className="table table-sm">
           <thead>
             <tr>
-              <th>Nombre</th>
-              <th>Correo</th>
+              <th>Usuario</th>
               <th>Rol</th>
-              <th>Estado</th>
               <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
             {usuarios.map((usuario) => (
               <tr key={usuario.id}>
-                <td>{usuario.nombre}</td>
-                <td>{usuario.correo}</td>
-                <td>{usuario.rol}</td>
-                <td>{usuario.activo ? "Activo" : "Inactivo"}</td>
-                <td className="d-flex gap-2">
-                  <Button size="sm" onClick={() => editar(usuario)}>
-                    Editar
-                  </Button>
-                  <Button size="sm" onClick={() => cambiarEstado(usuario.id)}>
-                    {usuario.activo ? "Desactivar" : "Activar"}
-                  </Button>
+                <td>
+                  <div>{usuario.nombre}</div>
+                  <div className="text-secondary small text-break">{usuario.correo}</div>
+                </td>
+                <td>
+                  <div>{usuario.rol}</div>
+                  <div className="text-secondary small">
+                    {usuario.activo ? "Activo" : "Inactivo"}
+                  </div>
+                </td>
+                <td>
+                  <div className="d-flex flex-wrap gap-2">
+                    <Button size="sm" onClick={() => editar(usuario)}>
+                      Editar
+                    </Button>
+                    <Button size="sm" onClick={() => cambiarEstado(usuario.id)}>
+                      {usuario.activo ? "Desactivar" : "Activar"}
+                    </Button>
+                  </div>
                 </td>
               </tr>
             ))}
