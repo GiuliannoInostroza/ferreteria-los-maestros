@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { correoConDominioPermitido } from "../../utils/correo";
 
@@ -11,6 +11,11 @@ const inicial = {
 function FormularioUsuario({ usuarios, usuario, onGuardar, onCancelar }) {
   const [datos, setDatos] = useState(usuario || inicial);
   const [errores, setErrores] = useState({});
+
+  useEffect(() => {
+    setDatos(usuario || inicial);
+    setErrores({});
+  }, [usuario]);
 
   function cambiar(evento) {
     const { name, value } = evento.target;

@@ -50,4 +50,39 @@ describe("AdminProductos", () => {
 
     expect(screen.getByText("95")).toBeInTheDocument();
   });
+
+  it("elimina un producto de la tabla", async () => {
+    const usuario = userEvent.setup();
+
+    render(<AdminProductos />);
+
+    const fila = screen.getByText("Cemento Polpaico gris 25 kg").closest("tr");
+
+    await usuario.click(
+      within(fila).getByRole("button", { name: /eliminar/i }),
+    );
+
+    expect(
+      screen.queryByText("Cemento Polpaico gris 25 kg"),
+    ).not.toBeInTheDocument();
+  });
+
+  it("cambia el formulario al editar otro producto sin cancelar", async () => {
+    const usuario = userEvent.setup();
+
+    render(<AdminProductos />);
+
+    const primera = screen.getByText("Cemento Polpaico gris 25 kg").closest("tr");
+    await usuario.click(
+      within(primera).getByRole("button", { name: /editar/i }),
+    );
+    expect(screen.getByLabelText("Código").value).toBe("MC001");
+
+    const segunda = screen.getByText("Ladrillo fiscal N°5").closest("tr");
+    await usuario.click(
+      within(segunda).getByRole("button", { name: /editar/i }),
+    );
+
+    expect(screen.getByLabelText("Código").value).toBe("MC007");
+  });
 });

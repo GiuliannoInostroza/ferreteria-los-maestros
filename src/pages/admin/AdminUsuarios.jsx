@@ -45,6 +45,14 @@ function AdminUsuarios() {
     setMostrarFormulario(false);
   }
 
+  function eliminar(id) {
+    setUsuarios(usuarios.filter((item) => item.id !== id));
+
+    if (usuarioEditando && usuarioEditando.id === id) {
+      cancelar();
+    }
+  }
+
   function cambiarEstado(id) {
     setUsuarios(
       usuarios.map((usuario) =>
@@ -98,6 +106,9 @@ function AdminUsuarios() {
                   </Button>
                   <Button size="sm" onClick={() => cambiarEstado(usuario.id)}>
                     {usuario.activo ? "Desactivar" : "Activar"}
+                  </Button>
+                  <Button size="sm" onClick={() => eliminar(usuario.id)}>
+                    Eliminar
                   </Button>
                 </td>
               </tr>
