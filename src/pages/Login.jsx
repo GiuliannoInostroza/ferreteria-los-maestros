@@ -20,7 +20,7 @@ function Login({ usuario, onIngresar, onSalir }) {
     evento.preventDefault();
     const nuevosErrores = {};
 
-    const correo = datos.correo.trim();
+    const correo = datos.correo.trim().toLowerCase();
 
     const guardados = localStorage.getItem("usuariosAdmin");
     const registrados = guardados ? JSON.parse(guardados) : usuarios;
