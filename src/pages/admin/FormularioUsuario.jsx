@@ -8,37 +8,48 @@ const inicial = {
   rol: "",
 };
 
-function FormularioUsuario({ usuarios, usuario, onGuardar, onCancelar }) {
-  const [datos, setDatos] = useState(usuario || inicial);
+function FormularioUsuario({
+  usuarios,
+  usuario,
+  onGuardar,
+  onCancelar,
+  onModificar,
+}) {
+  const [datos, setDatos] = useState(usuario ? usuario : inicial);
   const [errores, setErrores] = useState({});
 
   useEffect(() => {
-    setDatos(usuario || inicial);
+    setDatos(usuario ? usuario : inicial);
     setErrores({});
   }, [usuario]);
 
   function cambiar(evento) {
     const { name, value } = evento.target;
     setDatos({ ...datos, [name]: value });
+    if (onModificar) onModificar();
   }
 
   function enviar(evento) {
     evento.preventDefault();
     const nuevosErrores = {};
     const correo = datos.correo.trim().toLowerCase();
+    const idActual = usuario ? usuario.id : 0;
 
     if (!datos.nombre.trim()) nuevosErrores.nombre = "Nombre obligatorio";
     if (!correo) {
       nuevosErrores.correo = "Correo obligatorio";
-    } else if (!correoConDominioPermitido(correo)) {
+    }
+    if (correo && !correoConDominioPermitido(correo)) {
       nuevosErrores.correo =
         "Usa un correo @duocuc.cl, @duoc.cl, @profesor.duoc.cl o @gmail.com";
-    } else if (
-      usuarios.some((item) => item.correo === correo && item.id !== usuario?.id)
+    }
+    if (
+      correoConDominioPermitido(correo) &&
+      usuarios.some((item) => item.correo === correo && item.id !== idActual)
     ) {
       nuevosErrores.correo = "Ya existe un usuario con ese correo";
     }
-    if (!datos.rol) nuevosErrores.rol = "Selecciona un rol";
+    if (!datos.rol) nuevosErrores.rol = "Rol obligatorio";
 
     setErrores(nuevosErrores);
     if (Object.keys(nuevosErrores).length > 0) return;
@@ -48,7 +59,7 @@ function FormularioUsuario({ usuarios, usuario, onGuardar, onCancelar }) {
       nombre: datos.nombre.trim(),
       correo,
       rol: datos.rol,
-      activo: usuario?.activo ?? true,
+      activo: usuario ? usuario.activo : true,
     });
   }
 
@@ -81,17 +92,18 @@ function FormularioUsuario({ usuarios, usuario, onGuardar, onCancelar }) {
       </Form.Group>
       <Form.Group className="mb-3" controlId="rolUsuario">
         <Form.Label>Rol</Form.Label>
-        <Form.Select
+        <select
+          id="rolUsuario"
+          className={errores.rol ? "form-select is-invalid" : "form-select"}
           name="rol"
           value={datos.rol}
           onChange={cambiar}
-          isInvalid={Boolean(errores.rol)}
         >
           <option value="">Selecciona un rol</option>
           <option value="Administrador">Administrador</option>
           <option value="Vendedor">Vendedor</option>
           <option value="Cliente">Cliente</option>
-        </Form.Select>
+        </select>
         <Form.Control.Feedback type="invalid">
           {errores.rol}
         </Form.Control.Feedback>

@@ -11,31 +11,41 @@ const inicial = {
   stockCritico: "",
 };
 
-function FormularioProducto({ productos, producto, onGuardar, onCancelar }) {
-  const [datos, setDatos] = useState(producto || inicial);
+function FormularioProducto({
+  productos,
+  producto,
+  onGuardar,
+  onCancelar,
+  onModificar,
+}) {
+  const [datos, setDatos] = useState(producto ? producto : inicial);
   const [errores, setErrores] = useState({});
 
   useEffect(() => {
-    setDatos(producto || inicial);
+    setDatos(producto ? producto : inicial);
     setErrores({});
   }, [producto]);
 
   function cambiar(evento) {
     const { name, value } = evento.target;
     setDatos({ ...datos, [name]: value });
+    if (onModificar) onModificar();
   }
 
   function enviar(evento) {
     evento.preventDefault();
     const nuevosErrores = {};
+    const codigoActual = producto ? producto.codigo : "";
 
     if (!datos.codigo.trim()) {
       nuevosErrores.codigo = "Código obligatorio";
-    } else if (
+    }
+    if (
+      datos.codigo.trim() &&
       productos.some(
         (item) =>
           item.codigo === datos.codigo.trim() &&
-          item.codigo !== producto?.codigo
+          item.codigo !== codigoActual
       )
     ) {
       nuevosErrores.codigo = "Ya existe un producto con ese código";
@@ -43,13 +53,19 @@ function FormularioProducto({ productos, producto, onGuardar, onCancelar }) {
     if (!datos.nombre.trim()) nuevosErrores.nombre = "Nombre obligatorio";
     if (!datos.marca.trim()) nuevosErrores.marca = "Marca obligatoria";
     if (!datos.categoria.trim()) nuevosErrores.categoria = "Categoría obligatoria";
-    if (datos.precio === "" || Number(datos.precio) <= 0) {
+    if (Number(datos.precio) <= 0) {
       nuevosErrores.precio = "El precio debe ser mayor que 0";
     }
-    if (datos.stock === "" || Number(datos.stock) < 0) {
+    if (datos.stock === "") {
       nuevosErrores.stock = "El stock no puede ser negativo";
     }
-    if (datos.stockCritico === "" || Number(datos.stockCritico) < 0) {
+    if (Number(datos.stock) < 0) {
+      nuevosErrores.stock = "El stock no puede ser negativo";
+    }
+    if (datos.stockCritico === "") {
+      nuevosErrores.stockCritico = "El stock crítico no puede ser negativo";
+    }
+    if (Number(datos.stockCritico) < 0) {
       nuevosErrores.stockCritico = "El stock crítico no puede ser negativo";
     }
 
@@ -64,7 +80,7 @@ function FormularioProducto({ productos, producto, onGuardar, onCancelar }) {
       precio: Number(datos.precio),
       stock: Number(datos.stock),
       stockCritico: Number(datos.stockCritico),
-      descripcion: producto?.descripcion || "",
+      descripcion: producto ? producto.descripcion : "",
     });
     setDatos(inicial);
   }
