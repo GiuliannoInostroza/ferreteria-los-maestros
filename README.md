@@ -9,8 +9,8 @@ Proyecto del ramo Desarrollo FullStack II (DSY1104) de Duoc UC. En la Evaluació
 | Integrante | Se encargó de |
 |---|---|
 | Giulianno Inostroza | Carrito, checkout, login con roles y persistencia |
-| Agustín Pérez | Base del proyecto React, inicio, catálogo, detalle, nosotros, blogs y contacto |
-| Nicolás Pérez | Administración de productos y de usuarios |
+| Agustín Pérez | Base del proyecto React, inicio, catálogo, categorías, ofertas, detalle, nosotros, blogs y contacto |
+| Nicolás Pérez | Administración de productos y de usuarios, y registro de clientes |
 
 ## Tecnologías
 
@@ -42,6 +42,8 @@ npm run coverage
 
 El primero ejecuta todas las pruebas una vez. El segundo además genera el informe de cobertura en la carpeta `coverage`.
 
+Hay 30 pruebas, 10 por integrante, en 21 archivos `.spec`. Usan `vi.fn` para las funciones que llegan por props, `vi.spyOn` con `mockRestore` para `localStorage` y para funciones propias, y `mockResolvedValue` para el servicio de productos. Cobertura actual: 86,87 % de sentencias, 82,5 % de ramas, 90,4 % de funciones y 86,41 % de líneas.
+
 ## Usuarios de prueba
 
 El login es simulado y no guarda contraseñas. Sirve cualquier contraseña de 4 a 10 caracteres.
@@ -60,7 +62,8 @@ src/
 ├── pages/        vistas con ruta
 │   └── admin/    administración de productos y usuarios
 ├── data/         datos simulados
-├── utils/        funciones de precio, carrito y persistencia
+├── services/     servicio de productos y su prueba
+├── utils/        funciones de precio, carrito, validaciones, sesión y persistencia
 ├── test/         configuración de las pruebas
 ├── App.jsx       rutas y estado compartido
 └── main.jsx      punto de entrada
@@ -73,16 +76,19 @@ src/
 | `/` | Inicio |
 | `/productos` | Catálogo con filtro por categoría |
 | `/productos/:codigo` | Detalle de un producto |
+| `/categorias` | Productos separados por categoría |
+| `/ofertas` | Productos en oferta |
 | `/carrito` | Carrito de compras |
 | `/checkout` | Datos de entrega y resultado de la compra |
 | `/login` | Inicio de sesión |
+| `/registro` | Registro de clientes |
 | `/nosotros`, `/blogs`, `/contacto` | Contenido |
 | `/admin/productos` | Productos, para Vendedor y Administrador |
 | `/admin/usuarios` | Usuarios, solo para Administrador |
 
 ## Diseño responsivo
 
-Usamos la grilla de Bootstrap: las tarjetas se ven en una columna en celular, dos en tablet y tres en escritorio. El menú se convierte en hamburguesa en pantallas chicas.
+Usamos la grilla de Bootstrap: las tarjetas se ven en una columna en celular, dos en tablet y tres en escritorio. El menú se convierte en hamburguesa bajo 1400 px. Revisamos que no haya scroll horizontal entre 320 y 1920 px.
 
 ## Lo que falta
 
