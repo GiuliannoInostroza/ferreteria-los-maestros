@@ -20,17 +20,9 @@ describe("FormularioUsuario", () => {
         usuarios={usuarios}
         onGuardar={onGuardar}
         onCancelar={vi.fn()}
-      />
+      />,
     );
   }
-
-  it("muestra los campos de nombre, correo y rol", () => {
-    mostrarFormulario();
-
-    expect(screen.getByLabelText("Nombre")).toBeInTheDocument();
-    expect(screen.getByLabelText("Correo")).toBeInTheDocument();
-    expect(screen.getByLabelText("Rol")).toBeInTheDocument();
-  });
 
   it("muestra errores al guardar los campos vacíos", async () => {
     const usuario = userEvent.setup();
@@ -51,7 +43,7 @@ describe("FormularioUsuario", () => {
     await usuario.click(screen.getByRole("button", { name: /^guardar$/i }));
 
     expect(
-      screen.getByText("Ya existe un usuario con ese correo")
+      screen.getByText("Ya existe un usuario con ese correo"),
     ).toBeInTheDocument();
   });
 

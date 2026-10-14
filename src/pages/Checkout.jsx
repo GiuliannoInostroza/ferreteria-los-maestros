@@ -6,6 +6,7 @@ import CompraExitosa from "../components/CompraExitosa";
 import CompraFallida from "../components/CompraFallida";
 import { calcularTotal } from "../utils/carrito";
 import { formatearPrecio } from "../utils/precio";
+import { correoConDominioPermitido } from "../utils/correo";
 
 const inicial = {
   nombre: "",
@@ -18,7 +19,7 @@ function Checkout({ carrito, usuario, onVaciar }) {
   const [datos, setDatos] = useState(
     usuario
       ? { ...inicial, nombre: usuario.nombre, correo: usuario.correo }
-      : inicial
+      : inicial,
   );
   const [errores, setErrores] = useState({});
   const [resultado, setResultado] = useState("");
@@ -33,10 +34,29 @@ function Checkout({ carrito, usuario, onVaciar }) {
     evento.preventDefault();
     const nuevosErrores = {};
 
-    if (!datos.nombre.trim()) nuevosErrores.nombre = "Nombre obligatorio";
-    if (!datos.correo.trim()) nuevosErrores.correo = "Correo obligatorio";
-    if (datos.entrega === "Despacho a domicilio" && !datos.direccion.trim()) {
-      nuevosErrores.direccion = "Dirección obligatoria";
+    if (!datos.nombre.trim()) {
+      nuevosErrores.nombre = "Nombre obligatorio";
+    } else if (datos.nombre.trim().length > 100) {
+      nuevosErrores.nombre = "El nombre puede tener máximo 100 caracteres";
+    }
+    if (!datos.correo.trim()) {
+      nuevosErrores.correo = "Correo obligatorio";
+    } else if (!correoConDominioPermitido(datos.correo)) {
+      nuevosErrores.correo =
+        "Usa un correo @duocuc.cl, @duoc.cl, @profesor.duoc.cl o @gmail.com";
+    }
+
+    if (datos.entrega === "Despacho a domicilio") {
+      const direccion = datos.direccion.trim();
+
+      if (!direccion) {
+        nuevosErrores.direccion = "Dirección obligatoria";
+      } else if (direccion.length < 5) {
+        nuevosErrores.direccion = "Ingresa una dirección válida";
+      } else if (direccion.length > 150) {
+        nuevosErrores.direccion =
+          "La dirección puede tener máximo 150 caracteres";
+      }
     }
 
     setErrores(nuevosErrores);
@@ -89,6 +109,7 @@ function Checkout({ carrito, usuario, onVaciar }) {
                 name="nombre"
                 value={datos.nombre}
                 onChange={cambiar}
+                maxLength={100}
                 isInvalid={Boolean(errores.nombre)}
               />
               <Form.Control.Feedback type="invalid">
@@ -131,6 +152,7 @@ function Checkout({ carrito, usuario, onVaciar }) {
                   name="direccion"
                   value={datos.direccion}
                   onChange={cambiar}
+                  maxLength={150}
                   isInvalid={Boolean(errores.direccion)}
                 />
                 <Form.Control.Feedback type="invalid">

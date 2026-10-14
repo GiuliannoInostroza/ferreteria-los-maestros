@@ -6,7 +6,13 @@ import Checkout from "./Checkout";
 
 describe("Checkout", () => {
   const carrito = [
-    { codigo: "MC001", nombre: "Cemento", precio: 5990, stock: 80, cantidad: 2 },
+    {
+      codigo: "MC001",
+      nombre: "Cemento",
+      precio: 5990,
+      stock: 80,
+      cantidad: 2,
+    },
   ];
 
   it("vacía el carrito y muestra compra exitosa con datos válidos", async () => {
@@ -15,7 +21,7 @@ describe("Checkout", () => {
     render(
       <BrowserRouter>
         <Checkout carrito={carrito} onVaciar={onVaciar} />
-      </BrowserRouter>
+      </BrowserRouter>,
     );
 
     await usuario.type(screen.getByLabelText("Nombre"), "Giulianno");
@@ -24,7 +30,7 @@ describe("Checkout", () => {
 
     expect(onVaciar).toHaveBeenCalled();
     expect(
-      screen.getByRole("heading", { name: /compra exitosa/i })
+      screen.getByRole("heading", { name: /compra exitosa/i }),
     ).toBeInTheDocument();
   });
 });

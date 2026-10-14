@@ -6,9 +6,7 @@ import { blogs } from "../data/blogs";
 function BlogDetalle() {
   const { id } = useParams();
 
-  const blog = blogs.find(
-    (item) => item.id === Number(id)
-  );
+  const blog = blogs.find((item) => item.id === Number(id));
 
   if (!blog) {
     return (
@@ -25,6 +23,11 @@ function BlogDetalle() {
         <p className="text-secondary">{blog.categoria}</p>
         <h1>{blog.titulo}</h1>
         <p className="text-secondary">{blog.fecha}</p>
+        <img
+          src={blog.imagen}
+          alt={blog.titulo}
+          className="img-fluid rounded mb-4 blog-detalle-img"
+        />
 
         {blog.contenido.map((parrafo, indice) => (
           <p key={indice}>{parrafo}</p>

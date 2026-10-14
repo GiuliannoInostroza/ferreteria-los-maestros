@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { correoConDominioPermitido } from "../utils/correo";
 
 import { usuarios } from "../data/usuarios";
 
@@ -19,12 +20,7 @@ function Login({ usuario, onIngresar, onSalir }) {
     evento.preventDefault();
     const nuevosErrores = {};
 
-    const correo = datos.correo.trim();
-
-    const dominioValido =
-      correo.endsWith("@duoc.cl") ||
-      correo.endsWith("@profesor.duoc.cl") ||
-      correo.endsWith("@gmail.com");
+    const correo = datos.correo.trim().toLowerCase();
 
     const guardados = localStorage.getItem("usuariosAdmin");
     const registrados = guardados ? JSON.parse(guardados) : usuarios;
@@ -33,16 +29,17 @@ function Login({ usuario, onIngresar, onSalir }) {
 
     if (!correo) {
       nuevosErrores.correo = "Correo obligatorio";
-    } else if (!dominioValido) {
+    } else if (!correoConDominioPermitido(correo)) {
       nuevosErrores.correo =
-        "Solo se acepta @duoc.cl, @profesor.duoc.cl o @gmail.com";
+        "Solo se acepta @duocuc.cl, @duoc.cl, @profesor.duoc.cl o @gmail.com";
     } else if (!encontrado) {
       nuevosErrores.correo = "No existe una cuenta con ese correo";
     } else if (!encontrado.activo) {
       nuevosErrores.correo = "La cuenta está desactivada";
     }
     if (datos.contrasena.length < 4 || datos.contrasena.length > 10) {
-      nuevosErrores.contrasena = "La contraseña debe tener entre 4 y 10 caracteres";
+      nuevosErrores.contrasena =
+        "La contraseña debe tener entre 4 y 10 caracteres";
     }
 
     setErrores(nuevosErrores);
