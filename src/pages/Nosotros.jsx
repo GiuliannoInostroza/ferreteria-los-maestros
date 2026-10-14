@@ -24,7 +24,7 @@ function Nosotros() {
         </p>
       </section>
 
-      <section className="mb-4">
+      <section className="bg-body-tertiary rounded p-4 mb-4">
         <h2>Nuestra misión</h2>
         <p>
           Ofrecer materiales, herramientas y productos de ferretería confiables,
@@ -36,20 +36,20 @@ function Nosotros() {
         <h2>Nuestros valores</h2>
         <Row className="g-3">
           <Col xs={12} md={4}>
-            <div className="border rounded p-3 h-100">
-              <h3>Cercanía</h3>
+            <div className="bg-body-tertiary rounded p-4 h-100">
+              <h2 className="h5">Cercanía</h2>
               <p>Atención personalizada para nuestros vecinos.</p>
             </div>
           </Col>
           <Col xs={12} md={4}>
-            <div className="border rounded p-3 h-100">
-              <h3>Confianza</h3>
+            <div className="bg-body-tertiary rounded p-4 h-100">
+              <h2 className="h5">Confianza</h2>
               <p>Orientación según las necesidades de cada proyecto.</p>
             </div>
           </Col>
           <Col xs={12} md={4}>
-            <div className="border rounded p-3 h-100">
-              <h3>Experiencia</h3>
+            <div className="bg-body-tertiary rounded p-4 h-100">
+              <h2 className="h5">Experiencia</h2>
               <p>Más de dos décadas trabajando en el rubro.</p>
             </div>
           </Col>
