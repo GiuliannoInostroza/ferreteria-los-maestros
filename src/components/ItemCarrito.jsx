@@ -1,3 +1,4 @@
+import { rutaImagen } from "../utils/imagen";
 import { formatearPrecio } from "../utils/precio";
 
 function ItemCarrito({ item, onCambiarCantidad, onQuitar }) {
@@ -8,7 +9,7 @@ function ItemCarrito({ item, onCambiarCantidad, onQuitar }) {
       <div className="d-flex align-items-center gap-3">
         <img
           className="miniatura"
-          src={`/assets/img/productos/${item.codigo}.jpg`}
+          src={rutaImagen(item)}
           alt={item.nombre}
         />
 

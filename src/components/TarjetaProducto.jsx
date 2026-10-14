@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { rutaImagen } from "../utils/imagen";
 import { formatearPrecio } from "../utils/precio";
 import { claseStock, textoStock } from "../utils/stock";
 
@@ -6,7 +7,7 @@ function TarjetaProducto({ producto, onAgregar }) {
   return (
     <article className="card h-100">
       <img
-        src={`/assets/img/productos/${producto.codigo}.jpg`}
+        src={rutaImagen(producto)}
         alt={producto.nombre}
         className="card-img-top producto-img"
       />
