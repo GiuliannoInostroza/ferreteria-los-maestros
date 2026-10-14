@@ -47,4 +47,28 @@ describe("AdminUsuarios", () => {
 
     espia.mockRestore();
   });
+
+  it("elimina un usuario de la tabla", async () => {
+    const usuario = userEvent.setup();
+    render(<AdminUsuarios />);
+
+    const fila = screen.getByText("Luis Vega").closest("tr");
+    await usuario.click(within(fila).getByRole("button", { name: /eliminar/i }));
+
+    expect(screen.queryByText("Luis Vega")).not.toBeInTheDocument();
+  });
+
+  it("cambia el formulario al editar otro usuario sin cancelar", async () => {
+    const usuario = userEvent.setup();
+    render(<AdminUsuarios />);
+
+    const primera = screen.getByText("Marta Rojas").closest("tr");
+    await usuario.click(within(primera).getByRole("button", { name: /editar/i }));
+    expect(screen.getByLabelText("Nombre").value).toBe("Marta Rojas");
+
+    const segunda = screen.getByText("Pedro Soto").closest("tr");
+    await usuario.click(within(segunda).getByRole("button", { name: /editar/i }));
+
+    expect(screen.getByLabelText("Nombre").value).toBe("Pedro Soto");
+  });
 });

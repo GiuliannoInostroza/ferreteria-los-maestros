@@ -11,6 +11,7 @@ import DetalleProducto from "./pages/DetalleProducto";
 import Carrito from "./pages/Carrito";
 import Checkout from "./pages/Checkout";
 import Login from "./pages/Login";
+import Registro from "./pages/Registro";
 import Nosotros from "./pages/Nosotros";
 import Blogs from "./pages/Blogs";
 import BlogDetalle from "./pages/BlogDetalle";
@@ -122,6 +123,7 @@ function App() {
               />
             }
           />
+          <Route path="/registro" element={<Registro />} />
           <Route
             path="/admin/productos"
             element={puedeAdministrar ? <AdminProductos /> : <SinAcceso />}

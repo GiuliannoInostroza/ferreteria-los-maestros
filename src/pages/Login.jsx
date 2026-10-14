@@ -112,6 +112,10 @@ function Login({ usuario, onIngresar, onSalir }) {
 
           <Button type="submit">Ingresar</Button>
         </Form>
+
+        <p className="mt-3 mb-0">
+          ¿No tienes cuenta? <Link to="/registro">Crear cuenta</Link>
+        </p>
       </div>
     </Container>
   );
