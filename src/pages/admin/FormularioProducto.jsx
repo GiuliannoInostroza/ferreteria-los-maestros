@@ -44,6 +44,7 @@ function FormularioProducto({
     if (hayErrores(nuevosErrores)) return;
 
     onGuardar({
+      ...datos,
       codigo: datos.codigo.trim(),
       nombre: datos.nombre.trim(),
       marca: datos.marca.trim(),
