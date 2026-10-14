@@ -14,11 +14,11 @@ describe("FormularioUsuario", () => {
     },
   ];
 
-  function mostrarFormulario(onGuardar = vi.fn()) {
+  function mostrarFormulario(onGuardar) {
     render(
       <FormularioUsuario
         usuarios={usuarios}
-        onGuardar={onGuardar}
+        onGuardar={onGuardar ? onGuardar : vi.fn()}
         onCancelar={vi.fn()}
       />,
     );
@@ -28,11 +28,11 @@ describe("FormularioUsuario", () => {
     const usuario = userEvent.setup();
     mostrarFormulario();
 
-    await usuario.click(screen.getByRole("button", { name: /^guardar$/i }));
+    await usuario.click(screen.getByRole("button", { name: /guardar/i }));
 
     expect(screen.getByText("Nombre obligatorio")).toBeInTheDocument();
     expect(screen.getByText("Correo obligatorio")).toBeInTheDocument();
-    expect(screen.getAllByText("Selecciona un rol")).toHaveLength(2);
+    expect(screen.getByText("Rol obligatorio")).toBeInTheDocument();
   });
 
   it("no permite repetir el correo de otro usuario", async () => {
@@ -40,7 +40,7 @@ describe("FormularioUsuario", () => {
     mostrarFormulario();
 
     await usuario.type(screen.getByLabelText("Correo"), "admin@duoc.cl");
-    await usuario.click(screen.getByRole("button", { name: /^guardar$/i }));
+    await usuario.click(screen.getByRole("button", { name: /guardar/i }));
 
     expect(
       screen.getByText("Ya existe un usuario con ese correo"),
@@ -55,7 +55,7 @@ describe("FormularioUsuario", () => {
     await usuario.type(screen.getByLabelText("Nombre"), "Ana Silva");
     await usuario.type(screen.getByLabelText("Correo"), "ana@gmail.com");
     await usuario.selectOptions(screen.getByLabelText("Rol"), "Cliente");
-    await usuario.click(screen.getByRole("button", { name: /^guardar$/i }));
+    await usuario.click(screen.getByRole("button", { name: /guardar/i }));
 
     expect(onGuardar).toHaveBeenCalledWith({
       nombre: "Ana Silva",

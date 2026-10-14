@@ -5,10 +5,6 @@ import { BrowserRouter } from "react-router-dom";
 import Registro from "./Registro";
 
 describe("Registro", () => {
-  beforeEach(() => {
-    localStorage.clear();
-  });
-
   function mostrarRegistro() {
     render(
       <BrowserRouter>

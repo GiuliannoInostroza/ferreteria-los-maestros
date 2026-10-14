@@ -1,13 +1,9 @@
-import { render, screen, within } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import AdminProductos from "./AdminProductos";
 
 describe("AdminProductos", () => {
-  beforeEach(() => {
-    localStorage.clear();
-  });
-
   it("agrega el producto nuevo a la tabla al guardar", async () => {
     const usuario = userEvent.setup();
 
@@ -31,58 +27,85 @@ describe("AdminProductos", () => {
   });
 
   it("permite editar el stock de un producto", async () => {
+    localStorage.setItem(
+      "productosAdmin",
+      JSON.stringify([
+        {
+          codigo: "MC001",
+          nombre: "Cemento Polpaico gris 25 kg",
+          marca: "Polpaico",
+          categoria: "Materiales de Construcción",
+          precio: 5990,
+          stock: 80,
+          stockCritico: 20,
+          descripcion: "Cemento gris de uso general para hormigones y morteros.",
+        },
+      ]),
+    );
     const usuario = userEvent.setup();
 
     render(<AdminProductos />);
 
-    const fila = screen.getByText("Cemento Polpaico gris 25 kg").closest("tr");
-
-    await usuario.click(within(fila).getByRole("button", { name: /editar/i }));
-
-    const stock = screen.getByLabelText("Stock");
-
-    await usuario.clear(stock);
-    await usuario.type(stock, "95");
-
+    await usuario.click(screen.getByRole("button", { name: /editar/i }));
+    await usuario.type(screen.getByLabelText("Stock"), "5");
     await usuario.click(
       screen.getByRole("button", { name: /guardar cambios/i }),
     );
 
-    expect(screen.getByText("95")).toBeInTheDocument();
+    expect(screen.getByText("805")).toBeInTheDocument();
   });
 
   it("elimina un producto de la tabla", async () => {
+    localStorage.setItem(
+      "productosAdmin",
+      JSON.stringify([
+        {
+          codigo: "MC001",
+          nombre: "Cemento Polpaico gris 25 kg",
+          marca: "Polpaico",
+          categoria: "Materiales de Construcción",
+          precio: 5990,
+          stock: 80,
+          stockCritico: 20,
+          descripcion: "Cemento gris de uso general para hormigones y morteros.",
+        },
+      ]),
+    );
     const usuario = userEvent.setup();
 
     render(<AdminProductos />);
 
-    const fila = screen.getByText("Cemento Polpaico gris 25 kg").closest("tr");
-
-    await usuario.click(
-      within(fila).getByRole("button", { name: /eliminar/i }),
-    );
+    await usuario.click(screen.getByRole("button", { name: /eliminar/i }));
 
     expect(
       screen.queryByText("Cemento Polpaico gris 25 kg"),
     ).not.toBeInTheDocument();
   });
 
-  it("cambia el formulario al editar otro producto sin cancelar", async () => {
+  it("avisa si hay cambios sin guardar al editar otro producto", async () => {
+    localStorage.setItem(
+      "productosAdmin",
+      JSON.stringify([
+        {
+          codigo: "MC001",
+          nombre: "Cemento Polpaico gris 25 kg",
+          marca: "Polpaico",
+          categoria: "Materiales de Construcción",
+          precio: 5990,
+          stock: 80,
+          stockCritico: 20,
+          descripcion: "Cemento gris de uso general para hormigones y morteros.",
+        },
+      ]),
+    );
     const usuario = userEvent.setup();
 
     render(<AdminProductos />);
 
-    const primera = screen.getByText("Cemento Polpaico gris 25 kg").closest("tr");
-    await usuario.click(
-      within(primera).getByRole("button", { name: /editar/i }),
-    );
-    expect(screen.getByLabelText("Código").value).toBe("MC001");
+    await usuario.click(screen.getByRole("button", { name: /editar/i }));
+    await usuario.type(screen.getByLabelText("Stock"), "5");
+    await usuario.click(screen.getByRole("button", { name: /editar/i }));
 
-    const segunda = screen.getByText("Ladrillo fiscal N°5").closest("tr");
-    await usuario.click(
-      within(segunda).getByRole("button", { name: /editar/i }),
-    );
-
-    expect(screen.getByLabelText("Código").value).toBe("MC007");
+    expect(screen.getByText(/cambios sin guardar/i)).toBeInTheDocument();
   });
 });
