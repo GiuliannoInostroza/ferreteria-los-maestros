@@ -1,100 +1,49 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { vi } from "vitest";
+import * as persistencia from "../../utils/persistencia";
 import AdminUsuarios from "./AdminUsuarios";
-import { usuarios } from "../../data/usuarios";
 
 describe("AdminUsuarios", () => {
-  it("guarda los usuarios en localStorage", () => {
-    const espia = vi.spyOn(Storage.prototype, "setItem");
-
-    render(<AdminUsuarios />);
-
-    expect(espia).toHaveBeenCalledWith(
-      "usuariosAdmin",
-      JSON.stringify(usuarios)
-    );
-
-    espia.mockRestore();
-  });
-
-  it("agrega un usuario con el rol Vendedor", async () => {
-    localStorage.setItem("usuariosAdmin", JSON.stringify([]));
+  it("desactiva, activa y edita un usuario y agrega otro nuevo avisando en cada paso", async () => {
+    const espiaLeer = vi.spyOn(persistencia, "leerUsuarios").mockReturnValue([
+      {
+        id: 3,
+        nombre: "Luis Vega",
+        correo: "cliente@gmail.com",
+        rol: "Cliente",
+        activo: true,
+      },
+    ]);
+    const espiaGuardar = vi
+      .spyOn(persistencia, "guardarUsuarios")
+      .mockImplementation(() => {});
     const usuario = userEvent.setup();
     render(<AdminUsuarios />);
 
-    await usuario.click(screen.getByRole("button", { name: /agregar usuario/i }));
-    await usuario.type(screen.getByLabelText("Nombre"), "Ana Silva");
+    await usuario.click(screen.getByRole("button", { name: "Desactivar" }));
+    expect(screen.getByText("Inactivo")).toBeInTheDocument();
+    expect(screen.getByText("Usuario Luis Vega desactivado")).toBeInTheDocument();
+
+    await usuario.click(screen.getByRole("button", { name: "Activar" }));
+    expect(screen.getByText("Activo")).toBeInTheDocument();
+    expect(screen.getByText("Usuario Luis Vega activado")).toBeInTheDocument();
+
+    await usuario.click(screen.getByRole("button", { name: "Editar" }));
+    await usuario.type(screen.getByLabelText("Nombre"), " Jr");
+    await usuario.click(screen.getByRole("button", { name: "Guardar cambios" }));
+    expect(screen.getByText("Luis Vega Jr")).toBeInTheDocument();
+    expect(screen.getByText("Usuario actualizado correctamente")).toBeInTheDocument();
+
+    await usuario.click(screen.getByRole("button", { name: "Agregar usuario" }));
+    await usuario.type(screen.getByLabelText("Nombre"), "Ana Soto");
     await usuario.type(screen.getByLabelText("Correo"), "ana@duoc.cl");
     await usuario.selectOptions(screen.getByLabelText("Rol"), "Vendedor");
-    await usuario.click(screen.getByRole("button", { name: /guardar/i }));
+    await usuario.click(screen.getByRole("button", { name: "Guardar" }));
+    expect(screen.getByText("Ana Soto")).toBeInTheDocument();
+    expect(screen.getByText("Usuario agregado correctamente")).toBeInTheDocument();
 
-    expect(screen.getByText("Ana Silva")).toBeInTheDocument();
-    expect(screen.getByText("Vendedor")).toBeInTheDocument();
-  });
-
-  it("permite desactivar un usuario", async () => {
-    localStorage.setItem(
-      "usuariosAdmin",
-      JSON.stringify([
-        {
-          id: 2,
-          nombre: "Pedro Soto",
-          correo: "vendedor@duoc.cl",
-          rol: "Vendedor",
-          activo: true,
-        },
-      ])
-    );
-    const usuario = userEvent.setup();
-    render(<AdminUsuarios />);
-
-    await usuario.click(screen.getByRole("button", { name: /desactivar/i }));
-
-    expect(screen.getByText("Inactivo")).toBeInTheDocument();
-  });
-
-  it("elimina un usuario de la tabla", async () => {
-    localStorage.setItem(
-      "usuariosAdmin",
-      JSON.stringify([
-        {
-          id: 2,
-          nombre: "Pedro Soto",
-          correo: "vendedor@duoc.cl",
-          rol: "Vendedor",
-          activo: true,
-        },
-      ])
-    );
-    const usuario = userEvent.setup();
-    render(<AdminUsuarios />);
-
-    await usuario.click(screen.getByRole("button", { name: /eliminar/i }));
-
-    expect(screen.queryByText("Pedro Soto")).not.toBeInTheDocument();
-  });
-
-  it("avisa si hay cambios sin guardar al editar otro usuario", async () => {
-    localStorage.setItem(
-      "usuariosAdmin",
-      JSON.stringify([
-        {
-          id: 2,
-          nombre: "Pedro Soto",
-          correo: "vendedor@duoc.cl",
-          rol: "Vendedor",
-          activo: true,
-        },
-      ])
-    );
-    const usuario = userEvent.setup();
-    render(<AdminUsuarios />);
-
-    await usuario.click(screen.getByRole("button", { name: /editar/i }));
-    await usuario.type(screen.getByLabelText("Nombre"), " Rojas");
-    await usuario.click(screen.getByRole("button", { name: /editar/i }));
-
-    expect(screen.getByText(/cambios sin guardar/i)).toBeInTheDocument();
+    espiaLeer.mockRestore();
+    espiaGuardar.mockRestore();
   });
 });

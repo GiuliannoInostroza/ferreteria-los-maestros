@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 
+import { categorias } from "../../data/productos";
+import { hayErrores, validarProducto } from "../../utils/validaciones";
+
 const inicial = {
   codigo: "",
   nombre: "",
@@ -34,43 +37,11 @@ function FormularioProducto({
 
   function enviar(evento) {
     evento.preventDefault();
-    const nuevosErrores = {};
     const codigoActual = producto ? producto.codigo : "";
-
-    if (!datos.codigo.trim()) {
-      nuevosErrores.codigo = "Código obligatorio";
-    }
-    if (
-      datos.codigo.trim() &&
-      productos.some(
-        (item) =>
-          item.codigo === datos.codigo.trim() &&
-          item.codigo !== codigoActual
-      )
-    ) {
-      nuevosErrores.codigo = "Ya existe un producto con ese código";
-    }
-    if (!datos.nombre.trim()) nuevosErrores.nombre = "Nombre obligatorio";
-    if (!datos.marca.trim()) nuevosErrores.marca = "Marca obligatoria";
-    if (!datos.categoria.trim()) nuevosErrores.categoria = "Categoría obligatoria";
-    if (Number(datos.precio) <= 0) {
-      nuevosErrores.precio = "El precio debe ser mayor que 0";
-    }
-    if (datos.stock === "") {
-      nuevosErrores.stock = "El stock no puede ser negativo";
-    }
-    if (Number(datos.stock) < 0) {
-      nuevosErrores.stock = "El stock no puede ser negativo";
-    }
-    if (datos.stockCritico === "") {
-      nuevosErrores.stockCritico = "El stock crítico no puede ser negativo";
-    }
-    if (Number(datos.stockCritico) < 0) {
-      nuevosErrores.stockCritico = "El stock crítico no puede ser negativo";
-    }
+    const nuevosErrores = validarProducto(datos, productos, codigoActual);
 
     setErrores(nuevosErrores);
-    if (Object.keys(nuevosErrores).length > 0) return;
+    if (hayErrores(nuevosErrores)) return;
 
     onGuardar({
       codigo: datos.codigo.trim(),
@@ -137,12 +108,20 @@ function FormularioProducto({
         <Col xs={12} md={6}>
           <Form.Group className="mb-3" controlId="categoria">
             <Form.Label>Categoría</Form.Label>
-            <Form.Control
+            <select
+              id="categoria"
+              className={
+                errores.categoria ? "form-select is-invalid" : "form-select"
+              }
               name="categoria"
               value={datos.categoria}
               onChange={cambiar}
-              isInvalid={Boolean(errores.categoria)}
-            />
+            >
+              <option value="">Selecciona una categoría</option>
+              {categorias.map((item) => (
+                <option key={item}>{item}</option>
+              ))}
+            </select>
             <Form.Control.Feedback type="invalid">
               {errores.categoria}
             </Form.Control.Feedback>

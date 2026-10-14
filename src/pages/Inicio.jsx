@@ -2,10 +2,10 @@ import { Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 import TarjetaProducto from "../components/TarjetaProducto";
-import { productos } from "../data/productos";
+import { leerProductos } from "../utils/persistencia";
 
 function Inicio() {
-  const destacados = productos.filter((producto) => producto.destacado);
+  const destacados = leerProductos().filter((producto) => producto.destacado);
 
   return (
     <Container className="py-5">

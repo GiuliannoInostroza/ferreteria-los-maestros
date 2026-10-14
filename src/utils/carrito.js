@@ -17,3 +17,35 @@ export function contarUnidades(carrito) {
 
   return unidades;
 }
+
+export function agregarProducto(carrito, producto) {
+  const yaExiste = carrito.some((item) => item.codigo === producto.codigo);
+
+  if (yaExiste) {
+    return carrito.map((item) =>
+      item.codigo === producto.codigo
+        ? { ...item, cantidad: item.cantidad + 1 }
+        : item
+    );
+  }
+
+  return [...carrito, { ...producto, cantidad: 1 }];
+}
+
+export function modificarCantidad(carrito, codigo, cambio) {
+  const actualizado = carrito.map((item) =>
+    item.codigo === codigo
+      ? { ...item, cantidad: item.cantidad + cambio }
+      : item
+  );
+
+  return actualizado.filter((item) => item.cantidad > 0);
+}
+
+export function quitarProducto(carrito, codigo) {
+  return carrito.filter((item) => item.codigo !== codigo);
+}
+
+export function hayProductoSinStock(carrito) {
+  return carrito.some((item) => item.cantidad > item.stock);
+}

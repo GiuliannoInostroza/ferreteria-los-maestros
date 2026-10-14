@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom";
 import { formatearPrecio } from "../utils/precio";
+import { claseStock, textoStock } from "../utils/stock";
 
 function TarjetaProducto({ producto, onAgregar }) {
-  const stockBajo = producto.stock <= producto.stockCritico;
-
   return (
     <article className="card h-100">
       <img
@@ -18,11 +17,7 @@ function TarjetaProducto({ producto, onAgregar }) {
 
         <p>{producto.marca}</p>
 
-        <p className={stockBajo ? "text-warning" : "text-success"}>
-          {stockBajo
-            ? `Solo quedan ${producto.stock}`
-            : `${producto.stock} disponibles`}
-        </p>
+        <p className={claseStock(producto)}>{textoStock(producto)}</p>
 
         <strong className="mb-3">{formatearPrecio(producto.precio)}</strong>
 
@@ -38,6 +33,7 @@ function TarjetaProducto({ producto, onAgregar }) {
             <button
               className="btn btn-warning flex-fill"
               onClick={() => onAgregar(producto)}
+              disabled={producto.stock === 0}
             >
               Añadir
             </button>

@@ -1,25 +1,25 @@
 import { useEffect, useState } from "react";
 import { Button, Container } from "react-bootstrap";
 
-import { productos } from "../../data/productos";
+import { mensajeEliminado, mensajeGuardado } from "../../utils/mensajes";
+import { guardarProductos, leerProductos } from "../../utils/persistencia";
 import { formatearPrecio } from "../../utils/precio";
 import FormularioProducto from "./FormularioProducto";
 
 function AdminProductos() {
-  const [listaProductos, setListaProductos] = useState(() => {
-    const guardados = localStorage.getItem("productosAdmin");
-    return guardados ? JSON.parse(guardados) : productos;
-  });
+  const [listaProductos, setListaProductos] = useState(() => leerProductos());
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
   const [productoEditando, setProductoEditando] = useState(null);
   const [hayCambios, setHayCambios] = useState(false);
   const [pendiente, setPendiente] = useState(null);
+  const [mensaje, setMensaje] = useState("");
 
   useEffect(() => {
-    localStorage.setItem("productosAdmin", JSON.stringify(listaProductos));
+    guardarProductos(listaProductos);
   }, [listaProductos]);
 
   function guardar(producto) {
+    setMensaje(mensajeGuardado("Producto", Boolean(productoEditando)));
     setListaProductos(
       productoEditando
         ? listaProductos.map((item) =>
@@ -74,6 +74,7 @@ function AdminProductos() {
 
   function eliminar(codigo) {
     setListaProductos(listaProductos.filter((item) => item.codigo !== codigo));
+    setMensaje(mensajeEliminado("Producto"));
 
     if (productoEditando && productoEditando.codigo === codigo) {
       cancelar();
@@ -83,6 +84,8 @@ function AdminProductos() {
   return (
     <Container className="py-4">
       <h1>Administración de productos</h1>
+
+      {mensaje && <p className="text-success fw-bold">{mensaje}</p>}
 
       {!mostrarFormulario && (
         <Button className="mb-4" onClick={agregar}>

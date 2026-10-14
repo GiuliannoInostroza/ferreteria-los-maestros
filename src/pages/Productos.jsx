@@ -2,10 +2,19 @@ import { useState } from "react";
 import { Col, Container, Form, Row } from "react-bootstrap";
 
 import TarjetaProducto from "../components/TarjetaProducto";
-import { categorias, productos } from "../data/productos";
+import { categorias } from "../data/productos";
+import { mensajeAgregado } from "../utils/mensajes";
+import { leerProductos } from "../utils/persistencia";
 
 function Productos({ onAgregar }) {
   const [categoria, setCategoria] = useState("Todas");
+  const [mensaje, setMensaje] = useState("");
+  const productos = leerProductos();
+
+  function agregar(producto) {
+    onAgregar(producto);
+    setMensaje(mensajeAgregado(producto));
+  }
 
   const visibles =
     categoria === "Todas"
@@ -31,10 +40,12 @@ function Productos({ onAgregar }) {
         </select>
       </Form.Group>
 
+      {mensaje && <p className="text-success fw-bold">{mensaje}</p>}
+
       <Row className="g-4">
         {visibles.map((producto) => (
           <Col xs={12} md={6} lg={4} key={producto.codigo}>
-            <TarjetaProducto producto={producto} onAgregar={onAgregar} />
+            <TarjetaProducto producto={producto} onAgregar={agregar} />
           </Col>
         ))}
       </Row>

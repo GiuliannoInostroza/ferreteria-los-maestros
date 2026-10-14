@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { correoConDominioPermitido } from "../../utils/correo";
+import { hayErrores, validarUsuario } from "../../utils/validaciones";
 
 const inicial = {
   nombre: "",
@@ -31,28 +31,12 @@ function FormularioUsuario({
 
   function enviar(evento) {
     evento.preventDefault();
-    const nuevosErrores = {};
     const correo = datos.correo.trim().toLowerCase();
     const idActual = usuario ? usuario.id : 0;
-
-    if (!datos.nombre.trim()) nuevosErrores.nombre = "Nombre obligatorio";
-    if (!correo) {
-      nuevosErrores.correo = "Correo obligatorio";
-    }
-    if (correo && !correoConDominioPermitido(correo)) {
-      nuevosErrores.correo =
-        "Usa un correo @duocuc.cl, @duoc.cl, @profesor.duoc.cl o @gmail.com";
-    }
-    if (
-      correoConDominioPermitido(correo) &&
-      usuarios.some((item) => item.correo === correo && item.id !== idActual)
-    ) {
-      nuevosErrores.correo = "Ya existe un usuario con ese correo";
-    }
-    if (!datos.rol) nuevosErrores.rol = "Rol obligatorio";
+    const nuevosErrores = validarUsuario(datos, usuarios, idActual);
 
     setErrores(nuevosErrores);
-    if (Object.keys(nuevosErrores).length > 0) return;
+    if (hayErrores(nuevosErrores)) return;
 
     onGuardar({
       ...usuario,

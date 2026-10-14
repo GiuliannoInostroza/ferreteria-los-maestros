@@ -1,28 +1,34 @@
 import { useEffect, useState } from "react";
 import { Button, Container } from "react-bootstrap";
 
-import { usuarios } from "../../data/usuarios";
+import {
+  mensajeEliminado,
+  mensajeEstado,
+  mensajeGuardado,
+} from "../../utils/mensajes";
+import { guardarUsuarios, leerUsuarios } from "../../utils/persistencia";
+import { siguienteId } from "../../utils/usuarios";
 import FormularioUsuario from "./FormularioUsuario";
 
 function AdminUsuarios() {
-  const [listaUsuarios, setListaUsuarios] = useState(() => {
-    const guardados = localStorage.getItem("usuariosAdmin");
-    return guardados ? JSON.parse(guardados) : usuarios;
-  });
+  const [listaUsuarios, setListaUsuarios] = useState(() => leerUsuarios());
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
   const [usuarioEditando, setUsuarioEditando] = useState(null);
   const [hayCambios, setHayCambios] = useState(false);
   const [pendiente, setPendiente] = useState(null);
+  const [mensaje, setMensaje] = useState("");
 
   useEffect(() => {
-    localStorage.setItem("usuariosAdmin", JSON.stringify(listaUsuarios));
+    guardarUsuarios(listaUsuarios);
   }, [listaUsuarios]);
 
   function guardar(usuario) {
+    setMensaje(mensajeGuardado("Usuario", Boolean(usuarioEditando)));
+
     setListaUsuarios(
       usuarioEditando
         ? listaUsuarios.map((item) => (item.id === usuario.id ? usuario : item))
-        : [...listaUsuarios, { ...usuario, id: siguienteId() }]
+        : [...listaUsuarios, { ...usuario, id: siguienteId(listaUsuarios) }]
     );
 
     setHayCambios(false);
@@ -35,11 +41,6 @@ function AdminUsuarios() {
 
     setUsuarioEditando(null);
     setMostrarFormulario(false);
-  }
-
-  function siguienteId() {
-    const ultimo = listaUsuarios[listaUsuarios.length - 1];
-    return ultimo ? ultimo.id + 1 : 1;
   }
 
   function agregar() {
@@ -76,16 +77,19 @@ function AdminUsuarios() {
 
   function eliminar(id) {
     setListaUsuarios(listaUsuarios.filter((item) => item.id !== id));
+    setMensaje(mensajeEliminado("Usuario"));
 
     if (usuarioEditando && usuarioEditando.id === id) {
       cancelar();
     }
   }
 
-  function cambiarEstado(id) {
+  function cambiarEstado(usuarioElegido) {
+    setMensaje(mensajeEstado(usuarioElegido));
+
     setListaUsuarios(
       listaUsuarios.map((usuario) =>
-        usuario.id === id
+        usuario.id === usuarioElegido.id
           ? { ...usuario, activo: !usuario.activo }
           : usuario
       )
@@ -95,6 +99,8 @@ function AdminUsuarios() {
   return (
     <Container className="py-4">
       <h1>Administración de usuarios</h1>
+
+      {mensaje && <p className="text-success fw-bold">{mensaje}</p>}
 
       {!mostrarFormulario && (
         <Button className="mb-4" onClick={agregar}>
@@ -157,7 +163,7 @@ function AdminUsuarios() {
                     <Button className="btn-sm" onClick={() => editar(usuario)}>
                       Editar
                     </Button>
-                    <Button className="btn-sm" onClick={() => cambiarEstado(usuario.id)}>
+                    <Button className="btn-sm" onClick={() => cambiarEstado(usuario)}>
                       {usuario.activo ? "Desactivar" : "Activar"}
                     </Button>
                     <Button className="btn-sm" onClick={() => eliminar(usuario.id)}>

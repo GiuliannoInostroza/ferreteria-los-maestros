@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 
 import CompraExitosa from "../components/CompraExitosa";
 import CompraFallida from "../components/CompraFallida";
-import { calcularTotal } from "../utils/carrito";
+import { calcularTotal, hayProductoSinStock } from "../utils/carrito";
 import { formatearPrecio } from "../utils/precio";
-import { correoConDominioPermitido } from "../utils/correo";
+import { hayErrores, validarCheckout } from "../utils/validaciones";
 
 const inicial = {
   nombre: "",
@@ -32,43 +32,12 @@ function Checkout({ carrito, usuario, onVaciar }) {
 
   function enviar(evento) {
     evento.preventDefault();
-    const nuevosErrores = {};
-
-    if (!datos.nombre.trim()) {
-      nuevosErrores.nombre = "Nombre obligatorio";
-    }
-    if (datos.nombre.trim().length > 100) {
-      nuevosErrores.nombre = "El nombre puede tener máximo 100 caracteres";
-    }
-    if (!datos.correo.trim()) {
-      nuevosErrores.correo = "Correo obligatorio";
-    }
-    if (datos.correo.trim() && !correoConDominioPermitido(datos.correo)) {
-      nuevosErrores.correo =
-        "Usa un correo @duocuc.cl, @duoc.cl, @profesor.duoc.cl o @gmail.com";
-    }
-
-    if (datos.entrega === "Despacho a domicilio") {
-      const direccion = datos.direccion.trim();
-
-      if (!direccion) {
-        nuevosErrores.direccion = "Dirección obligatoria";
-      }
-      if (direccion && direccion.length < 5) {
-        nuevosErrores.direccion = "Ingresa una dirección válida";
-      }
-      if (direccion.length > 150) {
-        nuevosErrores.direccion =
-          "La dirección puede tener máximo 150 caracteres";
-      }
-    }
+    const nuevosErrores = validarCheckout(datos);
 
     setErrores(nuevosErrores);
-    if (Object.keys(nuevosErrores).length > 0) return;
+    if (hayErrores(nuevosErrores)) return;
 
-    const sinStock = carrito.some((item) => item.cantidad > item.stock);
-
-    if (sinStock) {
+    if (hayProductoSinStock(carrito)) {
       setResultado("fallida");
       return;
     }
@@ -178,7 +147,7 @@ function Checkout({ carrito, usuario, onVaciar }) {
                 className="d-flex justify-content-between text-secondary"
                 key={item.codigo}
               >
-                <span>
+                <span className="text-break">
                   {item.cantidad} x {item.nombre}
                 </span>
                 <span>{formatearPrecio(item.precio * item.cantidad)}</span>

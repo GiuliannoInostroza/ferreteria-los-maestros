@@ -1,6 +1,8 @@
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 
+import { esAdministrador, puedeAdministrar } from "../utils/sesion";
+
 function Navegacion({ unidades, usuario }) {
   return (
     <Navbar
@@ -36,12 +38,12 @@ function Navegacion({ unidades, usuario }) {
             <NavLink className="nav-link" to="/carrito">
               Carrito ({unidades})
             </NavLink>
-            {usuario && usuario.rol !== "Cliente" && (
+            {puedeAdministrar(usuario) && (
               <NavLink className="nav-link" to="/admin/productos">
                 Productos admin
               </NavLink>
             )}
-            {usuario && usuario.rol === "Administrador" && (
+            {esAdministrador(usuario) && (
               <NavLink className="nav-link" to="/admin/usuarios">
                 Usuarios admin
               </NavLink>

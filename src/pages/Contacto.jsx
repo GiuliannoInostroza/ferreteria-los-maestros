@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Col, Container, Form, Row } from "react-bootstrap";
-import { correoConDominioPermitido } from "../utils/correo";
+
+import { hayErrores, validarContacto } from "../utils/validaciones";
 
 const inicial = {
   nombre: "",
@@ -26,39 +27,11 @@ function Contacto() {
   function enviar(evento) {
     evento.preventDefault();
 
-    const nuevosErrores = {};
-
-    if (!datos.nombre.trim()) {
-      nuevosErrores.nombre = "Nombre obligatorio";
-    }
-    if (datos.nombre.trim().length > 100) {
-      nuevosErrores.nombre = "El nombre puede tener máximo 100 caracteres";
-    }
-
-    if (!datos.email.trim()) {
-      nuevosErrores.email = "Correo obligatorio";
-    }
-    if (datos.email.trim() && !correoConDominioPermitido(datos.email)) {
-      nuevosErrores.email =
-        "Usa un correo @duocuc.cl, @duoc.cl, @profesor.duoc.cl o @gmail.com";
-    }
-
-    if (!datos.asunto) {
-      nuevosErrores.asunto = "Selecciona un motivo";
-    }
-
-    const largoMensaje = datos.mensaje.trim().length;
-
-    if (largoMensaje < 20) {
-      nuevosErrores.mensaje = "El mensaje debe tener al menos 20 caracteres";
-    }
-    if (largoMensaje > 500) {
-      nuevosErrores.mensaje = "El mensaje puede tener máximo 500 caracteres";
-    }
+    const nuevosErrores = validarContacto(datos);
 
     setErrores(nuevosErrores);
 
-    if (Object.keys(nuevosErrores).length > 0) {
+    if (hayErrores(nuevosErrores)) {
       setMensajeExito("");
       return;
     }
@@ -89,7 +62,7 @@ function Contacto() {
               <strong>Correo:</strong> contacto@losmaestros.cl
             </p>
             <p>
-              <strong>Horario:</strong> Lunes a sábado · 8:30 a 19:00
+              <strong>Horario:</strong> Lunes a sábado - 8:30 a 19:00
             </p>
           </section>
         </Col>

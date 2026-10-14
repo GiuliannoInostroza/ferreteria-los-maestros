@@ -2,8 +2,9 @@ import { useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-import { usuarios as usuariosIniciales } from "../data/usuarios";
-import { correoConDominioPermitido } from "../utils/correo";
+import { guardarUsuarios, leerUsuarios } from "../utils/persistencia";
+import { siguienteId } from "../utils/usuarios";
+import { hayErrores, validarRegistro } from "../utils/validaciones";
 
 const inicial = { nombre: "", correo: "", contrasena: "" };
 
@@ -19,49 +20,22 @@ function Registro() {
 
   function enviar(evento) {
     evento.preventDefault();
-    const nuevosErrores = {};
-
     const correo = datos.correo.trim().toLowerCase();
-
-    const guardados = localStorage.getItem("usuariosAdmin");
-    const registrados = guardados ? JSON.parse(guardados) : usuariosIniciales;
-
-    if (!datos.nombre.trim()) nuevosErrores.nombre = "Nombre obligatorio";
-    const existe = registrados.some((item) => item.correo === correo);
-
-    if (!correo) nuevosErrores.correo = "Correo obligatorio";
-    if (correo && !correoConDominioPermitido(correo)) {
-      nuevosErrores.correo =
-        "Solo se acepta @duocuc.cl, @duoc.cl, @profesor.duoc.cl o @gmail.com";
-    }
-    if (correo && correoConDominioPermitido(correo) && existe) {
-      nuevosErrores.correo = "Ya existe una cuenta con ese correo";
-    }
-    if (datos.contrasena.length < 4) {
-      nuevosErrores.contrasena =
-        "La contraseña debe tener entre 4 y 10 caracteres";
-    }
-    if (datos.contrasena.length > 10) {
-      nuevosErrores.contrasena =
-        "La contraseña debe tener entre 4 y 10 caracteres";
-    }
+    const registrados = leerUsuarios();
+    const nuevosErrores = validarRegistro(datos, registrados);
 
     setErrores(nuevosErrores);
-    if (Object.keys(nuevosErrores).length > 0) return;
+    if (hayErrores(nuevosErrores)) return;
 
-    const ultimo = registrados[registrados.length - 1];
     const nuevoUsuario = {
-      id: ultimo ? ultimo.id + 1 : 1,
+      id: siguienteId(registrados),
       nombre: datos.nombre.trim(),
       correo,
       rol: "Cliente",
       activo: true,
     };
 
-    localStorage.setItem(
-      "usuariosAdmin",
-      JSON.stringify([...registrados, nuevoUsuario])
-    );
+    guardarUsuarios([...registrados, nuevoUsuario]);
     setDatos(inicial);
     setCreada(true);
   }

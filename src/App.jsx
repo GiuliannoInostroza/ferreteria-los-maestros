@@ -20,22 +20,23 @@ import AdminProductos from "./pages/admin/AdminProductos";
 import AdminUsuarios from "./pages/admin/AdminUsuarios";
 import NoEncontrada from "./pages/NoEncontrada";
 
-import { contarUnidades } from "./utils/carrito";
-import { guardarCarrito, guardarSesion } from "./utils/persistencia";
+import {
+  agregarProducto,
+  contarUnidades,
+  modificarCantidad,
+  quitarProducto,
+} from "./utils/carrito";
+import {
+  guardarCarrito,
+  guardarSesion,
+  leerCarrito,
+  leerSesion,
+} from "./utils/persistencia";
+import { esAdministrador, puedeAdministrar } from "./utils/sesion";
 
 function App() {
-  const [carrito, setCarrito] = useState(() => {
-    const guardado = localStorage.getItem("carrito");
-    return guardado ? JSON.parse(guardado) : [];
-  });
-
-  const [usuario, setUsuario] = useState(() => {
-    const guardada = localStorage.getItem("sesion");
-    return guardada ? JSON.parse(guardada) : null;
-  });
-
-  const puedeAdministrar = usuario && usuario.rol !== "Cliente";
-  const esAdministrador = usuario && usuario.rol === "Administrador";
+  const [carrito, setCarrito] = useState(() => leerCarrito());
+  const [usuario, setUsuario] = useState(() => leerSesion());
 
   useEffect(() => {
     guardarCarrito(carrito);
@@ -46,28 +47,15 @@ function App() {
   }, [usuario]);
 
   function agregarAlCarrito(producto) {
-    const yaExiste = carrito.some((item) => item.codigo === producto.codigo);
-
-    if (yaExiste) {
-      cambiarCantidad(producto.codigo, 1);
-      return;
-    }
-
-    setCarrito([...carrito, { ...producto, cantidad: 1 }]);
+    setCarrito(agregarProducto(carrito, producto));
   }
 
   function cambiarCantidad(codigo, cambio) {
-    const actualizado = carrito.map((item) =>
-      item.codigo === codigo
-        ? { ...item, cantidad: item.cantidad + cambio }
-        : item
-    );
-
-    setCarrito(actualizado.filter((item) => item.cantidad > 0));
+    setCarrito(modificarCantidad(carrito, codigo, cambio));
   }
 
   function quitarDelCarrito(codigo) {
-    setCarrito(carrito.filter((item) => item.codigo !== codigo));
+    setCarrito(quitarProducto(carrito, codigo));
   }
 
   function vaciarCarrito() {
@@ -126,11 +114,15 @@ function App() {
           <Route path="/registro" element={<Registro />} />
           <Route
             path="/admin/productos"
-            element={puedeAdministrar ? <AdminProductos /> : <SinAcceso />}
+            element={
+              puedeAdministrar(usuario) ? <AdminProductos /> : <SinAcceso />
+            }
           />
           <Route
             path="/admin/usuarios"
-            element={esAdministrador ? <AdminUsuarios /> : <SinAcceso />}
+            element={
+              esAdministrador(usuario) ? <AdminUsuarios /> : <SinAcceso />
+            }
           />
           <Route path="*" element={<NoEncontrada />} />
         </Routes>

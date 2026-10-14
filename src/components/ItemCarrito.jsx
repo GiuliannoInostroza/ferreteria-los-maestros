@@ -12,7 +12,7 @@ function ItemCarrito({ item, onCambiarCantidad, onQuitar }) {
           alt={item.nombre}
         />
 
-        <div>
+        <div className="text-break">
           <h2 className="h6 mb-1">{item.nombre}</h2>
           <p className="text-secondary small mb-0">
             {formatearPrecio(item.precio)} cada uno

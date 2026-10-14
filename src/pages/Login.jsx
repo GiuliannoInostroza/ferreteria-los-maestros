@@ -1,15 +1,22 @@
 import { useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { correoConDominioPermitido } from "../utils/correo";
 
-import { usuarios } from "../data/usuarios";
+import { leerUsuarios } from "../utils/persistencia";
+import { buscarUsuario } from "../utils/usuarios";
+import { hayErrores, validarLogin } from "../utils/validaciones";
 
 const inicial = { correo: "", contrasena: "" };
 
 function Login({ usuario, onIngresar, onSalir }) {
   const [datos, setDatos] = useState(inicial);
   const [errores, setErrores] = useState({});
+  const [mensaje, setMensaje] = useState("");
+
+  function salir() {
+    onSalir();
+    setMensaje("Cerraste sesión correctamente");
+  }
 
   function cambiar(evento) {
     const { name, value } = evento.target;
@@ -18,41 +25,15 @@ function Login({ usuario, onIngresar, onSalir }) {
 
   function enviar(evento) {
     evento.preventDefault();
-    const nuevosErrores = {};
-
     const correo = datos.correo.trim().toLowerCase();
-
-    const guardados = localStorage.getItem("usuariosAdmin");
-    const registrados = guardados ? JSON.parse(guardados) : usuarios;
-
-    const encontrado = registrados.find((item) => item.correo === correo);
-
-    if (!correo) {
-      nuevosErrores.correo = "Correo obligatorio";
-    }
-    if (correo && !correoConDominioPermitido(correo)) {
-      nuevosErrores.correo =
-        "Solo se acepta @duocuc.cl, @duoc.cl, @profesor.duoc.cl o @gmail.com";
-    }
-    if (correoConDominioPermitido(correo) && !encontrado) {
-      nuevosErrores.correo = "No existe una cuenta con ese correo";
-    }
-    if (encontrado && !encontrado.activo) {
-      nuevosErrores.correo = "La cuenta está desactivada";
-    }
-    if (datos.contrasena.length < 4) {
-      nuevosErrores.contrasena =
-        "La contraseña debe tener entre 4 y 10 caracteres";
-    }
-    if (datos.contrasena.length > 10) {
-      nuevosErrores.contrasena =
-        "La contraseña debe tener entre 4 y 10 caracteres";
-    }
+    const encontrado = buscarUsuario(leerUsuarios(), correo);
+    const nuevosErrores = validarLogin(datos, encontrado);
 
     setErrores(nuevosErrores);
-    if (Object.keys(nuevosErrores).length > 0) return;
+    if (hayErrores(nuevosErrores)) return;
 
     onIngresar(encontrado);
+    setMensaje("");
     setDatos(inicial);
   }
 
@@ -75,7 +56,7 @@ function Login({ usuario, onIngresar, onSalir }) {
             </Link>
           )}
 
-          <button className="btn btn-outline-light" onClick={onSalir}>
+          <button className="btn btn-outline-light" onClick={salir}>
             Cerrar sesión
           </button>
         </div>
@@ -92,6 +73,8 @@ function Login({ usuario, onIngresar, onSalir }) {
           alt="Logo de la ferretería"
         />
         <h1 className="h3 mb-4 text-center">Iniciar sesión</h1>
+
+        {mensaje && <p className="text-success fw-bold">{mensaje}</p>}
 
         <Form onSubmit={enviar} noValidate>
           <Form.Group className="mb-3" controlId="correo">

@@ -1,13 +1,16 @@
+import { useState } from "react";
 import { Container } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 
-import { productos } from "../data/productos";
+import { mensajeAgregado } from "../utils/mensajes";
+import { leerProductos } from "../utils/persistencia";
 import { formatearPrecio } from "../utils/precio";
 
 function DetalleProducto({ onAgregar }) {
   const { codigo } = useParams();
+  const [mensaje, setMensaje] = useState("");
 
-  const producto = productos.find((item) => item.codigo === codigo);
+  const producto = leerProductos().find((item) => item.codigo === codigo);
 
   if (!producto) {
     return (
@@ -16,6 +19,11 @@ function DetalleProducto({ onAgregar }) {
         <Link to="/productos">Volver a productos</Link>
       </Container>
     );
+  }
+
+  function agregar() {
+    onAgregar(producto);
+    setMensaje(mensajeAgregado(producto));
   }
 
   return (
@@ -33,9 +41,16 @@ function DetalleProducto({ onAgregar }) {
           </p>
           <h2>{formatearPrecio(producto.precio)}</h2>
 
+          {producto.stock === 0 && (
+            <p className="text-danger fw-bold">Sin stock</p>
+          )}
+          {producto.stock > 0 && producto.stock <= producto.stockCritico && (
+            <p className="text-warning fw-bold">¡Últimas unidades!</p>
+          )}
+
           <button
             className="btn btn-warning me-2"
-            onClick={() => onAgregar(producto)}
+            onClick={agregar}
             disabled={producto.stock === 0}
           >
             Añadir al carrito
@@ -44,6 +59,8 @@ function DetalleProducto({ onAgregar }) {
           <Link className="btn btn-outline-light" to="/productos">
             Volver
           </Link>
+
+          {mensaje && <p className="text-success fw-bold mt-3">{mensaje}</p>}
         </div>
       </article>
     </Container>

@@ -2,6 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { BrowserRouter } from "react-router-dom";
 import { vi } from "vitest";
+import * as validaciones from "../utils/validaciones";
 import Checkout from "./Checkout";
 
 describe("Checkout", () => {
@@ -15,22 +16,71 @@ describe("Checkout", () => {
     },
   ];
 
-  it("vacía el carrito y muestra compra exitosa con datos válidos", async () => {
+  it("muestra errores con el formulario vacío y confirma la compra al corregirlos", async () => {
     const usuario = userEvent.setup();
     const onVaciar = vi.fn();
     render(
       <BrowserRouter>
         <Checkout carrito={carrito} onVaciar={onVaciar} />
-      </BrowserRouter>,
+      </BrowserRouter>
+    );
+
+    await usuario.click(screen.getByRole("button", { name: /confirmar compra/i }));
+    expect(screen.getByText("Nombre obligatorio")).toBeInTheDocument();
+    expect(screen.getByText("Correo obligatorio")).toBeInTheDocument();
+
+    await usuario.type(screen.getByLabelText("Nombre"), "Giulianno");
+    await usuario.type(screen.getByLabelText("Correo"), "giu@duocuc.cl");
+    await usuario.selectOptions(screen.getByLabelText("Entrega"), "Despacho a domicilio");
+    await usuario.click(screen.getByRole("button", { name: /confirmar compra/i }));
+    expect(screen.getByText("Dirección obligatoria")).toBeInTheDocument();
+
+    await usuario.type(screen.getByLabelText("Dirección"), "Av. Francisco de Aguirre 1234");
+    await usuario.click(screen.getByRole("button", { name: /confirmar compra/i }));
+
+    expect(onVaciar).toHaveBeenCalled();
+    expect(screen.getByRole("heading", { name: /compra exitosa/i })).toBeInTheDocument();
+    expect(screen.getByText(/Av. Francisco de Aguirre 1234/)).toBeInTheDocument();
+  });
+
+  it("muestra los errores entregados por la validación y no vacía el carrito", async () => {
+    const espia = vi
+      .spyOn(validaciones, "validarCheckout")
+      .mockReturnValue({ nombre: "Nombre obligatorio" });
+    const usuario = userEvent.setup();
+    const onVaciar = vi.fn();
+    render(
+      <BrowserRouter>
+        <Checkout carrito={carrito} onVaciar={onVaciar} />
+      </BrowserRouter>
+    );
+
+    await usuario.click(screen.getByRole("button", { name: /confirmar compra/i }));
+
+    expect(espia).toHaveBeenCalled();
+    expect(screen.getByText("Nombre obligatorio")).toBeInTheDocument();
+    expect(onVaciar).not.toHaveBeenCalled();
+
+    espia.mockRestore();
+  });
+
+  it("muestra el pago fallido cuando un producto supera el stock", async () => {
+    const usuario = userEvent.setup();
+    const sinStock = [{ ...carrito[0], cantidad: 81 }];
+    render(
+      <BrowserRouter>
+        <Checkout carrito={sinStock} onVaciar={vi.fn()} />
+      </BrowserRouter>
     );
 
     await usuario.type(screen.getByLabelText("Nombre"), "Giulianno");
     await usuario.type(screen.getByLabelText("Correo"), "giu@duocuc.cl");
-    await usuario.click(screen.getByRole("button", { name: /confirmar/i }));
-
-    expect(onVaciar).toHaveBeenCalled();
+    await usuario.click(screen.getByRole("button", { name: /confirmar compra/i }));
     expect(
-      screen.getByRole("heading", { name: /compra exitosa/i }),
+      screen.getByRole("heading", { name: /no se pudo realizar el pago/i })
     ).toBeInTheDocument();
+
+    await usuario.click(screen.getByRole("button", { name: /volver a intentar/i }));
+    expect(screen.getByRole("heading", { name: /finalizar compra/i })).toBeInTheDocument();
   });
 });
