@@ -29,15 +29,22 @@ function Login({ usuario, onIngresar, onSalir }) {
 
     if (!correo) {
       nuevosErrores.correo = "Correo obligatorio";
-    } else if (!correoConDominioPermitido(correo)) {
+    }
+    if (correo && !correoConDominioPermitido(correo)) {
       nuevosErrores.correo =
         "Solo se acepta @duocuc.cl, @duoc.cl, @profesor.duoc.cl o @gmail.com";
-    } else if (!encontrado) {
+    }
+    if (correoConDominioPermitido(correo) && !encontrado) {
       nuevosErrores.correo = "No existe una cuenta con ese correo";
-    } else if (!encontrado.activo) {
+    }
+    if (encontrado && !encontrado.activo) {
       nuevosErrores.correo = "La cuenta está desactivada";
     }
-    if (datos.contrasena.length < 4 || datos.contrasena.length > 10) {
+    if (datos.contrasena.length < 4) {
+      nuevosErrores.contrasena =
+        "La contraseña debe tener entre 4 y 10 caracteres";
+    }
+    if (datos.contrasena.length > 10) {
       nuevosErrores.contrasena =
         "La contraseña debe tener entre 4 y 10 caracteres";
     }
@@ -79,7 +86,12 @@ function Login({ usuario, onIngresar, onSalir }) {
   return (
     <Container className="py-4">
       <div className="resumen mx-auto formulario-login">
-        <h1 className="h3 mb-4">Iniciar sesión</h1>
+        <img
+          className="d-block mx-auto mb-3 logo-login"
+          src="/assets/img/logo.png"
+          alt="Logo de la ferretería"
+        />
+        <h1 className="h3 mb-4 text-center">Iniciar sesión</h1>
 
         <Form onSubmit={enviar} noValidate>
           <Form.Group className="mb-3" controlId="correo">
