@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 function Navegacion({ unidades, usuario }) {
   return (
     <Navbar
-      expand="md"
+      expand="lg"
       className="bg-dark-subtle border-bottom border-secondary"
       data-bs-theme="dark"
     >
