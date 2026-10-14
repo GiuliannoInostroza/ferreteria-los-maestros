@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
+import { correoConDominioPermitido } from "../../utils/correo";
 
 const inicial = {
   nombre: "",
@@ -19,15 +20,16 @@ function FormularioUsuario({ usuarios, usuario, onGuardar, onCancelar }) {
   function enviar(evento) {
     evento.preventDefault();
     const nuevosErrores = {};
-    const correo = datos.correo.trim();
+    const correo = datos.correo.trim().toLowerCase();
 
     if (!datos.nombre.trim()) nuevosErrores.nombre = "Nombre obligatorio";
     if (!correo) {
       nuevosErrores.correo = "Correo obligatorio";
+    } else if (!correoConDominioPermitido(correo)) {
+      nuevosErrores.correo =
+        "Usa un correo @duocuc.cl, @duoc.cl, @profesor.duoc.cl o @gmail.com";
     } else if (
-      usuarios.some(
-        (item) => item.correo === correo && item.id !== usuario?.id
-      )
+      usuarios.some((item) => item.correo === correo && item.id !== usuario?.id)
     ) {
       nuevosErrores.correo = "Ya existe un usuario con ese correo";
     }
@@ -59,7 +61,6 @@ function FormularioUsuario({ usuarios, usuario, onGuardar, onCancelar }) {
           {errores.nombre}
         </Form.Control.Feedback>
       </Form.Group>
-
       <Form.Group className="mb-3" controlId="correoUsuario">
         <Form.Label>Correo</Form.Label>
         <Form.Control
@@ -73,7 +74,6 @@ function FormularioUsuario({ usuarios, usuario, onGuardar, onCancelar }) {
           {errores.correo}
         </Form.Control.Feedback>
       </Form.Group>
-
       <Form.Group className="mb-3" controlId="rolUsuario">
         <Form.Label>Rol</Form.Label>
         <Form.Select
@@ -91,10 +91,7 @@ function FormularioUsuario({ usuarios, usuario, onGuardar, onCancelar }) {
           {errores.rol}
         </Form.Control.Feedback>
       </Form.Group>
-
-      <Button type="submit">
-        {usuario ? "Guardar cambios" : "Guardar"}
-      </Button>{" "}
+      <Button type="submit">{usuario ? "Guardar cambios" : "Guardar"}</Button>{" "}
       <Button type="button" onClick={onCancelar}>
         Cancelar
       </Button>
