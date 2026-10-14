@@ -1,15 +1,14 @@
-import { describe, expect, it } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 
 import Blogs from "./Blogs";
 
 describe("Blogs", () => {
   it("muestra los dos artículos del blog", () => {
     render(
-      <MemoryRouter>
+      <BrowserRouter>
         <Blogs />
-      </MemoryRouter>,
+      </BrowserRouter>,
     );
 
     expect(
@@ -23,11 +22,21 @@ describe("Blogs", () => {
 
   it("muestra una imagen para cada artículo", () => {
     render(
-      <MemoryRouter>
+      <BrowserRouter>
         <Blogs />
-      </MemoryRouter>,
+      </BrowserRouter>,
     );
 
-    expect(screen.getAllByRole("img")).toHaveLength(2);
+    expect(
+      screen.getByRole("img", {
+        name: "5 herramientas básicas que todo hogar debería tener",
+      }),
+    ).toBeInTheDocument();
+
+    expect(
+      screen.getByRole("img", {
+        name: "Cómo elegir la broca correcta para cada material",
+      }),
+    ).toBeInTheDocument();
   });
 });

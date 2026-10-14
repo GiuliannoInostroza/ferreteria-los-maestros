@@ -1,7 +1,7 @@
-import { describe, expect, it, vi } from "vitest";
+import { vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { MemoryRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 
 import TarjetaProducto from "./TarjetaProducto";
 
@@ -21,9 +21,9 @@ describe("TarjetaProducto", () => {
     };
 
     render(
-      <MemoryRouter>
+      <BrowserRouter>
         <TarjetaProducto producto={producto} onAgregar={onAgregar} />
-      </MemoryRouter>,
+      </BrowserRouter>,
     );
 
     await usuario.click(screen.getByRole("button", { name: /añadir/i }));

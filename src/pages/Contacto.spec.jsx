@@ -1,5 +1,5 @@
-import { describe, expect, it } from "vitest";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 import Contacto from "./Contacto";
 
@@ -12,54 +12,46 @@ describe("Contacto", () => {
     expect(screen.getByLabelText("Mensaje")).toBeInTheDocument();
   });
 
-  it("muestra error cuando el dominio del correo no está permitido", () => {
+  it("muestra error cuando el dominio del correo no está permitido", async () => {
+    const usuario = userEvent.setup();
     render(<Contacto />);
 
-    fireEvent.change(screen.getByLabelText("Nombre"), {
-      target: { value: "Agustín" },
-    });
-
-    fireEvent.change(screen.getByLabelText("Correo electrónico"), {
-      target: { value: "agustin@hotmail.com" },
-    });
-
-    fireEvent.change(screen.getByLabelText("Motivo de contacto"), {
-      target: { value: "productos" },
-    });
-
-    fireEvent.change(screen.getByLabelText("Mensaje"), {
-      target: {
-        value: "Necesito información sobre uno de sus productos.",
-      },
-    });
-
-    fireEvent.click(screen.getByRole("button", { name: "Enviar mensaje" }));
+    await usuario.type(screen.getByLabelText("Nombre"), "Agustín");
+    await usuario.type(
+      screen.getByLabelText("Correo electrónico"),
+      "agustin@hotmail.com",
+    );
+    await usuario.selectOptions(
+      screen.getByLabelText("Motivo de contacto"),
+      "productos",
+    );
+    await usuario.type(
+      screen.getByLabelText("Mensaje"),
+      "Necesito información sobre uno de sus productos.",
+    );
+    await usuario.click(screen.getByRole("button", { name: "Enviar mensaje" }));
 
     expect(screen.getByText(/usa un correo/i)).toBeInTheDocument();
   });
 
-  it("confirma el envío cuando los datos son válidos", () => {
+  it("confirma el envío cuando los datos son válidos", async () => {
+    const usuario = userEvent.setup();
     render(<Contacto />);
 
-    fireEvent.change(screen.getByLabelText("Nombre"), {
-      target: { value: "Agustín Pérez" },
-    });
-
-    fireEvent.change(screen.getByLabelText("Correo electrónico"), {
-      target: { value: "agustin@gmail.com" },
-    });
-
-    fireEvent.change(screen.getByLabelText("Motivo de contacto"), {
-      target: { value: "cotizacion" },
-    });
-
-    fireEvent.change(screen.getByLabelText("Mensaje"), {
-      target: {
-        value: "Quisiera solicitar una cotización para mi proyecto.",
-      },
-    });
-
-    fireEvent.click(screen.getByRole("button", { name: "Enviar mensaje" }));
+    await usuario.type(screen.getByLabelText("Nombre"), "Agustín Pérez");
+    await usuario.type(
+      screen.getByLabelText("Correo electrónico"),
+      "agustin@gmail.com",
+    );
+    await usuario.selectOptions(
+      screen.getByLabelText("Motivo de contacto"),
+      "cotizacion",
+    );
+    await usuario.type(
+      screen.getByLabelText("Mensaje"),
+      "Quisiera solicitar una cotización para mi proyecto.",
+    );
+    await usuario.click(screen.getByRole("button", { name: "Enviar mensaje" }));
 
     expect(
       screen.getByText("Mensaje enviado correctamente"),
