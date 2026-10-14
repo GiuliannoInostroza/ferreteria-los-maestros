@@ -2,15 +2,10 @@ import { useState } from "react";
 import { Col, Container, Form, Row } from "react-bootstrap";
 
 import TarjetaProducto from "../components/TarjetaProducto";
-import { productos } from "../data/productos";
+import { categorias, productos } from "../data/productos";
 
 function Productos({ onAgregar }) {
   const [categoria, setCategoria] = useState("Todas");
-
-  const categorias = [
-    "Todas",
-    ...new Set(productos.map((producto) => producto.categoria)),
-  ];
 
   const visibles =
     categoria === "Todas"
@@ -23,14 +18,17 @@ function Productos({ onAgregar }) {
 
       <Form.Group className="my-4" controlId="filtro-categoria">
         <Form.Label>Filtrar por categoría</Form.Label>
-        <Form.Select
+        <select
+          id="filtro-categoria"
+          className="form-select"
           value={categoria}
           onChange={(evento) => setCategoria(evento.target.value)}
         >
+          <option>Todas</option>
           {categorias.map((item) => (
             <option key={item}>{item}</option>
           ))}
-        </Form.Select>
+        </select>
       </Form.Group>
 
       <Row className="g-4">

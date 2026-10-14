@@ -1,10 +1,12 @@
+const dominiosPermitidos = [
+  "@duocuc.cl",
+  "@duoc.cl",
+  "@profesor.duoc.cl",
+  "@gmail.com",
+];
+
 export function correoConDominioPermitido(correo) {
   const valor = correo.trim().toLowerCase();
 
-  return (
-    valor.endsWith("@duocuc.cl") ||
-    valor.endsWith("@duoc.cl") ||
-    valor.endsWith("@profesor.duoc.cl") ||
-    valor.endsWith("@gmail.com")
-  );
+  return dominiosPermitidos.some((dominio) => valor.endsWith(dominio));
 }

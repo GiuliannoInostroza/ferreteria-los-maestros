@@ -1,6 +1,7 @@
 export const productos = [
   {
     codigo: "MC001",
+    destacado: true,
     nombre: "Cemento Polpaico gris 25 kg",
     marca: "Polpaico",
     categoria: "Materiales de Construcción",
@@ -11,6 +12,7 @@ export const productos = [
   },
   {
     codigo: "MC007",
+    destacado: true,
     nombre: "Ladrillo fiscal N°5",
     marca: "Local",
     categoria: "Materiales de Construcción",
@@ -21,6 +23,7 @@ export const productos = [
   },
   {
     codigo: "MC009",
+    destacado: true,
     nombre: "Bloque de hormigón 19x19x39 cm",
     marca: "Volcán",
     categoria: "Materiales de Construcción",
@@ -249,4 +252,17 @@ export const productos = [
     stockCritico: 2,
     descripcion: "Pala de acero templado con mango de madera.",
   },
+];
+
+export const categorias = [
+  "Materiales de Construcción",
+  "Pinturas",
+  "Herramientas Manuales",
+  "Herramientas Eléctricas",
+  "Gasfitería",
+  "Electricidad",
+  "Tornillería",
+  "Madera",
+  "Seguridad",
+  "Jardín",
 ];

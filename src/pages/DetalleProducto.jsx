@@ -1,4 +1,4 @@
-import { Button, Card, Container } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 
 import { productos } from "../data/productos";
@@ -20,8 +20,8 @@ function DetalleProducto({ onAgregar }) {
 
   return (
     <Container className="py-4">
-      <Card className="bg-body-tertiary border-secondary">
-        <Card.Body>
+      <article className="card">
+        <div className="card-body">
           <p className="text-secondary">{producto.categoria}</p>
           <h1>{producto.nombre}</h1>
           <p>{producto.descripcion}</p>
@@ -41,11 +41,11 @@ function DetalleProducto({ onAgregar }) {
             Añadir al carrito
           </button>
 
-          <Button as={Link} to="/productos" variant="outline-light">
+          <Link className="btn btn-outline-light" to="/productos">
             Volver
-          </Button>
-        </Card.Body>
-      </Card>
+          </Link>
+        </div>
+      </article>
     </Container>
   );
 }

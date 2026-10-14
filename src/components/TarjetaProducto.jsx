@@ -1,4 +1,3 @@
-import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { formatearPrecio } from "../utils/precio";
 
@@ -6,52 +5,46 @@ function TarjetaProducto({ producto, onAgregar }) {
   const stockBajo = producto.stock <= producto.stockCritico;
 
   return (
-    <Card className="h-100 bg-body-tertiary border-secondary">
-      <Card.Img
-        variant="top"
+    <article className="card h-100">
+      <img
         src={`/assets/img/productos/${producto.codigo}.jpg`}
         alt={producto.nombre}
-        className="producto-img"
+        className="card-img-top producto-img"
       />
-      <Card.Body className="d-flex flex-column">
-        <Card.Text className="text-secondary mb-1">
-          {producto.categoria}
-        </Card.Text>
+      <div className="card-body d-flex flex-column">
+        <p className="text-secondary mb-1">{producto.categoria}</p>
 
-        <Card.Title>{producto.nombre}</Card.Title>
+        <h2 className="h5">{producto.nombre}</h2>
 
-        <Card.Text>{producto.marca}</Card.Text>
+        <p>{producto.marca}</p>
 
-        <Card.Text className={stockBajo ? "text-warning" : "text-success"}>
+        <p className={stockBajo ? "text-warning" : "text-success"}>
           {stockBajo
             ? `Solo quedan ${producto.stock}`
             : `${producto.stock} disponibles`}
-        </Card.Text>
+        </p>
 
         <strong className="mb-3">{formatearPrecio(producto.precio)}</strong>
 
         <div className="mt-auto d-flex gap-2">
-          <Button
-            as={Link}
+          <Link
+            className="btn btn-outline-light flex-fill"
             to={`/productos/${producto.codigo}`}
-            variant="outline-light"
-            className="flex-fill"
           >
             Ver detalle
-          </Button>
+          </Link>
 
           {onAgregar && (
-            <Button
-              variant="warning"
-              className="flex-fill"
+            <button
+              className="btn btn-warning flex-fill"
               onClick={() => onAgregar(producto)}
             >
               Añadir
-            </Button>
+            </button>
           )}
         </div>
-      </Card.Body>
-    </Card>
+      </div>
+    </article>
   );
 }
 

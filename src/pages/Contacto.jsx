@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { Col, Container, Form, Row } from "react-bootstrap";
 import { correoConDominioPermitido } from "../utils/correo";
 
 const inicial = {
@@ -30,13 +30,15 @@ function Contacto() {
 
     if (!datos.nombre.trim()) {
       nuevosErrores.nombre = "Nombre obligatorio";
-    } else if (datos.nombre.trim().length > 100) {
+    }
+    if (datos.nombre.trim().length > 100) {
       nuevosErrores.nombre = "El nombre puede tener máximo 100 caracteres";
     }
 
     if (!datos.email.trim()) {
       nuevosErrores.email = "Correo obligatorio";
-    } else if (!correoConDominioPermitido(datos.email)) {
+    }
+    if (datos.email.trim() && !correoConDominioPermitido(datos.email)) {
       nuevosErrores.email =
         "Usa un correo @duocuc.cl, @duoc.cl, @profesor.duoc.cl o @gmail.com";
     }
@@ -49,7 +51,8 @@ function Contacto() {
 
     if (largoMensaje < 20) {
       nuevosErrores.mensaje = "El mensaje debe tener al menos 20 caracteres";
-    } else if (largoMensaje > 500) {
+    }
+    if (largoMensaje > 500) {
       nuevosErrores.mensaje = "El mensaje puede tener máximo 500 caracteres";
     }
 
@@ -73,7 +76,7 @@ function Contacto() {
 
       <Row className="g-4">
         <Col xs={12} lg={5}>
-          <section>
+          <section className="bg-body-tertiary rounded p-4 h-100">
             <h2>Información de contacto</h2>
             <p>
               <strong>Dirección:</strong> Av. Francisco de Aguirre 1234, La
@@ -92,14 +95,17 @@ function Contacto() {
         </Col>
 
         <Col xs={12} lg={7}>
-          <Form onSubmit={enviar} noValidate>
+          <Form
+            className="bg-body-tertiary rounded p-4"
+            onSubmit={enviar}
+            noValidate
+          >
             <Form.Group className="mb-3" controlId="contacto-nombre">
               <Form.Label>Nombre</Form.Label>
               <Form.Control
                 name="nombre"
                 value={datos.nombre}
                 onChange={cambiar}
-                maxLength={100}
                 isInvalid={Boolean(errores.nombre)}
               />
               <Form.Control.Feedback type="invalid">
@@ -123,18 +129,19 @@ function Contacto() {
 
             <Form.Group className="mb-3" controlId="contacto-asunto">
               <Form.Label>Motivo de contacto</Form.Label>
-              <Form.Select
+              <select
+                id="contacto-asunto"
+                className={errores.asunto ? "form-select is-invalid" : "form-select"}
                 name="asunto"
                 value={datos.asunto}
                 onChange={cambiar}
-                isInvalid={Boolean(errores.asunto)}
               >
                 <option value="">Selecciona una opción</option>
                 <option value="productos">Consulta sobre productos</option>
                 <option value="pedido">Consulta sobre un pedido</option>
                 <option value="cotizacion">Solicitar cotización</option>
                 <option value="otro">Otro</option>
-              </Form.Select>
+              </select>
               <Form.Control.Feedback type="invalid">
                 {errores.asunto}
               </Form.Control.Feedback>
@@ -142,26 +149,27 @@ function Contacto() {
 
             <Form.Group className="mb-3" controlId="contacto-mensaje">
               <Form.Label>Mensaje</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={6}
+              <textarea
+                className={
+                  errores.mensaje ? "form-control is-invalid" : "form-control"
+                }
+                id="contacto-mensaje"
+                rows="6"
                 name="mensaje"
                 value={datos.mensaje}
                 onChange={cambiar}
-                maxLength={500}
-                isInvalid={Boolean(errores.mensaje)}
               />
               <Form.Control.Feedback type="invalid">
                 {errores.mensaje}
               </Form.Control.Feedback>
             </Form.Group>
 
-            <Button type="submit" variant="warning">
+            <button type="submit" className="btn btn-warning">
               Enviar mensaje
-            </Button>
+            </button>
 
             {mensajeExito && (
-              <p className="text-success mt-3" role="status">
+              <p className="text-success mt-3">
                 {mensajeExito}
               </p>
             )}

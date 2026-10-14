@@ -4,34 +4,35 @@ import { NavLink } from "react-router-dom";
 function Navegacion({ unidades, usuario }) {
   return (
     <Navbar
-      expand="lg"
-      className="bg-dark-subtle border-bottom border-secondary"
+      expand="xl"
+      className="bg-dark-subtle"
       data-bs-theme="dark"
     >
       <Container>
-        <Navbar.Brand as={NavLink} to="/">
+        <NavLink className="navbar-brand" to="/">
+          <img src="/assets/img/logo.png" alt="Logo de la ferretería" />
           Ferretería Los Maestros
-        </Navbar.Brand>
+        </NavLink>
 
         <Navbar.Toggle aria-controls="menu-principal" />
 
         <Navbar.Collapse id="menu-principal">
           <Nav className="ms-auto">
-            <Nav.Link as={NavLink} to="/">
+            <NavLink className="nav-link" to="/">
               Inicio
-            </Nav.Link>
-            <Nav.Link as={NavLink} to="/productos">
+            </NavLink>
+            <NavLink className="nav-link" to="/productos">
               Productos
-            </Nav.Link>
-            <Nav.Link as={NavLink} to="/nosotros">
+            </NavLink>
+            <NavLink className="nav-link" to="/nosotros">
               Nosotros
-            </Nav.Link>
-            <Nav.Link as={NavLink} to="/blogs">
+            </NavLink>
+            <NavLink className="nav-link" to="/blogs">
               Blogs
-            </Nav.Link>
-            <Nav.Link as={NavLink} to="/contacto">
+            </NavLink>
+            <NavLink className="nav-link" to="/contacto">
               Contacto
-            </Nav.Link>
+            </NavLink>
             <NavLink className="nav-link" to="/carrito">
               Carrito ({unidades})
             </NavLink>

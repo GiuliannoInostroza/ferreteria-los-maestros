@@ -1,4 +1,4 @@
-import { Card, Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 import { blogs } from "../data/blogs";
@@ -18,20 +18,21 @@ function Blogs() {
       <Row className="g-4">
         {blogs.map((blog) => (
           <Col xs={12} md={6} key={blog.id}>
-            <Card className="h-100 bg-dark border-secondary">
-              <Card.Img
-                variant="top"
+            <article className="card h-100">
+              <img
                 src={blog.imagen}
                 alt={blog.titulo}
-                className="blog-img"
+                className="card-img-top blog-img"
               />
-              <Card.Body>
-                <Card.Text className="text-secondary">{blog.fecha}</Card.Text>
-                <Card.Title>{blog.titulo}</Card.Title>
-                <Card.Text>{blog.resumen}</Card.Text>
+              <div className="card-body">
+                <p className="text-secondary">{blog.fecha}</p>
+                <h2 className="h5">
+                  <Link to={`/blogs/${blog.id}`}>{blog.titulo}</Link>
+                </h2>
+                <p>{blog.resumen}</p>
                 <Link to={`/blogs/${blog.id}`}>Leer artículo</Link>
-              </Card.Body>
-            </Card>
+              </div>
+            </article>
           </Col>
         ))}
       </Row>

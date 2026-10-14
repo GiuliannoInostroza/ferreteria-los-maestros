@@ -29,8 +29,8 @@ function BlogDetalle() {
           className="img-fluid rounded mb-4 blog-detalle-img"
         />
 
-        {blog.contenido.map((parrafo, indice) => (
-          <p key={indice}>{parrafo}</p>
+        {blog.contenido.map((parrafo) => (
+          <p key={parrafo}>{parrafo}</p>
         ))}
 
         <Link to="/blogs">Volver al blog</Link>
