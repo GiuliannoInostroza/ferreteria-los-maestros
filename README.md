@@ -22,7 +22,7 @@ Proyecto del ramo Desarrollo FullStack II (DSY1104) de Duoc UC. En la Evaluació
 
 ## Cómo ejecutar
 
-Se necesita Node.js 22 o superior.
+Se necesita Node.js 20.19 o superior (en clase usamos Node 20 con `nvm use 20`).
 
 ```bash
 git clone https://github.com/GiuliannoInostroza/ferreteria-los-maestros.git
