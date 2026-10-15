@@ -1,28 +1,31 @@
 # Ferretería Los Maestros
 
-Tienda online para la Ferretería Los Maestros, un negocio familiar de La Serena con 22 años vendiendo materiales de construcción, herramientas y ferretería general.
+Tienda online desarrollada para Ferretería Los Maestros.
 
-Proyecto del ramo Desarrollo FullStack II (DSY1104) de Duoc UC. En la Evaluación Parcial 1 hicimos el sitio con HTML, CSS y JavaScript. En la Evaluación Parcial 2 lo pasamos a React y le agregamos pruebas unitarias.
+Proyecto del ramo Desarrollo FullStack II (DSY1104) de Duoc UC. En la Evaluación Parcial 2 el sitio fue migrado a React y se incorporaron componentes reutilizables, navegación, persistencia local, administración y pruebas unitarias.
 
 ## Equipo
 
-| Integrante | Se encargó de |
-|---|---|
-| Giulianno Inostroza | Carrito, checkout, login con roles y persistencia |
-| Agustín Pérez | Base del proyecto React, inicio, catálogo, categorías, ofertas, detalle, nosotros, blogs y contacto |
-| Nicolás Pérez | Administración de productos y de usuarios, y registro de clientes |
+| Integrante          | Área principal                                                         |
+| ------------------- | ---------------------------------------------------------------------- |
+| Giulianno Inostroza | Carrito, checkout, login, roles y persistencia                         |
+| Agustín Pérez       | Base React, inicio, catálogo, categorías, ofertas, detalle y contenido |
+| Nicolás Pérez       | Administración de productos y usuarios, y registro                     |
 
 ## Tecnologías
 
+- Node.js 20
 - React con Vite
-- React Bootstrap y Bootstrap para el diseño responsivo
-- React Router para la navegación
-- localStorage para guardar carrito, sesión, productos y usuarios
-- Vitest y React Testing Library para las pruebas
+- React Bootstrap y Bootstrap
+- React Router
+- localStorage
+- Vitest
+- React Testing Library
+- jsdom
 
 ## Cómo ejecutar
 
-Se necesita Node.js 20.19 o superior (en clase usamos Node 20 con `nvm use 20`).
+Entorno utilizado: Node.js 20.
 
 ```bash
 git clone https://github.com/GiuliannoInostroza/ferreteria-los-maestros.git
@@ -31,65 +34,135 @@ npm install
 npm run dev
 ```
 
-La terminal muestra una dirección como http://localhost:5173 para abrir en el navegador.
+La aplicación se abrirá normalmente en:
+
+```text
+http://localhost:5173
+```
+
+Para generar la versión de producción:
+
+```bash
+npm run build
+```
 
 ## Pruebas
 
+Para ejecutar las pruebas:
+
 ```bash
 npm run test:run
+```
+
+Para ejecutar las pruebas con cobertura:
+
+```bash
 npm run coverage
 ```
 
-El primero ejecuta todas las pruebas una vez. El segundo además genera el informe de cobertura en la carpeta `coverage`.
+Resultado final:
 
-Hay 30 pruebas, 10 por integrante, en 21 archivos `.spec`. Usan `vi.fn` para las funciones que llegan por props, `vi.spyOn` con `mockRestore` para `localStorage` y para funciones propias, y `mockResolvedValue` para el servicio de productos. Cobertura actual: 86,87 % de sentencias, 82,5 % de ramas, 90,4 % de funciones y 86,41 % de líneas.
+- 21 de 21 archivos de prueba aprobados.
+- 30 de 30 pruebas aprobadas.
+- 10 pruebas por integrante.
+
+Cobertura final:
+
+| Indicador  | Cobertura |
+| ---------- | --------: |
+| Statements |   86,68 % |
+| Branches   |   82,26 % |
+| Functions  |   89,84 % |
+| Lines      |   86,14 % |
+
+Las pruebas utilizan `vi.fn`, `vi.spyOn`, `mockRestore` y `mockResolvedValue` según el caso.
 
 ## Usuarios de prueba
 
-El login es simulado y no guarda contraseñas. Sirve cualquier contraseña de 4 a 10 caracteres.
+El inicio de sesión es simulado y no almacena contraseñas. Para la demostración puede utilizarse la contraseña `1234`.
 
-| Correo | Rol | Puede |
-|---|---|---|
-| admin@duoc.cl | Administrador | Administrar productos y usuarios |
-| vendedor@duoc.cl | Vendedor | Administrar productos |
-| cliente@gmail.com | Cliente | Comprar en la tienda |
+| Usuario             | Correo                  | Rol           |
+| ------------------- | ----------------------- | ------------- |
+| Agustín Pérez       | agu.perez@duocuc.cl     | Administrador |
+| Giulianno Inostroza | giu.inostroza@duocuc.cl | Vendedor      |
+| Nicolás Pérez       | na.perezg@duocuc.cl     | Cliente       |
 
-## Estructura
+### Permisos
 
-```
+- Cliente: navegación y compra.
+- Vendedor: navegación, compra y administración de productos.
+- Administrador: navegación, compra, administración de productos y administración de usuarios.
+
+## Funcionalidades principales
+
+- Inicio y catálogo de productos.
+- Detalle de productos.
+- Filtro por categorías.
+- Vista de ofertas.
+- Productos destacados.
+- Carrito de compras.
+- Modificación y eliminación de productos del carrito.
+- Checkout simulado.
+- Validación de formularios.
+- Control y actualización de stock.
+- Registro de clientes.
+- Inicio y cierre de sesión.
+- Roles Cliente, Vendedor y Administrador.
+- Administración de productos.
+- Administración de usuarios.
+- Persistencia mediante `localStorage`.
+- Diseño responsive.
+
+## Estructura principal
+
+```text
 src/
-├── components/   piezas que se reutilizan (menú, tarjetas, item del carrito)
-├── pages/        vistas con ruta
+├── components/   componentes reutilizables
+├── pages/        vistas de la aplicación
 │   └── admin/    administración de productos y usuarios
-├── data/         datos simulados
-├── services/     servicio de productos y su prueba
-├── utils/        funciones de precio, carrito, validaciones, sesión y persistencia
-├── test/         configuración de las pruebas
+├── data/         datos iniciales
+├── services/     servicios
+├── utils/        funciones, validaciones y persistencia
+├── test/         configuración de pruebas
 ├── App.jsx       rutas y estado compartido
 └── main.jsx      punto de entrada
 ```
 
-## Rutas
+## Rutas principales
 
-| Ruta | Vista |
-|---|---|
-| `/` | Inicio |
-| `/productos` | Catálogo con filtro por categoría |
-| `/productos/:codigo` | Detalle de un producto |
-| `/categorias` | Productos separados por categoría |
-| `/ofertas` | Productos en oferta |
-| `/carrito` | Carrito de compras |
-| `/checkout` | Datos de entrega y resultado de la compra |
-| `/login` | Inicio de sesión |
-| `/registro` | Registro de clientes |
-| `/nosotros`, `/blogs`, `/contacto` | Contenido |
-| `/admin/productos` | Productos, para Vendedor y Administrador |
-| `/admin/usuarios` | Usuarios, solo para Administrador |
+| Ruta                 | Vista                       |
+| -------------------- | --------------------------- |
+| `/`                  | Inicio                      |
+| `/productos`         | Catálogo                    |
+| `/productos/:codigo` | Detalle de producto         |
+| `/categorias`        | Categorías                  |
+| `/ofertas`           | Ofertas                     |
+| `/carrito`           | Carrito                     |
+| `/checkout`          | Finalizar compra            |
+| `/login`             | Inicio de sesión            |
+| `/registro`          | Registro                    |
+| `/nosotros`          | Nosotros                    |
+| `/blogs`             | Blogs                       |
+| `/contacto`          | Contacto                    |
+| `/admin/productos`   | Administración de productos |
+| `/admin/usuarios`    | Administración de usuarios  |
 
-## Diseño responsivo
+## Diseño responsive
 
-Usamos la grilla de Bootstrap: las tarjetas se ven en una columna en celular, dos en tablet y tres en escritorio. El menú se convierte en hamburguesa bajo 1400 px. Revisamos que no haya scroll horizontal entre 320 y 1920 px.
+La aplicación utiliza Bootstrap para adaptarse a dispositivos móviles, tablet y escritorio.
 
-## Lo que falta
+El menú cambia a navegación colapsada bajo el breakpoint `xl` de Bootstrap y se revisó el sitio entre 320 px y 1920 px sin desplazamiento horizontal significativo.
 
-Los datos viven en el navegador con localStorage, así que cada navegador tiene su propia copia. La conexión con el backend queda para la siguiente evaluación.
+## Despliegue
+
+La versión final está publicada en AWS EC2 utilizando Nginx:
+
+http://54.88.103.128
+
+## Alcance
+
+Esta evaluación corresponde al frontend de la aplicación.
+
+Los datos se almacenan localmente en el navegador mediante `localStorage`.
+
+No se incluye backend, base de datos, pagos reales ni autenticación segura con JWT.
