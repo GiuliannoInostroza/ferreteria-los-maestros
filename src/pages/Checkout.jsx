@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Col, Container, Form, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { guardarProductos, leerProductos } from "../utils/persistencia";
 
 import CompraExitosa from "../components/CompraExitosa";
 import CompraFallida from "../components/CompraFallida";
@@ -15,6 +16,22 @@ const inicial = {
   direccion: "",
 };
 
+function descontarStock(carrito) {
+  const productosActuales = leerProductos();
+
+  const productosActualizados = productosActuales.map((producto) => {
+    const comprado = carrito.find((item) => item.codigo === producto.codigo);
+
+    if (!comprado) return producto;
+
+    return {
+      ...producto,
+      stock: producto.stock - comprado.cantidad,
+    };
+  });
+
+  guardarProductos(productosActualizados);
+}
 function Checkout({ carrito, usuario, onVaciar }) {
   const [datos, setDatos] = useState(
     usuario
@@ -32,6 +49,7 @@ function Checkout({ carrito, usuario, onVaciar }) {
 
   function enviar(evento) {
     evento.preventDefault();
+
     const nuevosErrores = validarCheckout(datos);
 
     setErrores(nuevosErrores);
@@ -47,6 +65,9 @@ function Checkout({ carrito, usuario, onVaciar }) {
       productos: carrito,
       total: calcularTotal(carrito),
     });
+
+    descontarStock(carrito);
+
     setResultado("exitosa");
     onVaciar();
   }

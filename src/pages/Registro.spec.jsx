@@ -7,7 +7,9 @@ import Registro from "./Registro";
 
 describe("Registro", () => {
   it("muestra errores del formulario vacío y luego crea la cuenta como Cliente", async () => {
-    const espiaLeer = vi.spyOn(persistencia, "leerUsuarios").mockReturnValue([]);
+    const espiaLeer = vi
+      .spyOn(persistencia, "leerUsuarios")
+      .mockReturnValue([]);
     const espiaGuardar = vi
       .spyOn(persistencia, "guardarUsuarios")
       .mockImplementation(() => {});
@@ -15,7 +17,7 @@ describe("Registro", () => {
     render(
       <BrowserRouter>
         <Registro />
-      </BrowserRouter>
+      </BrowserRouter>,
     );
 
     await usuario.click(screen.getByRole("button", { name: "Crear cuenta" }));
@@ -28,27 +30,60 @@ describe("Registro", () => {
     await usuario.click(screen.getByRole("button", { name: "Crear cuenta" }));
 
     expect(espiaGuardar).toHaveBeenCalledWith([
-      { id: 1, nombre: "Ana Soto", correo: "ana@gmail.com", rol: "Cliente", activo: true },
+      {
+        id: 1,
+        nombre: "Ana Soto",
+        correo: "ana@gmail.com",
+        rol: "Cliente",
+        activo: true,
+      },
     ]);
-    expect(screen.getByRole("heading", { name: "Cuenta creada" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "Cuenta creada" }),
+    ).toBeInTheDocument();
 
     espiaLeer.mockRestore();
     espiaGuardar.mockRestore();
   });
 
   it("rechaza un correo que ya tiene una cuenta", async () => {
+    const espiaLeer = vi.spyOn(persistencia, "leerUsuarios").mockReturnValue([
+      {
+        id: 1,
+        nombre: "Agustín Pérez",
+        correo: "agu.perez@duocuc.cl",
+        rol: "Administrador",
+        activo: true,
+      },
+    ]);
+
+    const espiaGuardar = vi
+      .spyOn(persistencia, "guardarUsuarios")
+      .mockImplementation(() => {});
+
     const usuario = userEvent.setup();
+
     render(
       <BrowserRouter>
         <Registro />
-      </BrowserRouter>
+      </BrowserRouter>,
     );
 
     await usuario.type(screen.getByLabelText("Nombre"), "Otra Persona");
-    await usuario.type(screen.getByLabelText("Correo"), "admin@duoc.cl");
+
+    await usuario.type(screen.getByLabelText("Correo"), "agu.perez@duocuc.cl");
+
     await usuario.type(screen.getByLabelText("Contraseña"), "1234");
+
     await usuario.click(screen.getByRole("button", { name: "Crear cuenta" }));
 
-    expect(screen.getByText("Ya existe una cuenta con ese correo")).toBeInTheDocument();
+    expect(
+      screen.getByText("Ya existe una cuenta con ese correo"),
+    ).toBeInTheDocument();
+
+    expect(espiaGuardar).not.toHaveBeenCalled();
+
+    espiaLeer.mockRestore();
+    espiaGuardar.mockRestore();
   });
 });
