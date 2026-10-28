@@ -10,7 +10,9 @@ import { guardarUsuarios, leerUsuarios } from "../../utils/persistencia";
 import { siguienteId } from "../../utils/usuarios";
 import FormularioUsuario from "./FormularioUsuario";
 
-function AdminUsuarios() {
+function AdminUsuarios({ usuarioActual }) {
+  const idActual = usuarioActual ? usuarioActual.id : 0;
+
   const [listaUsuarios, setListaUsuarios] = useState(() => leerUsuarios());
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
   const [usuarioEditando, setUsuarioEditando] = useState(null);
@@ -163,12 +165,22 @@ function AdminUsuarios() {
                     <Button className="btn-sm" onClick={() => editar(usuario)}>
                       Editar
                     </Button>
-                    <Button className="btn-sm" onClick={() => cambiarEstado(usuario)}>
-                      {usuario.activo ? "Desactivar" : "Activar"}
-                    </Button>
-                    <Button className="btn-sm" onClick={() => eliminar(usuario.id)}>
-                      Eliminar
-                    </Button>
+                    {usuario.id !== idActual && (
+                      <Button
+                        className="btn-sm"
+                        onClick={() => cambiarEstado(usuario)}
+                      >
+                        {usuario.activo ? "Desactivar" : "Activar"}
+                      </Button>
+                    )}
+                    {usuario.id !== idActual && (
+                      <Button
+                        className="btn-sm"
+                        onClick={() => eliminar(usuario.id)}
+                      >
+                        Eliminar
+                      </Button>
+                    )}
                   </div>
                 </td>
               </tr>
