@@ -151,20 +151,29 @@ export function validarProducto(datos, productos, codigoActual) {
   if (!datos.categoria.trim()) {
     errores.categoria = "Categoría obligatoria";
   }
-  if (Number(datos.precio) <= 0) {
+  if (!(Number(datos.precio) > 0)) {
     errores.precio = "El precio debe ser mayor que 0";
+  }
+  if (Number(datos.precio) % 1 !== 0) {
+    errores.precio = "El precio debe ser un número entero";
   }
   if (datos.stock === "") {
     errores.stock = "El stock es obligatorio";
   }
-  if (Number(datos.stock) < 0) {
+  if (!(Number(datos.stock) >= 0)) {
     errores.stock = "El stock no puede ser negativo";
+  }
+  if (Number(datos.stock) % 1 !== 0) {
+    errores.stock = "El stock debe ser un número entero";
   }
   if (datos.stockCritico === "") {
     errores.stockCritico = "El stock crítico es obligatorio";
   }
-  if (Number(datos.stockCritico) < 0) {
+  if (!(Number(datos.stockCritico) >= 0)) {
     errores.stockCritico = "El stock crítico no puede ser negativo";
+  }
+  if (Number(datos.stockCritico) % 1 !== 0) {
+    errores.stockCritico = "El stock crítico debe ser un número entero";
   }
 
   return errores;

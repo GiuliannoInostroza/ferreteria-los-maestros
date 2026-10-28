@@ -40,7 +40,7 @@ function TarjetaProducto({ producto, onAgregar }) {
             <button
               className="btn btn-warning flex-fill"
               onClick={() => onAgregar(producto)}
-              disabled={producto.stock === 0}
+              disabled={producto.stock <= 0}
             >
               Añadir
             </button>

@@ -33,8 +33,13 @@ import {
   guardarSesion,
   leerCarrito,
   leerSesion,
+  leerUsuarios,
 } from "./utils/persistencia";
-import { esAdministrador, puedeAdministrar } from "./utils/sesion";
+import {
+  esAdministrador,
+  puedeAdministrar,
+  usuarioVigente,
+} from "./utils/sesion";
 
 function App() {
   const [carrito, setCarrito] = useState(() => leerCarrito());
@@ -64,9 +69,11 @@ function App() {
     setCarrito([]);
   }
 
+  const sesionActual = usuarioVigente(usuario, leerUsuarios());
+
   return (
     <div className="min-vh-100 d-flex flex-column">
-      <Navegacion unidades={contarUnidades(carrito)} usuario={usuario} />
+      <Navegacion unidades={contarUnidades(carrito)} usuario={sesionActual} />
 
       <div className="flex-grow-1">
         <Routes>
@@ -94,7 +101,7 @@ function App() {
             element={
               <Checkout
                 carrito={carrito}
-                usuario={usuario}
+                usuario={sesionActual}
                 onVaciar={vaciarCarrito}
               />
             }
@@ -115,7 +122,7 @@ function App() {
             path="/login"
             element={
               <Login
-                usuario={usuario}
+                usuario={sesionActual}
                 onIngresar={setUsuario}
                 onSalir={() => setUsuario(null)}
               />
@@ -125,13 +132,17 @@ function App() {
           <Route
             path="/admin/productos"
             element={
-              puedeAdministrar(usuario) ? <AdminProductos /> : <SinAcceso />
+              puedeAdministrar(sesionActual) ? <AdminProductos /> : <SinAcceso />
             }
           />
           <Route
             path="/admin/usuarios"
             element={
-              esAdministrador(usuario) ? <AdminUsuarios /> : <SinAcceso />
+              esAdministrador(sesionActual) ? (
+                <AdminUsuarios usuarioActual={sesionActual} />
+              ) : (
+                <SinAcceso />
+              )
             }
           />
           <Route path="*" element={<NoEncontrada />} />

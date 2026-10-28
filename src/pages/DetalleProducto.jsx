@@ -51,7 +51,7 @@ function DetalleProducto({ onAgregar }) {
           <button
             className="btn btn-warning me-2"
             onClick={agregar}
-            disabled={producto.stock === 0}
+            disabled={producto.stock <= 0}
           >
             Añadir al carrito
           </button>
