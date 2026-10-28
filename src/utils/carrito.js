@@ -49,3 +49,13 @@ export function quitarProducto(carrito, codigo) {
 export function hayProductoSinStock(carrito) {
   return carrito.some((item) => item.cantidad > item.stock);
 }
+
+export function actualizarConCatalogo(carrito, productos) {
+  return carrito.map((item) => {
+    const producto = productos.find((actual) => actual.codigo === item.codigo);
+
+    return producto
+      ? { ...producto, cantidad: item.cantidad }
+      : { ...item, stock: 0 };
+  });
+}

@@ -5,7 +5,11 @@ import { guardarProductos, leerProductos } from "../utils/persistencia";
 
 import CompraExitosa from "../components/CompraExitosa";
 import CompraFallida from "../components/CompraFallida";
-import { calcularTotal, hayProductoSinStock } from "../utils/carrito";
+import {
+  actualizarConCatalogo,
+  calcularTotal,
+  hayProductoSinStock,
+} from "../utils/carrito";
 import { formatearPrecio } from "../utils/precio";
 import { hayErrores, validarCheckout } from "../utils/validaciones";
 
@@ -42,6 +46,8 @@ function Checkout({ carrito, usuario, onVaciar }) {
   const [resultado, setResultado] = useState("");
   const [pedido, setPedido] = useState(null);
 
+  const vigente = actualizarConCatalogo(carrito, leerProductos());
+
   function cambiar(evento) {
     const { name, value } = evento.target;
     setDatos({ ...datos, [name]: value });
@@ -55,18 +61,19 @@ function Checkout({ carrito, usuario, onVaciar }) {
     setErrores(nuevosErrores);
     if (hayErrores(nuevosErrores)) return;
 
-    if (hayProductoSinStock(carrito)) {
+    if (hayProductoSinStock(vigente)) {
       setResultado("fallida");
       return;
     }
 
     setPedido({
       ...datos,
-      productos: carrito,
-      total: calcularTotal(carrito),
+      direccion: datos.entrega === "Despacho a domicilio" ? datos.direccion : "",
+      productos: vigente,
+      total: calcularTotal(vigente),
     });
 
-    descontarStock(carrito);
+    descontarStock(vigente);
 
     setResultado("exitosa");
     onVaciar();
@@ -163,7 +170,7 @@ function Checkout({ carrito, usuario, onVaciar }) {
           <aside className="resumen">
             <h2 className="h4">Tu pedido</h2>
 
-            {carrito.map((item) => (
+            {vigente.map((item) => (
               <p
                 className="d-flex justify-content-between text-secondary"
                 key={item.codigo}
@@ -176,7 +183,7 @@ function Checkout({ carrito, usuario, onVaciar }) {
             ))}
 
             <p className="resumen-total mb-0">
-              Total: {formatearPrecio(calcularTotal(carrito))}
+              Total: {formatearPrecio(calcularTotal(vigente))}
             </p>
           </aside>
         </Col>
