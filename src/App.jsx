@@ -40,6 +40,7 @@ import {
   puedeAdministrar,
   usuarioVigente,
 } from "./utils/sesion";
+import UsuarioForm from "./pages/admin/UsuarioForm";
 
 function App() {
   const [carrito, setCarrito] = useState(() => leerCarrito());
@@ -138,14 +139,25 @@ function App() {
           <Route
             path="/admin/usuarios"
             element={
-              esAdministrador(sesionActual) ? (
-                <AdminUsuarios usuarioActual={sesionActual} />
-              ) : (
+              esAdministrador(sesionActual) ?
+                <AdminUsuarios />
+              :
                 <SinAcceso />
-              )
             }
           />
           <Route path="*" element={<NoEncontrada />} />
+          <Route
+            path="/admin/usuarios/nuevo"
+            element={
+              esAdministrador(sesionActual) ? <UsuarioForm /> : <SinAcceso />
+            }
+          />
+          <Route
+            path="/admin/usuarios/:id/editar"
+            element={
+              esAdministrador(sesionActual) ? <UsuarioForm /> : <SinAcceso />
+            }
+          />
         </Routes>
       </div>
 
