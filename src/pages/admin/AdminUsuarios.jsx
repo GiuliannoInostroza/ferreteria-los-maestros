@@ -1,187 +1,66 @@
 import { useEffect, useState } from "react";
-import { Button, Container } from "react-bootstrap";
+import { Alert, Container, Spinner } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { eliminarUsuario, listarUsuarios } from "../../services/usuarioService";
 
-import {
-  mensajeEliminado,
-  mensajeEstado,
-  mensajeGuardado,
-} from "../../utils/mensajes";
-import { guardarUsuarios, leerUsuarios } from "../../utils/persistencia";
-import { siguienteId } from "../../utils/usuarios";
-import FormularioUsuario from "./FormularioUsuario";
-
-function AdminUsuarios({ usuarioActual }) {
-  const idActual = usuarioActual ? usuarioActual.id : 0;
-
-  const [listaUsuarios, setListaUsuarios] = useState(() => leerUsuarios());
-  const [mostrarFormulario, setMostrarFormulario] = useState(false);
-  const [usuarioEditando, setUsuarioEditando] = useState(null);
-  const [hayCambios, setHayCambios] = useState(false);
-  const [pendiente, setPendiente] = useState(null);
-  const [mensaje, setMensaje] = useState("");
+function AdminUsuarios() {
+  const [usuarios, setUsuarios] = useState([]);
+  const [cargando, setCargando] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    guardarUsuarios(listaUsuarios);
-  }, [listaUsuarios]);
-
-  function guardar(usuario) {
-    setMensaje(mensajeGuardado("Usuario", Boolean(usuarioEditando)));
-
-    setListaUsuarios(
-      usuarioEditando
-        ? listaUsuarios.map((item) => (item.id === usuario.id ? usuario : item))
-        : [...listaUsuarios, { ...usuario, id: siguienteId(listaUsuarios) }]
-    );
-
-    setHayCambios(false);
-
-    if (pendiente) {
-      setUsuarioEditando(pendiente);
-      setPendiente(null);
-      return;
+    async function cargar() {
+      try {
+        setError("");
+        setUsuarios(await listarUsuarios());
+      } catch (e) {
+        setError(e.message);
+      } finally {
+        setCargando(false);
+      }
     }
+    cargar();
+  }, []);
 
-    setUsuarioEditando(null);
-    setMostrarFormulario(false);
-  }
-
-  function agregar() {
-    setUsuarioEditando(null);
-    setHayCambios(false);
-    setMostrarFormulario(true);
-    window.scrollTo(0, 0);
-  }
-
-  function editar(usuario) {
-    window.scrollTo(0, 0);
-
-    if (mostrarFormulario && hayCambios) {
-      setPendiente(usuario);
-      return;
-    }
-
-    setUsuarioEditando(usuario);
-    setMostrarFormulario(true);
-  }
-
-  function descartar() {
-    setUsuarioEditando(pendiente);
-    setPendiente(null);
-    setHayCambios(false);
-  }
-
-  function cancelar() {
-    setUsuarioEditando(null);
-    setPendiente(null);
-    setHayCambios(false);
-    setMostrarFormulario(false);
-  }
-
-  function eliminar(id) {
-    setListaUsuarios(listaUsuarios.filter((item) => item.id !== id));
-    setMensaje(mensajeEliminado("Usuario"));
-
-    if (usuarioEditando && usuarioEditando.id === id) {
-      cancelar();
+  async function borrar(id) {
+    if (!window.confirm("¿Eliminar este usuario?")) return;
+    try {
+      await eliminarUsuario(id);
+      setUsuarios(actual => actual.filter(u => u.id !== id));
+    } catch (e) {
+      setError(e.message);
     }
   }
 
-  function cambiarEstado(usuarioElegido) {
-    setMensaje(mensajeEstado(usuarioElegido));
-
-    setListaUsuarios(
-      listaUsuarios.map((usuario) =>
-        usuario.id === usuarioElegido.id
-          ? { ...usuario, activo: !usuario.activo }
-          : usuario
-      )
-    );
-  }
+  if (cargando) return <Spinner aria-label="Cargando usuarios" />;
+  if (error) return <Alert variant="danger">{error}</Alert>;
+  if (usuarios.length === 0) return <Alert>No hay usuarios.</Alert>;
 
   return (
     <Container className="py-4">
       <h1>Administración de usuarios</h1>
-
-      {mensaje && <p className="text-success fw-bold">{mensaje}</p>}
-
-      {!mostrarFormulario && (
-        <Button className="mb-4" onClick={agregar}>
-          Agregar usuario
-        </Button>
-      )}
-
-      {mostrarFormulario && (
-        <section className="bg-body-tertiary rounded p-4 mb-5">
-          <h2 className="h4 mb-4">
-            {usuarioEditando ? "Editar usuario" : "Agregar usuario"}
-          </h2>
-
-          {pendiente && (
-            <div className="bg-body rounded p-3 mb-4">
-              <p className="text-warning mb-2">
-                Tienes cambios sin guardar. Presiona Guardar cambios para
-                guardarlos o descártalos para editar {pendiente.nombre}.
-              </p>
-              <Button className="btn-sm" onClick={descartar}>
-                Descartar cambios
-              </Button>
-            </div>
-          )}
-
-          <FormularioUsuario
-            usuarios={listaUsuarios}
-            usuario={usuarioEditando}
-            onGuardar={guardar}
-            onCancelar={cancelar}
-            onModificar={() => setHayCambios(true)}
-          />
-        </section>
-      )}
-
+      <Link className="btn btn-primary mb-4" to="/admin/usuarios/nuevo">
+        Nuevo usuario
+      </Link>
       <div className="table-responsive">
-        <table className="table table-sm">
+        <table className="table">
           <thead>
             <tr>
-              <th>Usuario</th>
+              <th>Nombre</th>
+              <th>Correo</th>
               <th>Rol</th>
               <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
-            {listaUsuarios.map((usuario) => (
+            {usuarios.map(usuario => (
               <tr key={usuario.id}>
+                <td>{usuario.nombre}</td>
+                <td>{usuario.correo}</td>
+                <td>{usuario.rol}</td>
                 <td>
-                  <div>{usuario.nombre}</div>
-                  <div className="text-secondary small text-break">{usuario.correo}</div>
-                </td>
-                <td>
-                  <div>{usuario.rol}</div>
-                  <div className="text-secondary small">
-                    {usuario.activo ? "Activo" : "Inactivo"}
-                  </div>
-                </td>
-                <td>
-                  <div className="d-grid gap-2 d-md-flex">
-                    <Button className="btn-sm" onClick={() => editar(usuario)}>
-                      Editar
-                    </Button>
-                    {usuario.id !== idActual && (
-                      <Button
-                        className="btn-sm"
-                        onClick={() => cambiarEstado(usuario)}
-                      >
-                        {usuario.activo ? "Desactivar" : "Activar"}
-                      </Button>
-                    )}
-                    {usuario.id !== idActual && (
-                      <Button
-                        className="btn-sm"
-                        onClick={() => eliminar(usuario.id)}
-                      >
-                        Eliminar
-                      </Button>
-                    )}
-                  </div>
+                  <Link to={`/admin/usuarios/${usuario.id}/editar`}>Editar</Link>
+                  <button className="ms-2" onClick={() => borrar(usuario.id)}>Eliminar</button>
                 </td>
               </tr>
             ))}
