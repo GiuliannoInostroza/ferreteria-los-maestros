@@ -1,49 +1,65 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { MemoryRouter } from "react-router-dom";
 import { vi } from "vitest";
-import * as persistencia from "../../utils/persistencia";
+import { eliminarUsuario, listarUsuarios } from "../../services/usuarioService";
 import AdminUsuarios from "./AdminUsuarios";
 
+vi.mock("../../services/usuarioService", () => ({
+  listarUsuarios: vi.fn(),
+  eliminarUsuario: vi.fn(),
+}));
+
+const usuarios = [
+  { id: 3, nombre: "Luis Vega", correo: "cliente@gmail.com", rol: "Cliente" },
+  { id: 4, nombre: "Ana Soto", correo: "ana@duoc.cl", rol: "Vendedor" },
+];
+
+function mostrarPantalla() {
+  render(
+    <MemoryRouter>
+      <AdminUsuarios />
+    </MemoryRouter>
+  );
+}
+
 describe("AdminUsuarios", () => {
-  it("desactiva, activa y edita un usuario y agrega otro nuevo avisando en cada paso", async () => {
-    const espiaLeer = vi.spyOn(persistencia, "leerUsuarios").mockReturnValue([
-      {
-        id: 3,
-        nombre: "Luis Vega",
-        correo: "cliente@gmail.com",
-        rol: "Cliente",
-        activo: true,
-      },
-    ]);
-    const espiaGuardar = vi
-      .spyOn(persistencia, "guardarUsuarios")
-      .mockImplementation(() => {});
+  afterEach(() => {
+    vi.clearAllMocks();
+    vi.restoreAllMocks();
+  });
+
+  it("muestra los usuarios que entrega la API con su enlace para editar", async () => {
+    listarUsuarios.mockResolvedValue(usuarios);
+    mostrarPantalla();
+
+    expect(await screen.findByText("Luis Vega")).toBeInTheDocument();
+    expect(screen.getByText("ana@duoc.cl")).toBeInTheDocument();
+    expect(screen.getAllByRole("link", { name: "Editar" })[0]).toHaveAttribute(
+      "href",
+      "/admin/usuarios/3/editar"
+    );
+  });
+
+  it("elimina un usuario después de confirmar y lo quita de la tabla", async () => {
+    listarUsuarios.mockResolvedValue(usuarios);
+    eliminarUsuario.mockResolvedValue(null);
+    vi.spyOn(window, "confirm").mockReturnValue(true);
     const usuario = userEvent.setup();
-    render(<AdminUsuarios />);
+    mostrarPantalla();
 
-    await usuario.click(screen.getByRole("button", { name: "Desactivar" }));
-    expect(screen.getByText("Inactivo")).toBeInTheDocument();
-    expect(screen.getByText("Usuario Luis Vega desactivado")).toBeInTheDocument();
+    await screen.findByText("Luis Vega");
+    await usuario.click(screen.getAllByRole("button", { name: "Eliminar" })[0]);
 
-    await usuario.click(screen.getByRole("button", { name: "Activar" }));
-    expect(screen.getByText("Activo")).toBeInTheDocument();
-    expect(screen.getByText("Usuario Luis Vega activado")).toBeInTheDocument();
-
-    await usuario.click(screen.getByRole("button", { name: "Editar" }));
-    await usuario.type(screen.getByLabelText("Nombre"), " Jr");
-    await usuario.click(screen.getByRole("button", { name: "Guardar cambios" }));
-    expect(screen.getByText("Luis Vega Jr")).toBeInTheDocument();
-    expect(screen.getByText("Usuario actualizado correctamente")).toBeInTheDocument();
-
-    await usuario.click(screen.getByRole("button", { name: "Agregar usuario" }));
-    await usuario.type(screen.getByLabelText("Nombre"), "Ana Soto");
-    await usuario.type(screen.getByLabelText("Correo"), "ana@duoc.cl");
-    await usuario.selectOptions(screen.getByLabelText("Rol"), "Vendedor");
-    await usuario.click(screen.getByRole("button", { name: "Guardar" }));
+    expect(eliminarUsuario).toHaveBeenCalledWith(3);
+    expect(screen.queryByText("Luis Vega")).not.toBeInTheDocument();
     expect(screen.getByText("Ana Soto")).toBeInTheDocument();
-    expect(screen.getByText("Usuario agregado correctamente")).toBeInTheDocument();
+  });
 
-    espiaLeer.mockRestore();
-    espiaGuardar.mockRestore();
+  it("avisa el error cuando la API de usuarios no responde bien", async () => {
+    listarUsuarios.mockRejectedValue(new Error("La API respondió 500"));
+    mostrarPantalla();
+
+    expect(await screen.findByText("La API respondió 500")).toBeInTheDocument();
   });
 });
