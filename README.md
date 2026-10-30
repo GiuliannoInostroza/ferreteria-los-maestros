@@ -28,8 +28,8 @@ Proyecto del ramo Desarrollo FullStack II (DSY1104) de Duoc UC. En la Evaluació
 Entorno utilizado: Node.js 20.
 
 ```bash
-git clone https://github.com/GiuliannoInostroza/ferreteria-los-maestros.git
-cd ferreteria-los-maestros
+git clone https://github.com/GiuliannoInostroza/front-ferreteria-los-maestros.git
+cd front-ferreteria-los-maestros
 npm install
 npm run dev
 ```
